@@ -1,0 +1,20 @@
+#nav-color {
+    background-color: #D6001C;
+}
+
+#logo-image {
+    margin-left: 15px;
+}
+
+#sign-in {
+    margin: 5px;
+    background-color: #D6001C;
+    border-color: #D6001C;
+}
+
+#sign-up {
+    margin: 5px;
+    background-color: white;
+    color: black;
+    border-color: white;
+}
