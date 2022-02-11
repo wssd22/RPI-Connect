@@ -27,7 +27,13 @@ app.get('/requests', (req, res) => {
 app.get('/requestsInfo', (req, res) => {
   res.json(
     {
-      "data" : [[
+      "userclasses": {
+        "CSCI 1200 Data Structures":"Spring 2022",
+        "CSCI 1100 Computer Science 1": "Fall 2021",
+        "PSYC 1100 General Psychology": "Fall 2021",
+        "PSYC 1200 Social Psychology": "Spring 2022"
+      },
+      "requests" : [[
         {
           "major":"CSCI"
         },
