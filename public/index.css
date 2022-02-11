@@ -6,7 +6,7 @@
 }
 
 #nav-color {
-    background-color: #D6001C;
+    background-color: rgba(214, 0, 28, 0.9);
 }
 
 #logo-image {
@@ -16,8 +16,8 @@
 #sign-in {
     margin: 5px;
     margin-left: 0px;
-    background-color: #D6001C;
-    border-color: #D6001C;
+    background-color: transparent;
+    border: none;
     padding-left: 0px;
 }
 
