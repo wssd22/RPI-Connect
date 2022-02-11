@@ -10,12 +10,21 @@
 }
 
 #logo-image {
-  margin-left: 15px;
+  margin-left: 2%;
 }
 
 #hero-image {
-  width: 100%; /* fall back */
-  width: 100vw;
+    width: 100%; /* fall back */
+    width: 100vw;
+}
+
+#info {
+    margin: 2%;
+    width: 95%;
+}
+
+#right-image {
+    width: 100%;
 }
 
 #hero-rectangle {
