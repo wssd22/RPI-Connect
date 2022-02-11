@@ -1,0 +1,39 @@
+#left-side {
+    width: 25%;
+    float: left;
+}
+
+#right-side {
+    width: 75%;
+    float: right;
+}
+
+.card {
+    width: 18rem;
+    display: inline-block !important;
+}
+
+.card-title {
+    display: inline-block;
+    font-size: 12px;
+}
+
+.card-days {
+    display: inline-block;
+    font-size: 12px;
+    padding: 4px 6px;
+    margin-left: 5px;
+    border-radius: 25px;
+}
+
+.card-days-green {
+    background-color: lightgreen;
+}
+
+.card-days-yellow {
+    background-color: lightyellow;
+}
+
+.card-days-red {
+    background-color: lightcoral;
+}
