@@ -17,7 +17,56 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '/public/Navbar.html'))
+    res.status(200).sendFile(path.join(__dirname, '/public/index.html'));
+})
+
+app.get('/requests', (req, res) => {
+  res.status(200).sendFile(path.join(__dirname, '/public/Requests.html'));
+})
+
+app.get('/requestsInfo', (req, res) => {
+  res.json(
+    {
+      "userclasses": {
+        "CSCI 1200 Data Structures":"Spring 2022",
+        "CSCI 1100 Computer Science 1": "Fall 2021",
+        "PSYC 1100 General Psychology": "Fall 2021",
+        "PSYC 1200 Social Psychology": "Spring 2022"
+      },
+      "requests" : [[
+        {
+          "major":"CSCI"
+        },
+        {
+          "class":"CSCI 1200 Data Structures",
+          "days":"3",
+          "question":"What's an array?",
+          "discord": "@emmaskantze"
+        },
+        {
+          "class":"CSCI 1100 Computer Science 1",
+          "days":"3",
+          "question":"Yo what's a string mean again?",
+          "discord": "@emmaskantze"
+        }],
+        [{
+          "major":"PSYC"
+        },
+        {
+        "class":"PSYC 1100 General Psychology",
+        "days":"8",
+        "question":"Why is psych important?",
+        "discord": "@emmaskantze"
+        },
+        {
+        "class":"PSYC 1200 Social Psychology",
+        "days":"5",
+        "question":"What's the Prof's email?",
+        "discord": "@emmaskantze"
+        }]]
+    }
+  )
+    //res.sendFile(path.join(__dirname, '/public/Navbar.html'))
 })
 
 app.listen(port, () => {
