@@ -66,6 +66,7 @@ app.get('/requestsInfo', (req, res) => {
         }]]
     }
   )
+    //res.sendFile(path.join(__dirname, '/public/Navbar.html'))
 })
 
 app.listen(port, () => {

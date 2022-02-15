@@ -24,14 +24,21 @@
                 <a class="nav-item nav-link active" id="icons" href="/">
                     <img src="./images/home-icon.png" id="logo-image" alt="Profile Icon">
                 </a>
-                <button class="btn btn-dark btn-sm" id="sign-in">
-                    Sign In
-                </button>
+                <a href="login.html">
+                    <button class="btn btn-dark btn-sm" id="sign-in" onclick="window.location.href='/public/login.html';">
+                        Sign In
+                    </button>
+                </a>
                 <button class="btn btn-dark btn-sm" id="sign-up" style="margin: 5px;">
                     Sign Up
                 </button>
               </div>
             </div>
         </nav>
+        <script>
+            function login() {
+                window.location.href="/public/login.html";
+            }
+        </script>
     </body>
 </html>
