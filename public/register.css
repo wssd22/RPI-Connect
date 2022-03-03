@@ -64,9 +64,7 @@ h3{
     margin-right: auto;
 }
 
-.row{
-    margin: 1%;
-}
+
 
 .columns{
     display: inline-block;
@@ -93,4 +91,41 @@ h3{
 .select{
     background-color: grey;
     border: 1px solid black;
+}
+
+#basicInfo{
+    width: 50%;
+    margin-top: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+#userTitle{
+    color: white;
+}
+
+.regTitle{
+    margin-top: 6%;
+}
+
+.desc{
+    font-style: italic;
+}
+
+#confPage{
+    background-color: #E7E7E7;
+    overflow: hidden;
+    padding: 2%;
+    margin: 6%;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+#confInfo, #confCurrent, #confPrev{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
