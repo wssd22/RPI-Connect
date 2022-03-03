@@ -2,12 +2,73 @@
 <html lang="en">
     <head>
         <title>ITWS WebApp</title>
+        
         <link rel="stylesheet" href="register.css"/>
+        <link
+        rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous"
+      />
+     <link rel="stylesheet" href="index.css" />
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+     <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"
+      ></script>
         <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
         <script type="text/javascript" src="register.js" defer></script>
     </head>
     <body>
-        <h2>User Registration</h2>
+        
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark" id="nav-color">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">
+                <img
+                  src="./images/LOGO.png"
+                  id="logo-image"
+                  alt="RPI Connect Logo"
+                  width="90"
+                  height="68"
+                />
+              </a>
+              <h2 id = "userTitle">User Registration</h2>
+              <button
+                class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div
+                class="collapse navbar-collapse justify-content-end ms-auto"
+                id="navbarNavAltMarkup"
+              >
+                <div class="navbar-nav">
+                  <a class="nav-item nav-link active" href="/">
+                    <img src="./images/home-icon.png" class="icon" alt="Home Icon" />
+                    <span id="home-text">Home</span>
+                  </a>
+                  <a href="login.html">
+                    <img
+                      src="./images/profile-icon.png"
+                      class="icon"
+                      alt="Profile Icon"
+                    />
+                    <button class="btn btn-dark btn-sm" id="sign-in">Sign In</button>
+                  </a>
+                  <a href = "register.html"></a><button class="btn btn-dark btn-sm" id="sign-up">Sign Up</button></a>
+                </div>
+              </div>
+            </div>
+          </nav>
+        
+        
         <!--Name, RPI email, Discord-->
         <form id = "basicInfo">
             <div id = "info">
@@ -32,7 +93,8 @@
 
         <!--Class Select (Current and Previous)-->
         <form class = "hide" id = "currentClasses">
-            <p>Choose all classes you are currently taking</p>
+            <h3 class = "regTitle">Current Classes</h3>
+            <p class = "desc">Choose all the classes you are currently taking.</p>
             <div class = "columns" id = "col1">
                 <!--HUMANITIES, ARTS, and SOCIAL SCIENCES-->
                 <h3>Humanities, Arts, and Social Sciences</h3>
@@ -286,7 +348,8 @@
             <p class = "step">Step 2 of 3</p>
         </form>
         <form class = "hide" id = "previousClasses">
-            <p>Choose all classes you have taken at RPI</p>
+            <h3 class = "regTitle">Previous Classes</h3>
+            <p class = "desc">Choose all the classes you have already taken.</p>
             <div class = "columns" id = "col1">
                 <!--HUMANITIES, ARTS, and SOCIAL SCIENCES-->
                 <h3>Humanities, Arts, and Social Sciences</h3>
@@ -540,14 +603,27 @@
             <p class = "step">Step 3 of 3</p>
         </form>
         <div id = "confirm" class = "hide">
-            <p id = "fullName"></p>
-            <p id = "grad"></p>
-            <p id = "email"></p>
-            <p id = "disc"></p>
-            <h2>Current Classes</h2>
-            <ul id = "currentList"></ul>
-            <h2>Previous Classes</h2>
-            <ul id = "prevList"></ul>
+            <h3 class = "regTitle">Confirm Information</h3>
+            <p class = "desc">Confirm all the listed personal and class information is correct.</p>
+            <div id = "confPage">
+            <div id = "confInfo">
+                <h3>Basic Info</h3>
+                <p id = "fullName"></p>
+                <p id = "grad"></p>
+                <p id = "email"></p>
+                <p id = "disc"></p>
+            </div>
+            <div id = "confCurrent">
+                <h2>Current Classes</h2>
+                <ul id = "currentList"></ul>
+            </div>
+            <div id = "confPrev">
+                <h2>Previous Classes</h2>
+                <ul id = "prevList"></ul>
+            </div>
+        </div>
+            <button type = "button" id = "confirmInfo" class = "next" onclick = "prevStep(this)">BACK</button>
+            <button type = "button" id = "conf" class = "next" >CONFIRM</button>
         </div>
     </body>
 </html>

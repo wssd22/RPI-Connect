@@ -9,6 +9,7 @@ $(document).ready(function(){
 });
 //using session storage to save choices right now
 function nextStep(step){
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     if(step.id == "basic"){
         //make sure all fields are filled out
         if(document.getElementById("fname").value == ""){
@@ -66,19 +67,20 @@ function nextStep(step){
         var list = "";
         var classes = sessionStorage.getItem("currentClasses").split(" ");
         for(var i = 0; i < classes.length; i+=2){
-            list += "<li class = \"list\">" + classes[i] + "  " + classes[i+1] + "</li>";
+            list += "<p class = \"list\">" + classes[i] + "  " + classes[i+1] + "</p>";
         }
         document.getElementById("currentList").innerHTML = list;
         list = "";
         classes = sessionStorage.getItem("prevClasses").split(" ");
         for(var i = 0; i < classes. length; i += 2){
-            list += "<li class = \"list\">" + classes[i] + "  " + classes[i+1] + "</li>";
+            list += "<p class = \"list\">" + classes[i] + "  " + classes[i+1] + "</p>";
         }
         document.getElementById("prevList").innerHTML = list;
     }
 }
 
 function prevStep(step){
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     if(step.id == "current"){
         //hide current step and show last step
         document.getElementById("currentClasses").style.display = "none";
@@ -89,6 +91,10 @@ function prevStep(step){
         document.getElementById("previousClasses").style.display = "none";
         document.getElementById("currentClasses").style.display = "block";
         //read in last step with previous choices
+    }
+    else if(step.id == "confirmInfo"){
+        document.getElementById("confirm").style.display = "none";
+        document.getElementById("previousClasses").style.display = "block";
     }
 }
 
@@ -140,10 +146,26 @@ function selectClass(course){
         }
     }//add course to list
     else{
-        if(course.classList.contains("select")){
-            alert("Already selected class");
-            return;
+        //find class from opposite class selection
+        if(course.classList.contains("current")){
+            var prevs = document.getElementsByClassName("prev");
+            for(var i = 0; i < prevs.length; i++){
+                if(prevs[i].innerHTML == course.innerHTML && prevs[i].classList.contains("select")){
+                    alert("Already selected class in Previous Classes");
+                    return;
+                }
+            }
         }
+        if(course.classList.contains("prev")){
+            var currents = document.getElementsByClassName("current");
+            for(var i = 0; i < currents.length; i++){
+                if(currents[i].innerHTML == course.innerHTML && currents[i].classList.contains("select")){
+                    alert("Already selected class in Current Classes");
+                    return;
+                }
+            }
+        }
+
         course.classList.add("select");
         var prefix = course.innerHTML;
         //current
