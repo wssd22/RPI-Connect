@@ -72,45 +72,60 @@
             </div>
         </nav>
         <div style="height: 100px;"></div>
-        <div id="left-side">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-secondary" type="button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                    </svg>
-                    </button>
+        <div id="left-side" style="width: 60%;">
+            <h3>Current Requests</h3>
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-title"><b>CSCI 1200 Data Structures</b></p>
+                    <div class="card-days card-days-red">3 days</div>
+                    <p class="card-text">Should I drop this class? It seems like too much work.</p>
+                    <p class="card-text" style="display: inline;"><small>Created: 2/22/2022</small></p>
+                    <button class="btn btn-outline-primary btn-sm" style="display: inline;">Edit</button>
                 </div>
             </div>
-            <div>
-                <div class="btn-group-sm" role="group" aria-label="Basic radio toggle button group" onchange="currentOrPast();">
-                    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" value="all" checked>
-                    <label class="btn btn-outline-primary" for="btnradio1">All Classes</label>
-                    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" value="current" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio2">Current</label>
-                    <input type="radio" class="btn-check" name="btnradio" id="btnradio3" value="past" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio3">Past</label>
-                </div>
-                <hr/>
-                <h6>By Major:</h6>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">BMED</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">CSCI</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">PSYC</label>
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-title"><b>PSYC 2520 Social Psychology</b></p>
+                    <div class="card-days card-days-green">14 days</div>
+                    <p class="card-text">What are the social aspects of psychology?</p>
+                    <p class="card-text" style="display: inline;"><small>Created: 3/5/2022</small></p>
+                    <button class="btn btn-outline-primary btn-sm" style="display: inline;">Edit</button>
                 </div>
             </div>
-            <hr/>
-            <button class="btn btn-outline-primary" onclick="loadRequests();">Refresh</button>
+            <hr>
+            <h3>Killed Requests</h3>
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-title"><b>BIOL 1010 Intro to Biology</b></p>
+                    <div class="card-days card-days-green" style="background-color: gray;">Inactive</div>
+                    <p class="card-text">What are the functions of mitochondria?</p>
+                    <p class="card-text" style="display: inline;"><small>Created: 1/1/2022</small></p>
+                    <button class="btn btn-outline-danger btn-sm" style="display: inline;">Remove</button>
+                </div>
+            </div>
         </div>
-        <div id="right-side">
+        <div id="right-side" style="width: 40%;">
+            <form id = "basicInfo">
+                <div id = "info">
+                    <div>
+                        <label for = "major">Major</label>
+                        <input type="text" id="major" name = "major">
+                    </div>
+                    <div>
+                        <label for = "code">Class Code</label>
+                        <input type = "text" id = "code" name = "code">
+                    </div>
+                    <div>
+                        <label for = "class">Class Name</label>
+                        <input type="text" id="class" name = "class">
+                    </div>
+                    <div>
+                        <label for = "msg">Message</label>
+                        <input type="textarea" id="msg" name = "msg">
+                    </div>
+                </div>
+                <button type = "button" id = "basic" class = "btn btn-outline-primary" onclick = "addRequest();">+ Create New</button>
+            </form>
         </div>
         <script>
             var req;
