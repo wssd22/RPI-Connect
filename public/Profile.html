@@ -1,6 +1,7 @@
-<!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="Register.css"/>
+        <link rel="stylesheet" href="index.css"/>
         <link
         rel="stylesheet"
         href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -13,8 +14,6 @@
             integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
             crossorigin="anonymous"
         ></script>
-        <link rel="stylesheet" href="index.css" />
-        <link rel="stylesheet" href="login.css"/>
     </head>
     <body>
         <nav class="navbar fixed-top navbar-expand-lg navbar-dark" id="nav-color">
@@ -63,26 +62,49 @@
               </div>
             </div>
         </nav>
-        <div style="height: 150px;"></div>
-        <div class="form-settings">
-            <form action="/MainPage.html" method="post">
-                <div class="container">
-                    <label for="uname"><b>Username</b></label>
-                    <input type="text" placeholder="Enter Username" name="uname" required>
-                    <label for="psw"><b>Password</b></label>
-                    <input type="password" placeholder="Enter Password" name="psw" required>
-                    <button type="submit">Login</button>
-                    <label>
-                        <input type="checkbox" checked="checked" name="remember"> Remember me
-                    </label>
-                </div>
-                <div class="container" style="background-color:#E7E7E7">
-                    <a href="/">
-                        <button type="button" class="cancelbtn">Cancel</button>
-                    </a>
-                    <span class="psw">Forgot <a href="#">password?</a></span>
-                </div>
-            </form>
+        <div style="height: 100px;"></div>
+        <div id = "confirm">
+            <div id = "confPage">
+            <div id = "confInfo">
+                <h3>Basic Info</h3>
+                <p id = "fullName">Emma Skantze</p>
+                <p id = "grad">2022</p>
+                <p id = "email">skante@rpi.edu</p>
+                <p id = "disc">emmaskantze</p>
+            </div>
+            <div id = "confCurrent">
+                <h2>Current Classes</h2>
+                <ul id = "currentList">
+                    <p>ARCH 1</p>
+                    <p>ARCH 2</p>
+                </ul>
+            </div>
+            <div id = "confPrev">
+                <h2>Previous Classes</h2>
+                <ul id = "prevList">
+                    <p>BIOL 1</p>
+                    <p>BIOL 2</p>
+                </ul>
+            </div>
         </div>
+        <script>
+                    //read in confirmation
+        document.getElementById("fullName").innerHTML = "Name: " + sessionStorage.getItem("fname") + "  "  + sessionStorage.getItem("lname");
+        document.getElementById("grad").innerHTML = "Graduation Year: " + sessionStorage.getItem("gradYr");
+        document.getElementById("rpi").innerHTML = "RPI Email: " + sessionStorage.getItem("rpi");
+        document.getElementById("disc").innerHTML = "Discord: " + sessionStorage.getItem("discord");
+        var list = "";
+        var classes = sessionStorage.getItem("currentClasses").split(" ");
+        for(var i = 0; i < classes.length; i+=2){
+            list += "<p class = \"list\">" + classes[i] + "  " + classes[i+1] + "</p>";
+        }
+        document.getElementById("currentList").innerHTML = list;
+        list = "";
+        classes = sessionStorage.getItem("prevClasses").split(" ");
+        for(var i = 0; i < classes. length; i += 2){
+            list += "<p class = \"list\">" + classes[i] + "  " + classes[i+1] + "</p>";
+        }
+        document.getElementById("prevList").innerHTML = list;
+        </script>
     </body>
 </html>

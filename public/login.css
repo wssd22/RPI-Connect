@@ -1,7 +1,3 @@
-body {
-    background-color: #D6001C;
-}
-
 .image {
     display: block;
     margin-left: auto;
@@ -17,10 +13,9 @@ form {
 .form-settings {
     position: relative;
     top: 2px;
-    background-color: #D6001C;
     width: 50%;
     left: 25%;
-    padding: 0px 40px;
+    padding: 0px 0px;
     text-align: center;
     border-color: #E7E7E7;
 }

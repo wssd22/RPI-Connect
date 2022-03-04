@@ -22,7 +22,7 @@
   <body>
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark" id="nav-color">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/">
           <img
             src="./images/LOGO.png"
             id="logo-image"
@@ -47,19 +47,21 @@
           id="navbarNavAltMarkup"
         >
           <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="/">
-              <img src="./images/home-icon.png" class="icon" alt="Home Icon" />
-              <span id="home-text">Home</span>
+            <a class="nav-item nav-link active" href="/requests">
+              <button class="btn btn-dark btn-sm" id="sign-in">Requests</button>
             </a>
-            <a href="login.html">
-              <img
-                src="./images/profile-icon.png"
-                class="icon"
-                alt="Profile Icon"
-              />
+            <a class="nav-item nav-link active" href="/myRequests">
+              <button class="btn btn-dark btn-sm" id="sign-in">My Requests</button>
+            </a>
+            <a class="nav-item nav-link active" href="/profile">
+              <button class="btn btn-dark btn-sm" id="sign-in">Profile</button>
+            </a>
+            <a class="nav-item nav-link active" href="/login">
               <button class="btn btn-dark btn-sm" id="sign-in">Sign In</button>
             </a>
-            <button class="btn btn-dark btn-sm" id="sign-up">Sign Up</button>
+            <a class="nav-item nav-link active" href="/register">
+              <button class="btn btn-dark btn-sm" id="sign-up">Sign Up</button>
+            </a>
           </div>
         </div>
       </div>

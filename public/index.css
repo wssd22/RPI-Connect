@@ -9,6 +9,10 @@
   background-color: rgba(214, 0, 28, 0.9);
 }
 
+.nav-link {
+  display: inline-block;
+}
+
 #logo-image {
   margin-left: 2%;
 }
