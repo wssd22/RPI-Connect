@@ -1,0 +1,26 @@
+<div *ngIf="profileShow">
+<div style="height: 100px;">
+        <div id = "confirm">
+            <div id = "confPage">
+            <div id = "confInfo">
+                <h3>Basic Info</h3>
+                <p #fullName id = "fullName">Name: {{name}}</p>
+                
+                <p #gradYr id = "gradYr">Graduation Year: {{year}}</p>
+                <p #rpi id = "rpi">Email: {{email}}</p>
+                <p #disc id = "disc">Discord: {{discord}}</p>
+            </div>
+            <div id = "confCurrent">
+                <h2>Current Classes</h2>
+                <div #currentList id = "currentList">
+                </div>
+            </div>
+            <div id = "confPrev">
+                <h2>Previous Classes</h2>
+                <div #prevList id = "prevList">
+                </div>
+            </div>
+        </div>
+</div>
+</div>
+</div>

@@ -213,3 +213,35 @@ function dropdown(target) {
         dropMenu.style.display = "block";
     }
 }
+
+function register(){
+    //add info
+    var prevClasses = [];
+    var classes = sessionStorage.getItem("prevClasses").split(" ");
+    for(var i = 0; i < classes.length(); i++){
+        prevClasses[i] = classes[i];
+    }
+    var currentClasses = [];
+    classes = sessionStorage.getItem("currentClasses").split(" ");
+    for(var i = 0; i < classes.length(); i++){
+        currentClasses[i] = classes[i];
+    }
+    var name = sessionStorage.getItem("fname") + " " + sessionStorage.getItem("lname");
+    var gradYr = sessionStorage.getItem("gradYr");
+    var email = sessionStorage.getItem("rpi");
+    var discord = sessionStorage.getItem("discord");
+    //sample schema for users
+    /*
+        {
+            name: 
+            gradYr:
+            email:
+            discord:
+            current: []
+            prev: []
+            reqs: []
+        }
+    */
+    
+
+}
