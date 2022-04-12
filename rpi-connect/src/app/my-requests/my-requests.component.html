@@ -17,11 +17,15 @@
                 <div #actcard21 id = "actcard21" class="card-body">
                     <p #actcard2Id id = "actcard2Id" style="display:none"></p>
                     <p #actcard2Class id = "actcard2Class" class="card-title"><b></b></p>
+                    <input #actcard2ClassEdit type="text" id="actcard2ClassEdit" style="display:none">
                     <div #actcard2Days id = "actcard2Days" class="card-days "></div>
                     <p #actcard2Msg id = "actcard2Msg" class="card-text"></p>
+                    <input #actcard2MsgEdit type="text" id="actcard2MsgEdit" style="display:none">
                     <p #actcard2Date id = "actcard2Date" class="card-text" style="display: inline;"><small></small></p>
-                    <button class="btn btn-outline-primary btn-sm" style="display: inline;">Edit</button>
-                    <button class="btn btn-outline-danger btn-sm rem" (click)="delReq(actcard2Id)" style="display: inline;">Remove</button>
+                    <button #edit class="btn btn-outline-primary btn-sm" style="display: inline;" (click)="openReqEdit(actcard2Id, actcard2ClassEdit, actcard2MsgEdit, actcard2Class, actcard2Msg, confirm, cancel, edit, remove)">Edit</button>
+                    <button #confirm class="btn btn-outline-danger btn-sm rem" (click)="confirmEdit(actcard2Id, actcard2ClassEdit, actcard2MsgEdit)" style="display: none;">Confirm</button>
+                    <button #cancel class="btn btn-outline-danger btn-sm rem" (click)="openReqEdit(actcard2Id, actcard2Class, actcard2Msg, actcard2ClassEdit, actcard2MsgEdit, edit, remove, confirm, cancel)" style="display: none;">Cancel</button>
+                    <button #remove class="btn btn-outline-danger btn-sm rem" (click)="delReq(actcard2Id)" style="display: inline;">Remove</button>
                 </div>
             </div>
             <div #actcard3 id = "actcard3" class="card">

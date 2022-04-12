@@ -79,9 +79,10 @@ app.post('/user/add', (req, res) => {
 app.put('/user/:field/:input', (req, res) => {
   const collection = client.db("rpi-connect").collection("users");
     // perform actions on the collection object
-    var reqId = req.params.input;
     //console.log(req.body);
-    collection.findOne(req.body, function(err, result){
+    if(req.params.field == "reqs"){//add request
+      var reqId = req.params.input;
+      collection.findOne(req.body, function(err, result){
       
       var reqsArray = result.reqs;
       
@@ -96,7 +97,54 @@ app.put('/user/:field/:input', (req, res) => {
       else{
           res.send(err);
       }
-    });
+      });
+    }
+    else if(req.params.field == "current"){//add current class
+      var course = req.params.input;
+      collection.findOne(req.body, function(err, result){
+      
+        var currentArray = result.current;
+        
+        console.log(currentArray);
+        currentArray.push(course);
+        var query = {current : currentArray};
+        if (!err) {
+            collection.updateOne(req.body, { $set : query } , { upsert: true },  function(err, result){
+              
+            });
+        }
+        else{
+            res.send(err);
+        }
+        });
+
+    }
+    else if(req.params.field == "prev"){//add prev class
+      var course = req.params.input;
+      collection.findOne(req.body, function(err, result){
+      
+        var prevArray = result.prev;
+        
+        console.log(prevArray);
+        prevArray.push(course);
+        var query = {prev : prevArray};
+        if (!err) {
+            collection.updateOne(req.body, { $set : query } , { upsert: true },  function(err, result){
+              
+            });
+        }
+        else{
+            res.send(err);
+        }
+        });
+    }
+    else{
+      var query = {}
+      query[req.params.field] = req.params.input;
+      collection.updateOne(req.body, { $set : query } , { upsert: true },  function(err, result){
+          console.log(result);
+      });
+    }
     
 });
 
@@ -120,6 +168,45 @@ app.get('/user/:id', (req, res) => {
       }
     });
     //client.close();
+  });
+})
+
+//delete users class
+app.delete('/user/:userId/:list', (req, res) => {
+  const queryObject = url.parse(req.url, true).query;
+  var course = queryObject.course;
+  var query = {id : Number(req.params.userId)};
+  client.connect(err => {
+    const collection = client.db("rpi-connect").collection("users");
+    collection.findOne(query, function(err, result){
+      var list;
+     
+      if(req.params.list == "current"){
+        list = result.current;
+      }
+      else{
+        list = result.prev;
+      }
+
+      var temp;
+    for(var i = 0; i < list.length; i++){
+      if(list[i] == course){
+        temp = list[list.length-1];
+        list[list.length-1] = list[i];
+        list[i] = temp;
+      }
+    }
+    list.pop();
+    list = list.filter(function( element ) {
+      return element != undefined;
+    });
+
+    var newList = {};
+    newList[req.params.list] = list;
+    collection.updateOne({id : Number(req.params.userId)}, { $set : newList } , { upsert: true },  function(err, result){
+      console.log(result);
+    });
+  });    
   });
 })
 
@@ -181,7 +268,7 @@ app.route('/req')
   })
   //update all requests
   .put((req, res) =>{
-
+    
   })
   //get all requests
   .get((req, res) => {
@@ -237,11 +324,9 @@ app.route('/req/:num')
       }
     }
     reqsArray.pop();
-    console.log("hello");
     reqsArray = reqsArray.filter(function( element ) {
       return element != undefined;
     });
-    console.log("hello2");
     var query = {reqs : reqsArray}
     collection2.updateOne({id : Number(userId)}, { $set : query } , { upsert: true },  function(err, result){
       console.log(result);
@@ -262,6 +347,21 @@ app.route('/req/:num')
   //client.close();
 });
 })
+.get((req, res) => {
+  var id = Number(req.params.num);
+  var query = {reqId : id};
+  client.connect(err => {
+    const collection = client.db("rpi-connect").collection("requests");
+    
+    collection.findOne(query, function(err, result){
+      //console.log(result);
+      res.send(result);
+    });
+  });
+})
+
+
+
 
 app.get('/', (req, res) => {
     res.status(200).sendFile(path.join(__dirname, '/public/index.html'));

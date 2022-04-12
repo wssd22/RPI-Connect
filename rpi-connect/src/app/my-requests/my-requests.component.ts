@@ -96,7 +96,7 @@ export class MyRequestsComponent implements OnInit {
       else{
         //add reqId
         var query = '{"id" :' + this.profileId + '}';
-        this.httpService.sendPutRequest("user/req/" + id.toString(), JSON.parse(query)).subscribe((res) => {
+        this.httpService.sendPutRequest("user/reqs/" + id.toString(), JSON.parse(query)).subscribe((res) => {
 
         });
       }
@@ -183,8 +183,7 @@ export class MyRequestsComponent implements OnInit {
   
     
     //DISPLAY 1st 5 Active Requests
-    
-
+    //update how these are being loaded in (more like requests page)
       var i = this.activeReqIndex;
         var top = 0;
         if(i < actData.length ){
@@ -210,6 +209,8 @@ export class MyRequestsComponent implements OnInit {
           (<HTMLElement>document.getElementById("actcard2Id")).innerHTML = actData[i+1].reqId;
           (<HTMLElement>document.getElementById("actcard2Class")).innerHTML = actData[i+1].class;
           (<HTMLElement>document.getElementById("actcard2Msg")).innerHTML = actData[i+1].msg;
+          (<HTMLInputElement>document.getElementById("actcard2ClassEdit")).value = actData[i+1].class;
+          (<HTMLInputElement>document.getElementById("actcard2MsgEdit")).value = actData[i+1].msg;
           (<HTMLElement>document.getElementById("actcard2Days")).innerHTML = actData[i+1].daysLeft + " days";
           if(actData[i+1].daysLeft >= 7){
             (<HTMLElement>document.getElementById("actcard2Days")).classList.add("card-days-green");
@@ -300,8 +301,63 @@ export class MyRequestsComponent implements OnInit {
   }
 
   //edit request
-  public openReqEdit(){
+  public openReqEdit(reqId:HTMLElement, showClass:HTMLElement, showMsg:HTMLElement, hideClass:HTMLElement, hideMsg:HTMLElement, showBtn1:HTMLElement, showBtn2:HTMLElement, hideBtn1:HTMLElement, hideBtn2:HTMLElement){
+    (<HTMLElement>showClass).style.display = "inline-block";
+    (<HTMLElement>showMsg).style.display = "inline-block";
+    (<HTMLElement>hideClass).style.display = "none";
+    (<HTMLElement>hideMsg).style.display = "none";
+    (<HTMLElement>showBtn1).style.display = "inline-block";
+    (<HTMLElement>showBtn2).style.display = "inline-block";
+    (<HTMLElement>hideBtn1).style.display = "none";
+    (<HTMLElement>hideBtn2).style.display = "none";
+  }
 
+  public confirmEdit(reqId:HTMLElement, course:HTMLElement, msg:HTMLElement){
+    if((<HTMLInputElement>course).value == ""){
+      alert("Please enter a valid course name to update request");
+      return;
+    }
+    if((<HTMLInputElement>msg).value == ""){
+      alert("Please enter a valid message to update request");
+      return;
+    }
+    //check if course is a current course
+    this.httpService.sendGetRequest("user/" + this.profileId.toString()).subscribe((res) => {
+      this.data = res;
+      var taking = false;
+      for(var i = 0; i < this.data.current.length; i++){
+        if(this.data.current[i] == (<HTMLInputElement>course).value){
+          taking = true;
+          i = this.data.current.length;
+        }
+      }
+      if(!taking){
+        alert("Must be currently taking a course to post a request to it");
+        return;
+      }
+      
+    });
+    
+    this.httpService.sendGetRequest("req/" + (<HTMLElement>reqId).innerHTML).subscribe((res) => {
+      this.data = res;
+      if(this.data.msg != (<HTMLInputElement>msg).value){
+        var obj = {msg : (<HTMLInputElement>msg).value};
+        var query = JSON.stringify(obj);
+        this.httpService.sendPutRequest("req/" + (<HTMLElement>reqId).innerHTML, JSON.parse(query)).subscribe((res) => {
+
+        });
+        (<HTMLElement>document.getElementById("actcard2Msg")).innerHTML = (<HTMLInputElement>msg).value;
+      }
+      if(this.data.class != (<HTMLInputElement>course).value){
+        var obj2 = {class : (<HTMLInputElement>course).value};
+        var query = JSON.stringify(obj2);
+        this.httpService.sendPutRequest("req/" + (<HTMLElement>reqId).innerHTML, JSON.parse(query)).subscribe((res) => {
+
+        });
+        (<HTMLElement>document.getElementById("actcard2Class")).innerHTML = (<HTMLInputElement>course).value;
+      }
+    });
+    
   }
 
   public delReq(targetReq:HTMLElement){

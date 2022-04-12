@@ -41,12 +41,12 @@ export class RegisterComponent implements OnInit {
             alert("Please enter your Last Name");
             return;
         }
-        else if((<HTMLInputElement>document.getElementById("gradYr")).value == ""){
-            alert("Please enter your Graduation Year");
+        else if((<HTMLInputElement>document.getElementById("gradYr")).value == "" || (<HTMLInputElement>document.getElementById("gradYr")).value.length != 4){
+            alert("Please enter a valid Graduation Year");
             return;
         }
-        else if((<HTMLInputElement>document.getElementById("rpi")).value == ""){
-            alert("Please enter your RPI Email");
+        else if((<HTMLInputElement>document.getElementById("rpi")).value == "" || !(<HTMLInputElement>document.getElementById("rpi")).value.includes('@')){
+            alert("Please enter a valid RPI Email");
             return;
         }
         else if((<HTMLInputElement>document.getElementById("discord")).value == ""){

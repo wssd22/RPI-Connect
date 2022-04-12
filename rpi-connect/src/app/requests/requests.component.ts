@@ -12,10 +12,12 @@ export class RequestsComponent implements OnInit {
   @Output() prevEmitter = new EventEmitter();
   @Output() currentEmitter = new EventEmitter();
   private data:any = [];
+  private data2:any = [];
   @Input() userPrev:any = [];
   @Input() userCurrent:any = [];
 
   view:string = "all";
+  poster:string = "";
   search:any = [];
   
   constructor(private httpService: HttpService) { }
@@ -120,15 +122,18 @@ export class RequestsComponent implements OnInit {
             str += '<div class="card-body">';
             str += '<p class="card-title"><b>' + this.data[i].class + '</b></p>';
             str += '<div class="card-days card-days-green" style="background-color: green;">' + this.data[i].status + '</div>';
+            if(this.profId == this.data[i].userId){
+              str += '<p class="card-text">Posted by: You</p>'; 
+            }
+            else{
+              str+='<p class="card-text">Posted by: ' + this.data[i].userName + '</p>';
+            }
+            
             str += '<p class="card-text">' + this.data[i].msg + '</p>';
             str += '<p class="card-text" style="display: inline;"><small>Created: ' + this.data[i].datePosted + '</small></p>';
-            //str += '<button class="btn btn-outline-danger btn-sm" style="display: inline;">Answer</button>';
-              
-            
             str += '</div>';
             card.innerHTML = str;
 
-            
             destination.appendChild(card);
             const button = document.createElement('button');
             button.id = this.data[i].reqId;
