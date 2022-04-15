@@ -1,0 +1,307 @@
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { HttpService } from '../http.service';
+
+@Component({
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css']
+})
+export class RegisterComponent implements OnInit {
+  @Input() registerShow: boolean = false; 
+  @Output() profileReroute = new EventEmitter<any>();
+  @Output() idSend = new EventEmitter<any>();
+  //profile storage
+  fname:string = "";
+  lname:string = "";
+  password:string = "";
+  user:string = "";
+  gradYr:string = "";
+  email:string = "";
+  discord:string = "";
+  prevClasses:any = [];
+  currentClasses:any = [];
+  reqs:any = [];
+  private data:any = [];
+
+  constructor(private httpService: HttpService) { }
+
+  ngOnInit(): void {
+  }
+
+  //increment registration steps
+  public nextStep(step:HTMLElement){
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if(step.id == "basic"){
+        //make sure all fields are filled out
+        if((<HTMLInputElement>document.getElementById("fname")).value == ""){
+            alert("Please enter your First Name");
+            return;
+        }
+        else if((<HTMLInputElement>document.getElementById("lname")).value == ""){
+            alert("Please enter your Last Name");
+            return;
+        }
+        else if((<HTMLInputElement>document.getElementById("gradYr")).value == "" || (<HTMLInputElement>document.getElementById("gradYr")).value.length != 4){
+            alert("Please enter a valid Graduation Year");
+            return;
+        }
+        else if((<HTMLInputElement>document.getElementById("rpi")).value == "" || !(<HTMLInputElement>document.getElementById("rpi")).value.includes('@')){
+            alert("Please enter a valid RPI Email");
+            return;
+        }
+        else if((<HTMLInputElement>document.getElementById("discord")).value == ""){
+            alert("Please enter your Discord Username");
+            return;
+        }
+        else if((<HTMLInputElement>document.getElementById("password")).value == ""){
+          alert("Please enter your Password");
+          return;
+        }
+        else if((<HTMLInputElement>document.getElementById("password")).value != (<HTMLInputElement>document.getElementById("reenter")).value){
+          alert("Please make sure your passwords match");
+          return;
+        }else if((<HTMLInputElement>document.getElementById("user")).value == ""){
+          alert("Please make sure your Username");
+          return;
+        }
+        
+        this.fname = (<HTMLInputElement>document.getElementById("fname")).value;
+        this.lname = (<HTMLInputElement>document.getElementById("lname")).value;
+        this.password = (<HTMLInputElement>document.getElementById("password")).value;
+        this.user = (<HTMLInputElement>document.getElementById("user")).value;
+        this.gradYr = (<HTMLInputElement>document.getElementById("gradYr")).value;
+        this.email = (<HTMLInputElement>document.getElementById("rpi")).value;
+        this.discord = (<HTMLInputElement>document.getElementById("discord")).value;
+        //hide last step and show next step
+        (<HTMLElement>document.getElementById("basicInfo")).style.display = "none";
+        (<HTMLElement>document.getElementById("currentClasses")).style.display = "block";
+    }
+    else if(step.id == "current"){
+        if(this.currentClasses.length == 0){
+            alert("Please select your current classes");
+            return;
+        }
+        //hide last step and show next step
+        (<HTMLElement>document.getElementById("currentClasses")).style.display = "none";
+        (<HTMLElement>document.getElementById("previousClasses")).style.display = "block";
+    }
+    else if(step.id == "previous"){
+        if(this.prevClasses.length == 0){
+            alert("Please select your previously taken classes");
+            return;
+        }
+        //hide last step and show next step
+        (<HTMLElement>document.getElementById("previousClasses")).style.display = "none";
+        (<HTMLElement>document.getElementById("confirm")).style.display = "block";
+        //read in confirmation
+        (<HTMLElement>document.getElementById("fullName")).innerHTML = "Name: " + this.fname + "  "  + this.lname;
+        (<HTMLElement>document.getElementById("grad")).innerHTML = "Graduation Year: " + this.gradYr;
+        (<HTMLElement>document.getElementById("rpi")).innerHTML = "RPI Email: " + this.email;
+        (<HTMLElement>document.getElementById("disc")).innerHTML = "Discord: " + this.discord;
+        var list = "";
+        for(var i = 0; i < this.currentClasses.length; i+=2){
+            list += "<p class = \"list\">" + this.currentClasses[i] + "  " ;
+            if(this.currentClasses.length > i+1){
+              list += this.currentClasses[i+1];
+            }
+            list += "</p>";
+        }
+        (<HTMLElement>document.getElementById("currentList")).innerHTML = list;
+        list = "";
+
+        for(var i = 0; i < this.prevClasses.length; i += 2){
+            list += "<p class = \"list\">" + this.prevClasses[i] + "  ";
+            if(this.prevClasses.length > i+1){
+              list+= this.prevClasses[i+1];
+            }
+            list += "</p>";
+        }
+        (<HTMLElement>document.getElementById("prevList")).innerHTML = list;
+    }
+}
+
+public prevStep(step:HTMLElement){
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if(step.id == "current"){
+        //hide current step and show last step
+        (<HTMLElement>document.getElementById("currentClasses")).style.display = "none";
+        (<HTMLElement>document.getElementById("basicInfo")).style.display = "block";
+    }
+    else if(step.id == "previous"){
+        //hide current step and show last step
+        (<HTMLElement>document.getElementById("previousClasses")).style.display = "none";
+        (<HTMLElement>document.getElementById("currentClasses")).style.display = "block";
+        //read in last step with previous choices
+    }
+    else if(step.id == "confirmInfo"){
+        (<HTMLElement>document.getElementById("confirm")).style.display = "none";
+        (<HTMLElement>document.getElementById("previousClasses")).style.display = "block";
+    }
+}
+
+  //upload new user to db
+  public register(){
+    //sample schema for users
+    /*
+        {
+            id:
+            name: 
+            user:
+            password:
+            gradYr:
+            email:
+            discord:
+            current: []
+            prev: []
+            reqs: []
+        }
+    */
+    var id = Math.floor(Math.random() * (1000000 - 10000 + 1)) + 10000;
+    
+    var obj = {
+      "id" : id,
+      "name" : this.fname + " " + this.lname,
+      "user" : this.user,
+      "password" : this.password,
+      "gradYr" : this.gradYr,
+      "email" : this.email,
+      "discord" : this.discord,
+      "current" : this.currentClasses,
+      "prev" : this.prevClasses,
+      "reqs" : this.reqs
+    };
+
+    var msg = JSON.stringify(obj);
+
+    //post request to user collection
+    this.httpService.sendPostRequest("user/add", JSON.parse(msg)).subscribe((res) => {
+      this.data = res;
+        if(this.data.Insert == "Success"){
+          //reroute to profile page
+          this.idSend.emit(obj.id);
+          this.profileReroute.emit("profile");
+        }
+    });
+    
+  }
+
+  public selectClass(course:HTMLElement){
+    //remove course from list
+    if(course.classList.contains("select")){
+        course.classList.remove("select");
+        //current
+        if(course.classList.contains("current")){
+            var removed = course.innerHTML;
+            var newStr = "";
+            for(var i = 0; i < this.currentClasses.length; i++){
+                if(this.currentClasses[i] == removed){
+                    var temp = this.currentClasses[this.currentClasses.length - 1];
+                    this.currentClasses[this.currentClasses.length - 1] = this.currentClasses[i];
+                    this.currentClasses[i] = temp;
+                    this.currentClasses.pop();
+                    this.currentClasses = this.currentClasses.filter(function( element:any ) {
+                      return element != undefined;
+                   });
+                }
+            }
+            //prefix
+            var prefix = course.innerHTML.split(" ")[0];
+            var contains = false;
+            for(var i = 0; i < this.currentClasses.length; i++){
+              if(this.currentClasses[i].includes(prefix)){
+                contains = true;
+                i = this.currentClasses.length;
+              }
+            }
+            if(!contains){
+                (<HTMLElement>document.getElementById("current" + prefix.toLowerCase())).classList.remove("select");
+            }
+        }
+        else{//previous
+            var removed = course.innerHTML;
+            var newStr = "";
+            for(var i = 0; i < this.prevClasses.length; i++){
+              if(this.prevClasses[i] == removed){
+                  var temp = this.prevClasses[this.prevClasses.length - 1];
+                  this.prevClasses[this.prevClasses.length - 1] = this.prevClasses[i];
+                  this.prevClasses[i] = temp;
+                  this.prevClasses.pop();
+                  this.prevClasses = this.prevClasses.filter(function( element:any ) {
+                    return element != undefined;
+                 });
+              }
+          }
+          //prefix
+          var prefix = course.innerHTML.split(" ")[0];
+          var contains = false;
+          for(var i = 0; i < this.prevClasses.length; i++){
+            if(this.prevClasses[i].includes(prefix)){
+              contains = true;
+              i = this.prevClasses.length;
+            }
+          }
+          if(!contains){
+              (<HTMLElement>document.getElementById("prev" + prefix.toLowerCase())).classList.remove("select");
+          }
+        }
+    }//add course to list
+    else{
+        //find class from opposite class selection
+        if(course.classList.contains("current")){
+            var prevs = document.getElementsByClassName("prev");
+            for(var i = 0; i < prevs.length; i++){
+                if(prevs[i].innerHTML == course.innerHTML && prevs[i].classList.contains("select")){
+                    alert("Already selected class in Previous Classes");
+                    return;
+                }
+            }
+        }
+        if(course.classList.contains("prev")){
+            var currents = document.getElementsByClassName("current");
+            for(var i = 0; i < currents.length; i++){
+                if(currents[i].innerHTML == course.innerHTML && currents[i].classList.contains("select")){
+                    alert("Already selected class in Current Classes");
+                    return;
+                }
+            }
+        }
+
+        course.classList.add("select");
+        var prefix = course.innerHTML;
+        //current
+        if(course.classList.contains("current")){
+            if(!(<HTMLElement>document.getElementById("current" + prefix.split(" ")[0].toLowerCase())).classList.contains("select")){
+                (<HTMLElement>document.getElementById("current" + prefix.split(" ")[0].toLowerCase())).classList.add("select");
+            }
+            
+            this.currentClasses.push(prefix);
+        }
+        else{//previous
+            if(!(<HTMLElement>document.getElementById("prev" + prefix.split(" ")[0].toLowerCase())).classList.contains("select")){
+                (<HTMLElement>document.getElementById("prev" + prefix.split(" ")[0].toLowerCase())).classList.add("select");
+            }
+            this.prevClasses.push(prefix);
+        }
+    }
+}
+
+//DROPDOWN FUNCTION
+public dropdown(target:HTMLElement) {
+    const dropMenu = target.nextElementSibling;
+    var accordions = document.getElementsByClassName("accordion");
+    for(var i = 0; i < accordions.length; i++){
+        if(accordions[i].id != (<HTMLElement>dropMenu).id){
+          (<HTMLElement>accordions[i]).style.display = "none";
+        }
+    }
+    //Show dropdown for clicked content
+    if((<HTMLElement>dropMenu).style.display === "block"){
+      (<HTMLElement>dropMenu).style.display = "none";
+    }
+    else{
+      (<HTMLElement>dropMenu).style.display = "block";
+    }
+}
+
+
+}

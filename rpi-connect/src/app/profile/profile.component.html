@@ -1,0 +1,70 @@
+<div *ngIf="profileShow">
+<div style="height: 100px;">
+        <div #confirm id = "confirm">
+            <div id = "confPage">
+            <div id = "confInfo">
+                <h3>Basic Info</h3>
+                <p #fullName id = "fullName">Name: {{name}}</p>
+                
+                <p #gradYr id = "gradYr">Graduation Year: {{year}}</p>
+                <p #rpi id = "rpi">Email: {{email}}</p>
+                <p #disc id = "disc">Discord: {{discord}}</p>
+            </div>
+            <div id = "confCurrent">
+                <h2>Current Classes</h2>
+                <div #currentList id = "currentList">
+                </div>
+            </div>
+            <div id = "confPrev">
+                <h2>Previous Classes</h2>
+                <div #prevList id = "prevList">
+                </div>
+            </div>
+            <button type="button" (click)="showEdit(edit, confirm)">Edit</button>
+        </div>
+    </div>
+    <div #edit id = "edit" style="display: none">
+        <div id = "confPage">
+            <div id = "confInfo">
+                <h3>Edit Info</h3>
+                <div class="section">
+                <label for="editName">Name: </label>
+                <input #editName type="text" id="editName" [value]="name">
+                </div>
+                <div class="section">
+                <label for="editYr">Year: </label>
+                <input #editYr type="text" id="editYr" [value]="year">
+                </div>
+                <div class="section">
+                <label for="editEmail">Email: </label>
+                <input #editEmail type="text" id="editEmail" [value]="email">
+                </div>
+                <div class="section">
+                <label for="editDiscord">Discord: </label>
+                <input #editDiscord type="text" id="editDiscord" [value]="discord">
+                </div>
+            </div>
+            <button type="button" (click)="showEdit(confirm, edit)">Cancel</button>
+            <button type="button" (click)="editProfile(editName, editYr, editEmail, editDiscord, edit, confirm)">Confirm</button>
+            <div id = "confCurrent">
+                <h2>Current Classes</h2>
+                <p>Note: Deleting a Current Class will delete any associated Requests</p>
+                <div #editCurrent id = "editCurrent">
+                </div>
+                <label for="prevAdd">Add Current Class</label>
+                <input #currentAdd type="text" id="prevAdd">
+                <button id="addCurrent" type="button" (click)="addClass(currentAdd, 'current')">Add Class</button>
+            </div>
+            <div id = "confPrev">
+                <h2>Previous Classes</h2>
+                <div #editPrev id = "editPrev">
+                </div>
+                <label for="prevAdd">Add Previously Taken Class</label>
+                <input #prevAdd type="text" id="prevAdd">
+                <button id="addPrev" type="button" (click)="addClass(prevAdd, 'prev')">Add Class</button>
+            </div>
+            
+        </div>
+    </div>
+</div>
+</div>

@@ -1,0 +1,8 @@
+<app-navbar [loggedIn]="loggedIn" [loggedOut]="loggedOut" (target)="nav($event)"></app-navbar>
+<app-home [homeShow] = "showHome"></app-home>
+<app-login [loginShow] = "showLogin" (profId)="setId($event)" (reroute)="nav($event)" ></app-login>
+<app-register [registerShow] = "showRegister" (profileReroute)="nav($event)" (idSend) = "setId($event)"></app-register>
+<app-profile [profileShow] = "showProfile" [profileId] = "sentId" ></app-profile>
+<app-my-requests [myRequestsShow] = "showMyRequests" [profileId] = "sentId"></app-my-requests>
+<app-requests [reqShow] = "showRequests" [profId] = "sentId"  ></app-requests>
+<router-outlet ></router-outlet>
