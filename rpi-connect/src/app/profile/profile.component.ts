@@ -149,6 +149,16 @@ export class ProfileComponent implements OnInit {
         this.httpService.sendPutRequest('user/name/' + this.name, JSON.parse(json)).subscribe((res) => {
 
         });
+        //update userName in requests
+        this.httpService.sendGetRequest('user/' + this.profileId.toString()).subscribe((res) => {
+          this.data = res;
+          for(var i = 0; i < this.data.reqs.length; i++){
+            var obj = {userName : this.name};
+            var json = JSON.stringify(obj);
+            this.httpService.sendPutRequest('req/' + this.data.reqs[i].toString(), JSON.parse(json)).subscribe((res) => {
+            });
+          }
+        });
       }
       if(this.year != this.data.gradYr){
         this.httpService.sendPutRequest('user/gradYr/' + this.year, JSON.parse(json)).subscribe((res) => {
