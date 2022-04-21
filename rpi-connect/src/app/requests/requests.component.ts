@@ -1,10 +1,12 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
+import { ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-requests',
   templateUrl: './requests.component.html',
-  styleUrls: ['./requests.component.css']
+  styleUrls: ['./requests.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class RequestsComponent implements OnInit {
   @Input() reqShow:boolean = false;
@@ -79,17 +81,31 @@ export class RequestsComponent implements OnInit {
     
  }
 
-  public loadClassRequests(container:HTMLElement, destination:HTMLElement){
+  public loadClassRequests(container:HTMLElement, status:HTMLElement, destination:HTMLElement){
     //detect checked classes
 
-    var allChildElements = (<HTMLElement>container).querySelectorAll('.form-check-input');
-
+    var allClassElements = (<HTMLElement>container).querySelectorAll('.form-check-input');
     var selected = false;
  
-    for(var i = 0; i < allChildElements.length; i++){
-      if((<HTMLInputElement>allChildElements[i]).checked){
+    for(var i = 0; i < allClassElements.length; i++){
+      if((<HTMLInputElement>allClassElements[i]).checked){
         selected = true;
-        this.search.push((<HTMLInputElement>allChildElements[i]).name);
+        this.search.push((<HTMLInputElement>allClassElements[i]).name);
+      }
+    }
+    if(!selected){
+      alert("Please choose at least one class to find requests");
+      return;
+    }
+
+    var allStatusElements = (<HTMLElement>status).querySelectorAll('.form-check-input');
+    selected = false;
+    var stat = "";
+ 
+    for(var i = 0; i < allStatusElements.length; i++){
+      if((<HTMLInputElement>allStatusElements[i]).checked){
+        selected = true;
+        stat = (<HTMLInputElement>allStatusElements[i]).name;
       }
     }
     if(!selected){
@@ -114,14 +130,14 @@ export class RequestsComponent implements OnInit {
       
       for(var i = 0; i < this.data.length; i++){
         for(var j = 0; j < this.search.length; j++){
-          if(this.search[j] == this.data[i].class && this.data[i].status == "active"){
+          if(this.search[j] == this.data[i].class && (this.data[i].status == stat || stat == 'all')){
             var str = ""
             var card = document.createElement("div");
             card.classList.add("card");
             //str += '<div class="card">';
             str += '<div class="card-body">';
             str += '<p class="card-title"><b>' + this.data[i].class + '</b></p>';
-            if(this.data[i].daysLeft >= 7){
+            if(this.data[i].daysLeft >= 7 || this.data[i].status == 'answered'){
               str += '<div class="card-days card-days-green" style="background-color: green;">' + this.data[i].status + '</div>';
             }
             else{
@@ -140,7 +156,7 @@ export class RequestsComponent implements OnInit {
             card.innerHTML = str;
 
             destination.appendChild(card);
-            if(this.profId != this.data[i].userId){
+            if(this.profId != this.data[i].userId && this.data[i].status == 'active'){
               const elem = document.createElement('input');
               elem.type = 'text';
               elem.style.display = 'none';
@@ -225,12 +241,12 @@ export class RequestsComponent implements OnInit {
 
     });
     //change answerStatus
-    var query3 = {status : 'answered'};
+    var query3 = {status : 'pending'};
     obj = JSON.stringify(query3);
     this.httpService.sendPutRequest('req/' + reqId, JSON.parse(obj)).subscribe((res) => {
       this.hideAnswer(elem, <HTMLElement>document.getElementById('conf' + reqId.toString()), <HTMLElement>document.getElementById('canc' + reqId.toString()), <HTMLElement>document.getElementById(reqId.toString()));
 
-      this.loadClassRequests(<HTMLElement>document.getElementById('container'), <HTMLElement>document.getElementById('right-side'));
+      this.loadClassRequests(<HTMLElement>document.getElementById('container'), <HTMLElement>document.getElementById('status'), <HTMLElement>document.getElementById('right-side'));
     });
 
     

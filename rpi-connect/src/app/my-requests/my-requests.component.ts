@@ -1,6 +1,7 @@
 import { Component, Input, Output, OnInit, ElementRef } from '@angular/core';
 import { HttpService } from '../http.service';
 import { ViewEncapsulation } from '@angular/core';
+import { empty } from 'rxjs';
 
 @Component({
   selector: 'app-my-requests',
@@ -15,29 +16,26 @@ export class MyRequestsComponent implements OnInit {
   private data:any = [];
   private data2:any = [];
 
-  card1:boolean = false;
-  card2:boolean = false;
-  card3:boolean = false;
-  card4:boolean = false;
-  card5:boolean = false;
-
-  card1Date:string = "";
-  card2Date:string = "";
-  card3Date:string = "";
-  card4Date:string = "";
-  card5Date:string = "";
-
+  pendingReqs:number = 0;
   activeReqs:number = 0;
   answeredReqs:number = 0;
   expiredReqs:number = 0;
 
+  pendingReqIndex:number = 0;
   activeReqIndex:number = 0;
   answeredReqIndex:number = 0;
   expiredReqIndex:number = 0;
 
+  activeData:any = [];
+  expiredData:any = [];
+  answeredData:any = [];
+  pendingData:any = [];
+
   year:number = 0;
   month:number = 0;
   day:number = 0;
+
+  filter:any = ['all'];
 
   constructor(private httpService: HttpService, private elRef: ElementRef) { }
 
@@ -123,19 +121,36 @@ export class MyRequestsComponent implements OnInit {
     this.httpService.sendPostRequest("req", JSON.parse(req)).subscribe((res) => {
       (<HTMLInputElement>course).value = "";
       (<HTMLInputElement>msg).value = "";
-      alert("New Request Added");
-      /*if((<HTMLElement>document.getElementById("actstep")).innerHTML == "No Active Requests"){
-        alert("heeeyyy");
-      }
-      else if(!(<HTMLElement>document.getElementById("actstep")).innerHTML.includes('-')){
-
-      }
-      else if((<HTMLElement>document.getElementById("actstep")).innerHTML.includes('-')){
-
-      }*/
+      alert("New Request Added to " + reqClass);
       this.loadRequests();
     });
 
+    });
+    
+  }
+
+  public filters(){
+    this.httpService.sendGetRequest('user/' + this.profileId).subscribe((res) => {
+      this.data = res;
+      var str = "";
+      var courses = [];
+      for(var i = 0; i < this.data.current.length; i++){
+        courses.push(this.data.current[i]);
+      }
+      str += '<div class="form-check">';
+      str += '<input type="checkbox" checked class="form-check-input" id="all" name="all">';
+      str += '<label class="form-check-label" for="all">All</label>';
+      str += '</div>';
+      for(var i = 0; i < courses.length; i++){
+        str += '<div class="form-check">';
+        str += '<input type="checkbox" class="form-check-input" id="class' + i + '" name="' + courses[i] + '">';
+        str += '<label class="form-check-label" for="class' + i + '">' + courses[i] + '</label>';
+        str += '</div>';
+       }
+       (<HTMLElement>document.getElementById('pendingFilter')).innerHTML = str;
+       (<HTMLElement>document.getElementById('activeFilter')).innerHTML = str;
+       (<HTMLElement>document.getElementById('answeredFilter')).innerHTML = str;
+       (<HTMLElement>document.getElementById('expiredFilter')).innerHTML = str;
     });
     
   }
@@ -146,11 +161,13 @@ export class MyRequestsComponent implements OnInit {
       var act = 0;
       var ans = 0;
       var exp = 0;
+      var pen = 0;
 
       this.data = res;
       var actData = [];
       var expData = [];
       var ansData = [];
+      var penData = [];
       for(var i = 0; i < this.data.length; i++){
         if(this.data[i].userId == this.profileId){
         if(this.data[i].status == "active"){
@@ -161,15 +178,26 @@ export class MyRequestsComponent implements OnInit {
           ans++;
           ansData.push(this.data[i]);
         }
+        else if(this.data[0].status == "pending"){
+          pen++;
+          penData.push(this.data[i]);
+        }
         else{
           exp++;
           expData.push(this.data[i]);
         }
       }
       }
+      //this might not work
+      this.activeData = actData;
+      this.expiredData = expData;
+      this.pendingData = penData;
+      this.answeredData = ansData;
+      ///////////////////////////
       this.activeReqs = act;
       this.answeredReqs = ans;
       this.expiredReqs = exp;
+      this.pendingReqs = pen;
     
      var str = "";
     //get Active Requests
@@ -178,6 +206,8 @@ export class MyRequestsComponent implements OnInit {
     this.loadExp(expData);
     //get Answered Requests
     this.loadAns(ansData);
+    //get Pending Requests
+    this.loadPen(penData);
     });
   }
 
@@ -258,6 +288,92 @@ export class MyRequestsComponent implements OnInit {
     this.loadRequests();
   }
 
+  public classFilter(classes:HTMLElement){
+    var allClassElements = (<HTMLElement>classes).querySelectorAll('.form-check-input');
+    var selected = false;
+    //clear filter
+    this.filter = [];
+    for(var i = 0; i < allClassElements.length; i++){
+      if((<HTMLInputElement>allClassElements[i]).checked && (<HTMLInputElement>allClassElements[i]).id == 'all'){
+        selected = true;
+        i = allClassElements.length;
+      }
+      else if((<HTMLInputElement>allClassElements[i]).checked){
+        selected = true;
+        this.filter.push((<HTMLInputElement>allClassElements[i]).name);
+      }
+    }
+    if(!selected){
+      alert("Please choose at least one class to find requests");
+      return;
+    }
+
+    if(classes.id.includes('active')){
+      this.reloadData('active');
+    }
+    else if(classes.id.includes('expired')){
+      this.reloadData('expired');
+    }
+    else if(classes.id.includes('pending')){
+      this.reloadData('pending');
+    }
+    else{//answered
+      this.reloadData('answered');
+    }
+  }
+
+  public reloadData(status:string){
+    var tempData = [];
+    if(status == 'active'){
+      for(var i = 0; i < this.activeData.length; i++){
+        for(var j = 0; j < this.filter.length; j++){
+          if(this.activeData[i].class == this.filter[j] || this.filter[j] == 'all'){
+            tempData.push(this.activeData[i]);
+          }
+        }
+      }
+      this.activeReqIndex = 0;
+      this.activeReqs = tempData.length;
+      this.loadActive(tempData);
+    }
+    if(status == 'answered'){
+      for(var i = 0; i < this.answeredData.length; i++){
+        for(var j = 0; j < this.filter.length; j++){
+          if(this.answeredData[i].status == this.filter[j] || this.filter[j] == 'all'){
+            tempData.push(this.answeredData[i]);
+          }
+        }
+      }
+      this.answeredReqIndex = 0;
+      this.answeredReqs = tempData.length;
+      this.loadAns(tempData);
+    }
+    if(status == 'pending'){
+      for(var i = 0; i < this.pendingData.length; i++){
+        for(var j = 0; j < this.filter.length; j++){
+          if(this.pendingData[i].status == this.filter[j] || this.filter[j] == 'all'){
+            tempData.push(this.pendingData[i]);
+          }
+        }
+      }
+      this.pendingReqIndex = 0;
+      this.pendingReqs = tempData.length;
+      this.loadPen(tempData);
+    }
+    if(status == 'expired'){
+      for(var i = 0; i < this.expiredData.length; i++){
+        for(var j = 0; j < this.filter.length; j++){
+          if(this.expiredData[i].status == this.filter[j] || this.filter[j] == 'all'){
+            tempData.push(this.expiredData[i]);
+          }
+        }
+      }
+      this.expiredReqIndex = 0;
+      this.expiredReqs = tempData.length;
+      this.loadExp(tempData);
+    }
+  }
+
   public incrementReqs(direction:HTMLElement){
     if(direction.id == "previousAct"){
       this.activeReqIndex -= 5;
@@ -270,6 +386,18 @@ export class MyRequestsComponent implements OnInit {
     }
     else if(direction.id == "nextExp"){
       this.expiredReqIndex += 5;
+    }
+    else if(direction.id == "previousAns"){
+      this.answeredReqIndex -= 5;
+    }
+    else if(direction.id == "nextAns"){
+      this.answeredReqIndex += 5;
+    }
+    else if(direction.id == "previousPen"){
+      this.pendingReqIndex -= 5;
+    }
+    else if(direction.id == "nextPen"){
+      this.pendingReqIndex += 5;
     }
     this.loadRequests()
   }
@@ -293,7 +421,7 @@ export class MyRequestsComponent implements OnInit {
       });
     });
     //change status to inactive
-    var query = {status : 'inactive'};
+    var query = {status : 'answered'};
     var obj = JSON.stringify(query);
     this.httpService.sendPutRequest('req/' + id.toString(), JSON.parse(obj)).subscribe((res) => {
       this.loadRequests();
@@ -332,7 +460,7 @@ export class MyRequestsComponent implements OnInit {
     else{
       (<HTMLElement>prev).style.display = "inline-block";
     }
-    if(this.activeReqIndex+4 >= this.activeReqs){
+    if(this.activeReqIndex+5 >= this.activeReqs){
       (<HTMLElement>next).style.display = "none";
     }
     else{
@@ -658,26 +786,6 @@ export class MyRequestsComponent implements OnInit {
           const button4 = document.createElement('button');
           const id = ansData[i].reqId;
 
-          //confirm answer button
-          button2.addEventListener('click', (e) => {
-            this.confirmAnswer(id);
-          });
-          button2.id = 'confirmans' + i.toString();
-          button2.innerText = 'Confirm Answer';
-          button2.classList.add("btn");
-          button2.classList.add("btn-outline-danger");
-          button2.classList.add("btn-sm");
-          (<HTMLElement>elem2).appendChild(button2);
-          //cancel answer button
-          button3.addEventListener('click', (e) => {
-            this.cancelAnswer(id);
-          });
-          button3.id = 'cancelans' + i.toString();
-          button3.innerText = 'Reject Answer';
-          button3.classList.add("btn");
-          button3.classList.add("btn-outline-danger");
-          button3.classList.add("btn-sm");
-          (<HTMLElement>elem2).appendChild(button3);
           //remove button
           
           button4.addEventListener('click', (e) => {
@@ -701,7 +809,7 @@ export class MyRequestsComponent implements OnInit {
 
         if(ansData.length > 0){
           if(ansData.length - this.answeredReqIndex != 1){
-            (<HTMLElement>document.getElementById("actstep")).innerHTML = this.answeredReqIndex+1 + " - " + (this.answeredReqIndex+top) + " of " + ansData.length;
+            (<HTMLElement>document.getElementById("ansstep")).innerHTML = this.answeredReqIndex+1 + " - " + (this.answeredReqIndex+top) + " of " + ansData.length;
           }
           else{
             (<HTMLElement>document.getElementById("ansstep")).innerHTML = this.answeredReqIndex+1 + " of " + ansData.length;
@@ -709,6 +817,122 @@ export class MyRequestsComponent implements OnInit {
         }
         else{
           (<HTMLElement>document.getElementById("ansstep")).innerHTML = "No Answered Requests";
+        }
+  }
+
+  public loadPen(penData:any){
+    var prev = document.getElementById("previousPen");
+     var next = document.getElementById("nextPen");
+    if(this.pendingReqIndex == 0){
+      (<HTMLElement>prev).style.display = "none";
+      
+    }
+    else{
+      (<HTMLElement>prev).style.display = "inline-block";
+    }
+    if(this.pendingReqIndex+4 >= this.pendingReqs){
+      (<HTMLElement>next).style.display = "none";
+    }
+    else{
+      (<HTMLElement>next).style.display = "inline-block";
+    }
+    var destination = document.getElementById("penContainer");
+        (<HTMLElement>destination).innerHTML = "";
+        for(var i = this.pendingReqIndex; i < this.pendingReqIndex+5; i++){
+          if(i < penData.length){
+          const elem1 = document.createElement("div");
+          elem1.classList.add('card');
+          elem1.id = i.toString();
+          (<HTMLElement>destination).appendChild(elem1);
+          //create card wrapper
+          const elem2 = document.createElement("div");
+          elem2.classList.add('card-body');
+          elem2.id = 'inner' + i.toString();
+          elem1.appendChild(elem2);
+          //add request class
+          const elem3 = document.createElement('p');
+          elem3.id = 'penClass' + i.toString();
+          elem3.innerHTML = penData[i].class;
+          elem3.classList.add('card-title');
+          elem2.appendChild(elem3);
+          //add msg
+          const elem6 = document.createElement('p');
+          elem6.innerHTML = penData[i].msg;
+          elem6.id = 'penMsg' + i.toString();
+          elem6.classList.add('card-text');
+          elem2.appendChild(elem6);
+          //add ansMsg
+          const elem9 = document.createElement('p');
+          elem9.innerHTML = penData[i].answerMsg;
+          elem9.id = 'penAnsMsg' + i.toString();
+          elem9.classList.add('card-text');
+          elem2.appendChild(elem9);
+          //add date
+          const elem8 = document.createElement('p');
+          elem8.innerHTML = penData[i].datePosted;
+          elem8.id = 'penDate' + i.toString();
+          elem8.classList.add('card-text');
+          elem2.appendChild(elem8);
+          //add buttons
+        
+          //declare buttons
+          const button1 = document.createElement('button');
+          const button2 = document.createElement('button');
+          const button3 = document.createElement('button');
+          const button4 = document.createElement('button');
+          const id = penData[i].reqId;
+
+          //confirm answer button
+          button2.addEventListener('click', (e) => {
+            this.confirmAnswer(id);
+          });
+          button2.id = 'confirmpen' + i.toString();
+          button2.innerText = 'Confirm Answer';
+          button2.classList.add("btn");
+          button2.classList.add("btn-outline-danger");
+          button2.classList.add("btn-sm");
+          (<HTMLElement>elem2).appendChild(button2);
+          //cancel answer button
+          button3.addEventListener('click', (e) => {
+            this.cancelAnswer(id);
+          });
+          button3.id = 'cancelpen' + i.toString();
+          button3.innerText = 'Reject Answer';
+          button3.classList.add("btn");
+          button3.classList.add("btn-outline-danger");
+          button3.classList.add("btn-sm");
+          (<HTMLElement>elem2).appendChild(button3);
+          //remove button
+          
+          button4.addEventListener('click', (e) => {
+            this.delReq(id);
+          });
+          button4.id = 'deletepen' + i.toString();
+          button4.innerText = 'Remove';
+          button4.classList.add("btn");
+          button4.classList.add("btn-outline-danger");
+          button4.classList.add("btn-sm");
+          (<HTMLElement>elem2).appendChild(button4);
+        }
+        }
+        var top = 0;
+        if(penData.length - this.pendingReqIndex >= 5){
+          top = 5;
+        }
+        else{
+          top = penData.length - this.pendingReqIndex;
+        }
+
+        if(penData.length > 0){
+          if(penData.length - this.pendingReqIndex != 1){
+            (<HTMLElement>document.getElementById("penstep")).innerHTML = this.pendingReqIndex+1 + " - " + (this.pendingReqIndex+top) + " of " + penData.length;
+          }
+          else{
+            (<HTMLElement>document.getElementById("penstep")).innerHTML = this.pendingReqIndex+1 + " of " + penData.length;
+          }
+        }
+        else{
+          (<HTMLElement>document.getElementById("penstep")).innerHTML = "No Pending Requests";
         }
   }
 }

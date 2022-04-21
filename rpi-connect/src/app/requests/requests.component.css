@@ -81,3 +81,16 @@
   margin: 2px;
 }
 
+.form-check{
+  display: block;
+  margin-left: 3%;
+}
+
+.options{
+  display: inline;
+  margin: 2%;
+  padding-left: 3%;
+  
+}
+
+
