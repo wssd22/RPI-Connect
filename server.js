@@ -267,9 +267,9 @@ app.route('/req')
 
   })
   //update all requests
-  .put((req, res) =>{
+  /*.put((req, res) =>{
     
-  })
+  })*/
   //get all requests
   .get((req, res) => {
     client.connect(err => {
@@ -361,7 +361,7 @@ app.route('/req/:num')
 })
 
 
-
+/////////////////////////////////////////
 
 app.get('/', (req, res) => {
     res.status(200).sendFile(path.join(__dirname, '/public/index.html'));
