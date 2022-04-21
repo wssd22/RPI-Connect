@@ -154,7 +154,9 @@ export class AppComponent{
       this.showRegister = false;
       this.showProfile = false;
       this.showMyRequests = true;
+      
       this.myReqs.loadRequests();
+      this.myReqs.filters();
     }
     else if(page == "profile" && this.sentId != 0){
       this.showHome = false;

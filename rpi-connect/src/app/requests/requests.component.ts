@@ -1,10 +1,12 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
+import { ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-requests',
   templateUrl: './requests.component.html',
-  styleUrls: ['./requests.component.css']
+  styleUrls: ['./requests.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class RequestsComponent implements OnInit {
   @Input() reqShow:boolean = false;
@@ -79,17 +81,31 @@ export class RequestsComponent implements OnInit {
     
  }
 
-  public loadClassRequests(container:HTMLElement, destination:HTMLElement){
+  public loadClassRequests(container:HTMLElement, status:HTMLElement, destination:HTMLElement){
     //detect checked classes
 
-    var allChildElements = (<HTMLElement>container).querySelectorAll('.form-check-input');
-
+    var allClassElements = (<HTMLElement>container).querySelectorAll('.form-check-input');
     var selected = false;
  
-    for(var i = 0; i < allChildElements.length; i++){
-      if((<HTMLInputElement>allChildElements[i]).checked){
+    for(var i = 0; i < allClassElements.length; i++){
+      if((<HTMLInputElement>allClassElements[i]).checked){
         selected = true;
-        this.search.push((<HTMLInputElement>allChildElements[i]).name);
+        this.search.push((<HTMLInputElement>allClassElements[i]).name);
+      }
+    }
+    if(!selected){
+      alert("Please choose at least one class to find requests");
+      return;
+    }
+
+    var allStatusElements = (<HTMLElement>status).querySelectorAll('.form-check-input');
+    selected = false;
+    var stat = "";
+ 
+    for(var i = 0; i < allStatusElements.length; i++){
+      if((<HTMLInputElement>allStatusElements[i]).checked){
+        selected = true;
+        stat = (<HTMLInputElement>allStatusElements[i]).name;
       }
     }
     if(!selected){
@@ -114,15 +130,20 @@ export class RequestsComponent implements OnInit {
       
       for(var i = 0; i < this.data.length; i++){
         for(var j = 0; j < this.search.length; j++){
-          if(this.search[j] == this.data[i].class && this.data[i].status == "active"){
+          if(this.search[j] == this.data[i].class && (this.data[i].status == stat || stat == 'all')){
             var str = ""
             var card = document.createElement("div");
             card.classList.add("card");
             //str += '<div class="card">';
             str += '<div class="card-body">';
             str += '<p class="card-title"><b>' + this.data[i].class + '</b></p>';
-            str += '<div class="card-days card-days-green" style="background-color: green;">' + this.data[i].status + '</div>';
-            if(this.profId == this.data[i].userId){
+            if(this.data[i].daysLeft >= 7 || this.data[i].status == 'answered'){
+              str += '<div class="card-days card-days-green" style="background-color: green;">' + this.data[i].status + '</div>';
+            }
+            else{
+              str += '<div class="card-days card-days-red" style="background-color: red;">' + this.data[i].status + '</div>';
+            }
+              if(this.profId == this.data[i].userId){
               str += '<p class="card-text">Posted by: You</p>'; 
             }
             else{
@@ -135,17 +156,51 @@ export class RequestsComponent implements OnInit {
             card.innerHTML = str;
 
             destination.appendChild(card);
+            if(this.profId != this.data[i].userId && this.data[i].status == 'active'){
+              const elem = document.createElement('input');
+              elem.type = 'text';
+              elem.style.display = 'none';
+              elem.id = 'answerMsg' + this.data[i].reqId;
+              card.appendChild(elem);
             const button = document.createElement('button');
             button.id = this.data[i].reqId;
-              button.addEventListener('click', (e) => {
-              this.answerReq(Number(button.id));//your typescript function
-              });
+              
               button.innerText = 'Answer';
               button.classList.add("btn");
               button.classList.add("btn-outline-danger");
               button.classList.add("btn-sm");
               
               card.appendChild(button);
+              
+              const button2 = document.createElement('button');
+              button2.id = "conf" + this.data[i].reqId;
+              button2.addEventListener('click', (e) => {
+              this.answerReq(Number(button.id), elem);//your typescript function
+              });
+              button2.innerText = 'Confirm';
+              button2.classList.add("btn");
+              button2.classList.add("btn-outline-danger");
+              button2.classList.add("btn-sm");
+              button2.style.display = 'none';             
+              
+              card.appendChild(button2);
+
+              const button3 = document.createElement('button');
+              button3.id = "canc" + this.data[i].reqId;
+              button3.addEventListener('click', (e) => {
+              this.hideAnswer(elem, button2, button3, button);//your typescript function
+              });
+              button3.innerText = 'Cancel';
+              button3.classList.add("btn");
+              button3.classList.add("btn-outline-danger");
+              button3.classList.add("btn-sm");
+              button3.style.display = 'none';
+              
+              card.appendChild(button3);
+              button.addEventListener('click', (e) => {
+                this.showAnswer(elem, button2, button3, button);//your typescript function
+              });
+            }
           }
         }
       }
@@ -153,8 +208,48 @@ export class RequestsComponent implements OnInit {
     });
   }
 
-  public answerReq(reqId:number){
-    alert(reqId);
+  public showAnswer(field:HTMLElement, btn1:HTMLElement, btn2:HTMLElement, btn3:HTMLElement){
+    field.style.display = 'block';
+    btn1.style.display = 'inline-block';
+    btn2.style.display = 'inline-block';
+    btn3.style.display = 'none';
+  }
+
+  public hideAnswer(field:HTMLElement, btn1:HTMLElement, btn2:HTMLElement, btn3:HTMLElement){
+    field.style.display = 'none';
+    btn1.style.display = 'none';
+    btn2.style.display = 'none';
+    btn3.style.display = 'inline-block';
+  }
+
+  public answerReq(reqId:number, elem:HTMLInputElement){
+    if(elem.value == ""){
+      alert("Cannot submit a blank answer to a request");
+      return;
+    }
+    //add answerMsg to request
+    //put answerMsg
+    var query = {answerMsg : elem.value};
+    var obj = JSON.stringify(query);
+    this.httpService.sendPutRequest('req/' + reqId, JSON.parse(obj)).subscribe((res) => {
+
+    });
+    //put answerId
+    var query2 = {answerId : this.profId};
+    obj = JSON.stringify(query2);
+    this.httpService.sendPutRequest('req/' + reqId, JSON.parse(obj)).subscribe((res) => {
+
+    });
+    //change answerStatus
+    var query3 = {status : 'pending'};
+    obj = JSON.stringify(query3);
+    this.httpService.sendPutRequest('req/' + reqId, JSON.parse(obj)).subscribe((res) => {
+      this.hideAnswer(elem, <HTMLElement>document.getElementById('conf' + reqId.toString()), <HTMLElement>document.getElementById('canc' + reqId.toString()), <HTMLElement>document.getElementById(reqId.toString()));
+
+      this.loadClassRequests(<HTMLElement>document.getElementById('container'), <HTMLElement>document.getElementById('status'), <HTMLElement>document.getElementById('right-side'));
+    });
+
+    
   }
 
 }

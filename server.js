@@ -56,7 +56,7 @@ app.post('/user/add', (req, res) => {
   client.connect(err => {
     const collection = client.db("rpi-connect").collection("users");
     // perform actions on the collection object
-    console.log(req.body);
+    //console.log(req.body);
     collection.insertOne(req.body, function(err, result){
       if (!err) {
           if(result.acknowledged){
@@ -267,9 +267,9 @@ app.route('/req')
 
   })
   //update all requests
-  .put((req, res) =>{
+  /*.put((req, res) =>{
     
-  })
+  })*/
   //get all requests
   .get((req, res) => {
     client.connect(err => {
@@ -340,9 +340,9 @@ app.route('/req/:num')
   var query = {reqId : id};
   client.connect(err => {
   const collection = client.db("rpi-connect").collection("requests");
-  console.log(req.body);
   collection.updateOne(query, { $set : req.body } , { upsert: true },  function(err, result){
-    //console.log(result);
+
+    res.send(result);
   });
   //client.close();
 });
@@ -361,7 +361,7 @@ app.route('/req/:num')
 })
 
 
-
+/////////////////////////////////////////
 
 app.get('/', (req, res) => {
     res.status(200).sendFile(path.join(__dirname, '/public/index.html'));
