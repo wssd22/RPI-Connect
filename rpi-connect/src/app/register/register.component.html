@@ -38,247 +38,187 @@
                 <!--HUMANITIES, ARTS, and SOCIAL SCIENCES-->
                 <h3>HASS</h3>
                 <button #currentarts type = "button" (click) = "dropdown(currentarts)" name = "arts" id = "currentarts"><b>ARTS</b>  Arts</button>
-                <div class = "accordion" id = "artsAccordion">
-                    <li #currentARTS1 class = "current course" (click) = "selectClass(currentARTS1)">ARTS 1</li>
-                    <li #currentARTS2 class = "current course" (click) = "selectClass(currentARTS2)">ARTS 2</li>
-                    <li #currentARTS3 class = "current course" (click) = "selectClass(currentARTS3)">ARTS 3</li>
+                <div class = "accordion" id = "artsAccordionCur">
+                    <p style="display:none"></p>
                 </div>
                 <button #currentcogs type = "button" (click) = "dropdown(currentcogs)" name = "cogs" id = "currentcogs"><b>COGS</b>  Cognitive Science</button>
-                <div class = "accordion" id = "cogsAccordion">
-                    <li #currentCOGS1 class = "current course" (click) = "selectClass(currentCOGS1)">COGS 1</li>
-                    <li #currentCOGS2 class = "current course" (click) = "selectClass(currentCOGS2)">COGS 2</li>
-                    <li #currentCOGS3 class = "current course" (click) = "selectClass(currentCOGS3)">COGS 3</li>
+                <div class = "accordion" id = "cogsAccordionCur">
+                    <p style="display:none"></p>
                 </div>
                 <button #currentcomm type = "button" (click) = "dropdown(currentcomm)" name = "comm" id = "currentcomm"><b>COMM</b>  Communication</button>
-                <div class = "accordion" id = "commAccordion">
-                    <li #currentCOMM1 class = "current course" (click) = "selectClass(currentCOMM1)">COMM 1</li>
-                    <li #currentCOMM2 class = "current course" (click) = "selectClass(currentCOMM2)">COMM 2</li>
-                    <li #currentCOMM3 class = "current course" (click) = "selectClass(currentCOMM3)">COMM 3</li>
+                <div class = "accordion" id = "commAccordionCur">
+                    <p style="display:none"></p>
                 </div>
                 <button #currentecon type = "button" (click) = "dropdown(currentecon)" name = "econ" id = "currentecon"><b>ECON</b>  Economics</button>
-                <div class = "accordion" id = "econAccordion">
-                    <li #currentECON1 class = "current course" (click) = "selectClass(currentECON1)">ECON 1</li>
-                    <li #currentECON2 class = "current course" (click) = "selectClass(currentECON2)">ECON 2</li>
-                    <li #currentECON3 class = "current course" (click) = "selectClass(currentECON3)">ECON 3</li>
+                <div class = "accordion" id = "econAccordionCur">
+                    <p style="display:none"></p>
                 </div>
                 <button #currentgsas type = "button" (click) = "dropdown(currentgsas)" name = "gsas" id = "currentgsas"><b>GSAS</b>  Game Simulation Arts and Sciences</button>
-                <div class = "accordion" id = "gsasAccordion">
-                    <li #currentGSAS1 class = "current course" (click) = "selectClass(currentGSAS1)">GSAS 1</li>
-                    <li #currentGSAS2 tclass = "current course" (click) = "selectClass(currentGSAS2)">GSAS 2</li>
-                    <li #currentGSAS3 class = "current course" (click) = "selectClass(currentGSAS3)">GSAS 3</li>
+                <div class = "accordion" id = "gsasAccordionCur">
+                    <p style="display:none"></p>
                 </div>
                 <button #currentIHSS type = "button" (click) = "dropdown(currentIHSS)" name = "ihss" id = "currentihss"><b>IHSS</b>  Interdisciplinary Studies</button>
-                <div class = "accordion" id = "ihssAccordion">
-                    <li #currentIHSS1 class = "current course" (click) = "selectClass(currentIHSS1)">IHSS 1</li>
-                    <li #currentIHSS2 class = "current course" (click) = "selectClass(currentIHSS2)">IHSS 2</li>
-                    <li #currentIHSS3 class = "current course" (click) = "selectClass(currentIHSS3)">IHSS 3</li>
+                <div class = "accordion" id = "ihssAccordionCur">
+                    <p style="display:none"></p>
                 </div>
                 <button #currentlang type = "button" (click) = "dropdown(currentlang)" name = "lang" id = "currentlang"><b>LANG</b>  Foreign Languages</button>
-                <div class = "accordion" id = "langAccordion">
-                    <li #currentLANG1 class = "current course" (click) = "selectClass(currentLANG1)">LANG 1</li>
-                    <li #currentLANG2 class = "current course" (click) = "selectClass(currentLANG2)">LANG 2</li>
-                    <li #currentLANG3 class = "current course" (click) = "selectClass(currentLANG3)">LANG 3</li>
+                <div class = "accordion" id = "langAccordionCur">
+                    <p style="display:none"></p>
                 </div>
                 <button #currentlitr type = "button" (click) = "dropdown(currentlitr)" name = "litr" id = "currentlitr"><b>LITR</b>  Literature</button>
-                <div class = "accordion" id = "litrAccordion">
-                    <li #currentLITR1 class = "current course" (click) = "selectClass(currentLITR1)">LITR 1</li>
-                    <li #currentLITR2 class = "current course" (click) = "selectClass(currentLITR2)">LITR 2</li>
-                    <li #currentLITR3 class = "current course" (click) = "selectClass(currentLITR3)">LITR 3</li>
+                <div class = "accordion" id = "litrAccordionCur">
+                    <p style="display:none"></p>
                 </div>
                 <button #currentphil type = "button" (click) = "dropdown(currentphil)" name = "phil" id = "currentphil"><b>PHIL</b>  Philosophy</button>
-                <div class = "accordion" id = "philAccordion">
-                    <li #currentPHIL1 class = "current course" (click) = "selectClass(currentPHIL1)">PHIL 1</li>
-                    <li #currentPHIL2 class = "current course" (click) = "selectClass(currentPHIL2)">PHIL 2</li>
-                    <li #currentPHIL3 class = "current course" (click) = "selectClass(currentPHIL3)">PHIL 3</li>
+                <div class = "accordion" id = "philAccordionCur">
+                    <p style="display:none"></p>
                 </div>
                 <button #currentpsyc type = "button" (click) = "dropdown(currentpsyc)" name = "psyc" id = "currentpysc"><b>PSYC</b>  Psychology</button>
-                <div class = "accordion" id = "psycAccordion">
-                    <li #currentPSYC1 class = "current course" (click) = "selectClass(currentPSYC1)">PSYC 1</li>
-                    <li #currentPSYC2 class = "current course" (click) = "selectClass(currentPSYC2)">PSYC 2</li>
-                    <li #currentPSYC3 class = "current course" (click) = "selectClass(currentPSYC3)">PSYC 3</li>
+                <div class = "accordion" id = "psycAccordionCur">
+                    <p style="display:none"></p>
                 </div>
                 <button #currentwrit type = "button" (click) = "dropdown(currentwrit)" name = "writ" id = "currentwrit"><b>WRIT</b>  Writing</button>
-                <div class = "accordion" id = "writAccordion">
-                    <li #currentWRIT1 class = "current course" (click) = "selectClass(currentWRIT1)">WRIT 1</li>
-                    <li #currentWRIT2 class = "current course" (click) = "selectClass(currentWRIT2)">WRIT 2</li>
-                    <li #currentWRIT3 class = "current course" (click) = "selectClass(currentWRIT3)">WRIT 3</li>
+                <div class = "accordion" id = "writAccordionCur">
+                    <p style="display:none"></p>
                 </div>
             </div>
             <div class = "columns" id = "col2">
                 <!--SCIENCE-->
                 <h3>Science</h3>
                 <button #currentastr type = "button" (click) = "dropdown(currentastr)" name = "astr" id = "currentastr"><b>ASTR</b>  Astronomy</button>
-                <div class = "accordion" id = "astrAccordion">
-                    <li #currentASTR1 class = "current course" (click) = "selectClass(currentASTR1)">ASTR 1</li>
-                    <li #currentASTR2 class = "current course" (click) = "selectClass(currentASTR2)">ASTR 2</li>
-                    <li #currentASTR3 class = "current course" (click) = "selectClass(currentASTR3)">ASTR 3</li>
+                <div class = "accordion" id = "astrAccordionCur">
+                    <p style="display:none"></p>
                 </div>
                 <button #currentBCBP type = "button" (click) = "dropdown(currentBCBP)" name = "bcbp" id = "currentbcbp"><b>BCBP</b>  Biochemistry and Biophysics</button>
-                <div class = "accordion" id = "bcbpAccordion">
-                    <li #currentBCBP1 class = "current course" (click) = "selectClass(currentBCBP1)">BCBP 1</li>
-                    <li #currentBCBP2 class = "current course" (click) = "selectClass(currentBCBP2)">BCBP 2</li>
-                    <li #currentBCBP3 class = "current course" (click) = "selectClass(currentBCBP3)">BCBP 3</li>
+                <div class = "accordion" id = "bcbpAccordionCur">
+                    <p style="display:none"></p>
                 </div>
                 <button #currentbiol type = "button" (click) = "dropdown(currentbiol)" name = "biol" id = "currentbiol"><b>BIOL</b>  Biology</button>
-                <div class = "accordion" id = "biolAccordion">
-                    <li #currentBIOL1 class = "current course" (click) = "selectClass(currentBIOL1)">BIOL 1</li>
-                    <li #currentBIOL2 class = "current course" (click) = "selectClass(currentBIOL2)">BIOL 2</li>
-                    <li #currentBIOL3 class = "current course" (click) = "selectClass(currentBIOL3)">BIOL 3</li>
+                <div class = "accordion" id = "biolAccordionCur">
+                    <p style="display:none"></p>
                 </div>
                 <button #currentchem type = "button" (click) = "dropdown(currentchem)" name = "chem" id = "currentchem"><b>CHEM</b>  Chemistry</button>
-                <div class = "accordion" id = "chemAccordion">
-                    <li #currentCHEM1 class = "current course" (click) = "selectClass(currentCHEM1)">CHEM 1</li>
-                    <li #currentCHEM2 class = "current course" (click) = "selectClass(currentCHEM2)">CHEM 2</li>
-                    <li #currentCHEM3 class = "current course" (click) = "selectClass(currentCHEM3)">CHEM 3</li>
+                <div class = "accordion" id = "chemAccordionCur">
+                    <p style="display:none"></p>
                 </div>
                 <button #currentcsci type = "button" (click) = "dropdown(currentcsci)" name = "csci" id = "currentcsci"><b>CSCI</b>  Computer Science</button>
-                <div class = "accordion" id = "csciAccordion">
-                    <li #currentCSCI1 class = "current course" (click) = "selectClass(currentCSCI1)">CSCI 1</li>
-                    <li #currentCSCI2 class = "current course" (click) = "selectClass(currentCSCI2)">CSCI 2</li>
-                    <li #currentCSCI3 class = "current course" (click) = "selectClass(currentCSCI3)">CSCI 3</li>
+                <div class = "accordion" id = "csciAccordionCur">
+                    <p style="display:none"></p>
                 </div>
                 <button #currenterth type = "button" (click) = "dropdown(currenterth)" name = "erth" id = "currenterth"><b>ERTH</b>  Earth and Environmental Science</button>
-                <div class = "accordion" id = "erthAccordion">
-                    <li #currentERTH1 class = "current course" (click) = "selectClass(currentERTH1)">ERTH 1</li>
-                    <li #currentERTH2 class = "current course" (click) = "selectClass(currentERTH2)">ERTH 2</li>
-                    <li #currentERTH3 class = "current course" (click) = "selectClass(currentERTH3)">ERTH 3</li>
+                <div class = "accordion" id = "erthAccordionCur">
+                    <p style="display:none"></p>
                 </div>
                 <button #currentisci type = "button" (click) = "dropdown(currentisci)" name = "isci" id = "currentisci"><b>ISCI</b>  Interdisciplinary Science</button>
-                <div class = "accordion" id = "isciAccordion">
-                    <li #currentISCI1 class = "current course" (click) = "selectClass(currentISCI1)">ISCI 1</li>
-                    <li #currentISCI2 class = "current course" (click) = "selectClass(currentISCI2)">ISCI 2</li>
-                    <li #currentISCI3 class = "current course" (click) = "selectClass(currentISCI3)">ISCI 3</li>
+                <div class = "accordion" id = "isciAccordionCur">
+                    <p style="display:none"></p>
                 </div>
                 <button #currentitws type = "button" (click) = "dropdown(currentitws)" name = "itws" id = "currentitws"><b>ITWS</b>  Information Technology and Web Science</button>
-                <div class = "accordion" id = "itwsAccordion">
-                    <li #currentITWS1 class = "current course" (click) = "selectClass(currentITWS1)">ITWS 1</li>
-                    <li #currentITWS2 class = "current course" (click) = "selectClass(currentITWS2)">ITWS 2</li>
-                    <li #currentITWS3 class = "current course" (click) = "selectClass(currentITWS3)">ITWS 3</li>
+                <div class = "accordion" id = "itwsAccordionCur">
+                    <p style="display:none"></p>
                 </div>
                 <button #currentmath type = "button" (click) = "dropdown(currentmath)" name = "math" id = "currentmath"><b>MATH</b>  Mathematics</button>
-                <div class = "accordion" id = "mathAccordion">
-                    <li #currentMATH1 class = "current course" (click) = "selectClass(currentMATH1)">MATH 1</li>
-                    <li #currentMATH2 class = "current course" (click) = "selectClass(currentMATH2)">MATH 2</li>
-                    <li #currentMATH3 class = "current course" (click) = "selectClass(currentMATH3)">MATH 3</li>
+                <div class = "accordion" id = "mathAccordionCur">
+                    <p style="display:none"></p>
                 </div>
                 <button #currentmatp type = "button" (click) = "dropdown(currentmatp)" name = "matp" id = "currentmatp"><b>MATP</b>  Mathematical Programming, Probability, and Statistics</button>
-                <div class = "accordion" id = "matpAccordion">
-                    <li #currentMATP1 class = "current course" (click) = "selectClass(currentMATP1)">MATP 1</li>
-                    <li #currentMATP2 class = "current course" (click) = "selectClass(currentMATP2)">MATP 2</li>
-                    <li #currentMATP3 class = "current course" (click) = "selectClass(currentMATP3)">MATP 3</li>
+                <div class = "accordion" id = "matpAccordionCur">
+                    <p style="display:none"></p>
+                </div>
+                <button #currentphys type = "button" (click) = "dropdown(currentphys)" name = "phys" id = "currentphys"><b>PHYS</b>  PHYSICS</button>
+                <div class = "accordion" id = "physAccordionCur">
+                    <p style="display:none"></p>
                 </div>
             </div>
             <div class = "columns" id = "col3">
                 <!--ENGINEERING-->
                 <h3>Engineering</h3>
                 <button #currentbmed type = "button" (click) = "dropdown(currentbmed)" name = "bmed" id = "currentbmed"><b>BMED</b>  Biomedical Engineering</button>
-                <div class = "accordion" id = "bmedAccordion">
-                    <li #currentBMED1 class = "current course" (click) = "selectClass(currentBMED1)">BMED 1</li>
-                    <li #currentBMED2 class = "current course" (click) = "selectClass(currentBMED2)">BMED 2</li>
-                    <li #currentBMED3 class = "current course" (click) = "selectClass(currentBMED3)">BMED 3</li>
+                <div class = "accordion" id = "bmedAccordionCur">
+                    <p style="display:none"></p>
                 </div>
                 <button #currentchme type = "button" (click) = "dropdown(currentchme)" name = "chme" id = "currentchme"><b>CHME</b>  Chemical Engineering</button>
-                <div class = "accordion" id = "chmeAccordion">
-                    <li #currentCHME1 class = "current course" (click) = "selectClass(currentCHME1)">CHME 1</li>
-                    <li #currentCHME2 class = "current course" (click) = "selectClass(currentCHME2)">CHME 2</li>
-                    <li #currentCHME3 class = "current course" (click) = "selectClass(currentCHME3)">CHME 3</li>
+                <div class = "accordion" id = "chmeAccordionCur">
+                    <p style="display:none"></p>
                 </div>
                 <button #currentcivl type = "button" (click) = "dropdown(currentcivl)" name = "civl" id = "currentcivl"><b>CIVL</b>  Civil Engineering</button>
-                <div class = "accordion" id = "civlAccordion">
-                    <li #currentCIVL1 class = "current course" (click) = "selectClass(currentCIVL1)">CIVL 1</li>
-                    <li #currentCIVL2 class = "current course" (click) = "selectClass(currentCIVL2)">CIVL 2</li>
-                    <li #currentCIVL3 class = "current course" (click) = "selectClass(currentCIVL3)">CIVL 3</li>
+                <div class = "accordion" id = "civlAccordionCur">
+                    <p style="display:none"></p>
                 </div>
-                <button #currentesce type = "button" (click) = "dropdown(currentesce)" name = "esce" id = "currentesce"><b>ESCE</b>  Electrical, Computer, and Systems Engineering</button>
-                <div class = "accordion" id = "esceAccordion">
-                    <li #currentESCE1 class = "current course" (click) = "selectClass(currentESCE1)">ESCE 1</li>
-                    <li #currentESCE2 class = "current course" (click) = "selectClass(currentESCE2)">ESCE 2</li>
-                    <li #currentESCE3 class = "current course" (click) = "selectClass(currentESCE3)">ESCE 3</li>
+                <button #currentecse type = "button" (click) = "dropdown(currentecse)" name = "ecse" id = "currentecse"><b>ECSE</b>  Electrical, Computer, and Systems Engineering</button>
+                <div class = "accordion" id = "ecseAccordionCur">
+                    <p style="display:none"></p>
                 </div>
                 <button #currentengr type = "button" (click) = "dropdown(currentengr)" name = "engr" id = "currentengr"><b>ENGR</b>  General Engineering</button>
-                <div class = "accordion" id = "engrAccordion">
-                    <li #currentENGR1 class = "current course" (click) = "selectClass(currentENGR1)">ENGR 1</li>
-                    <li #currentENGR2 class = "current course" (click) = "selectClass(currentENGR2)">ENGR 2</li>
-                    <li #currentENGR3 class = "current course" (click) = "selectClass(currentENGR3)">ENGR 3</li>
+                <div class = "accordion" id = "engrAccordionCur">
+                    <p style="display:none"></p>
                 </div>
                 <button #currentenve type = "button" (click) = "dropdown(currentenve)" name = "enve" id = "currentenve"><b>ENVE</b>  Evironmental Engineering</button>
-                <div class = "accordion" id = "enveAccordion">
-                    <li #currentENVE1 class = "current course" (click) = "selectClass(currentENVE1)">ENVE 1</li>
-                    <li #currentENVE2 class = "current course" (click) = "selectClass(currentENVE2)">ENVE 2</li>
-                    <li #currentENVE3 class = "current course" (click) = "selectClass(currentENVE3)">ENVE 3</li>
+                <div class = "accordion" id = "enveAccordionCur">
+                    <p style="display:none"></p>
                 </div>
                 <button #currentesci type = "button" (click) = "dropdown(currentesci)" name = "esci" id = "currentesci"><b>ESCI</b>  Engineering Science</button>
-                <div class = "accordion" id = "esciAccordion">
-                    <li #currentESCI1 class = "current course" (click) = "selectClass(currentESCI1)">ESCI 1</li>
-                    <li #currentESCI2 class = "current course" (click) = "selectClass(currentESCI2)">ESCI 2</li>
-                    <li #currentESCI3 class = "current course" (click) = "selectClass(currentESCI3)">ESCI 3</li>
+                <div class = "accordion" id = "esciAccordionCur">
+                    <p style="display:none"></p>
                 </div>
                 <button #currentisye type = "button" (click) = "dropdown(currentisye)" name = "isye" id = "currentisye"><b>ISYE</b>  Industrial and Systems Engineering</button>
-                <div class = "accordion" id = "isyeAccordion">
-                    <li #currentISYE1 class = "current course" (click) = "selectClass(currentISYE1)">ISYE 1</li>
-                    <li #currentISYE2 class = "current course" (click) = "selectClass(currentISYE2)">ISYE 2</li>
-                    <li #currentISYE3 class = "current course" (click) = "selectClass(currentISYE3)">ISYE 3</li>
+                <div class = "accordion" id = "isyeAccordionCur">
+                    <p style="display:none"></p>
                 </div>
                 <button #currentmane type = "button" (click) = "dropdown(currentmane)" name = "mane" id = "currentmane"><b>MANE</b>  Mechanical, Aerospace, and Nuclear Engineering</button>
-                <div class = "accordion" id = "maneAccordion">
-                    <li #currentMANE1 class = "current course" (click) = "selectClass(currentMANE1)">MANE 1</li>
-                    <li #currentMANE2 class = "current course" (click) = "selectClass(currentMANE2)">MANE 2</li>
-                    <li #currentMANE3 class = "current course" (click) = "selectClass(currentMANE3)">MANE 3</li>
+                <div class = "accordion" id = "maneAccordionCur">
+                    <p style="display:none"></p>
+                </div>
+                <button #currentmtle type = "button" (click) = "dropdown(currentmtle)" name = "mtle" id = "currentmtle"><b>MTLE</b>  Material Science and Engineering</button>
+                <div class = "accordion" id = "mtleAccordionCur">
+                    <p style="display:none"></p>
                 </div>
             </div>
             <div class = "columns" id = "col4">
                 <div class = "row" id = "row1">
                     <h3>Architecture</h3>
                     <button #currentarch type = "button" (click) = "dropdown(currentarch)" name = "arch" id = "currentarch"><b>ARCH</b>  Architecture</button>
-                    <div class = "accordion" id = "archAccordion">
-                        <li #currentARCH1 class = "current course" (click) = "selectClass(currentARCH1)">ARCH 1</li>
-                        <li #currentARCH2 class = "current course" (click) = "selectClass(currentARCH2)">ARCH 2</li>
-                        <li #currentARCH3 class = "current course" (click) = "selectClass(currentARCH3)">ARCH 3</li>
+                    <div class = "accordion" id = "archAccordionCur">
+                        <p style="display:none"></p>
                     </div>
                     <button #currentlght type = "button" (click) = "dropdown(currentlght)" name = "lght" id = "currentlght"><b>LGHT</b>  Lighting</button>
-                    <div class = "accordion" id = "lghtAccordion">
-                        <li #currentLGHT1 class = "current course" (click) = "selectClass(currentLGHT1)">LGHT 1</li>
-                        <li #currentLGHT2 class = "current course" (click) = "selectClass(currentLGHT2)">LGHT 2</li>
-                        <li #currentLGHT3 class = "current course" (click) = "selectClass(currentLGHT3)">LGHT 3</li>
+                    <div class = "accordion" id = "lghtAccordionCur">
+                        <p style="display:none"></p>
                     </div>
                 </div>
                 <div class = "row" id = "row2">
                     <h3>Other</h3>
                     <button #currentadmn type = "button" (click) = "dropdown(currentadmn)" name = "admn" id = "currentadmn"><b>ADMN</b>  Administrative Courses</button>
-                    <div class = "accordion" id = "admnAccordion">
-                        <li #currentADMN1 class = "current course" (click) = "selectClass(currentADMN1)">ADMN 1</li>
-                        <li #currentADMN2 class = "current course" (click) = "selectClass(currentADMN2)">ADMN 2</li>
-                        <li #currentADMN3 class = "current course" (click) = "selectClass(currentADMN3)">ADMN 3</li>
+                    <div class = "accordion" id = "admnAccordionCur">
+                        <p style="display:none"></p>
                     </div>
                     <button #currentbusn type = "button" (click) = "dropdown(currentbusn)" name = "busn" id = "currentbusn"><b>BUSN</b>  Business(H)</button>
-                    <div class = "accordion" id = "busnAccordion">
-                        <li #currentBUSN1 class = "current course" (click) = "selectClass(currentBUSN1)">BUSN 1</li>
-                        <li #currentBUSN2 class = "current course" (click) = "selectClass(currentBUSN2)">BUSN 2</li>
-                        <li #currentBUSN3 class = "current course" (click) = "selectClass(currentBUSN3)">BUSN 3</li>
+                    <div class = "accordion" id = "busnAccordionCur">
+                        <p style="display:none"></p>
                     </div>
                     <button #currentienv type = "button" (click) = "dropdown(currentienv)" name = "ienv" id = "currentienv"><b>IENV</b>  Environmental Courses</button>
-                    <div class = "accordion" id = "ienvAccordion">
-                        <li #currentIENV1 class = "current course" (click) = "selectClass(currentIENV1)">IENV 1</li>
-                        <li #currentIENV2 class = "current course" (click) = "selectClass(currentIENV2)">IENV 2</li>
-                        <li #currentIENV3 class = "current course" (click) = "selectClass(currentIENV3)">IENV 3</li>
+                    <div class = "accordion" id = "ienvAccordionCur">
+                        <p style="display:none"></p>
                     </div>
                     <button #currentmgmt type = "button" (click) = "dropdown(currentmgmt)" name = "mgmt" id = "currentmgmt"><b>MGMT</b>  Management</button>
-                    <div class = "accordion" id = "mgmtAccordion">
-                        <li #currentMGMT1 class = "current course" (click) = "selectClass(currentMGMT1)">MGMT 1</li>
-                        <li #currentMGMT2 class = "current course" (click) = "selectClass(currentMGMT2)">MGMT 2</li>
-                        <li #currentMGMT3 class = "current course" (click) = "selectClass(currentMGMT3)">MGMT 3</li>
+                    <div class = "accordion" id = "mgmtAccordionCur">
+                        <p style="display:none"></p>
                     </div>
                     <button #currentstso type = "button" (click) = "dropdown(currentstso)" name = "stso" id = "currentstso"><b>STSO</b>  Science and Technology Studies (Humanities Courses)</button>
-                    <div class = "accordion" id = "stsoAccordion">
-                        <li #currentSTSO1 class = "current course" (click) = "selectClass(currentSTSO1)">STSO 1</li>
-                        <li #currentSTSO2 class = "current course" (click) = "selectClass(currentSTSO2)">STSO 2</li>
-                        <li #currentSTSO3 class = "current course" (click) = "selectClass(currentSTSO3)">STSO 3</li>
+                    <div class = "accordion" id = "stsoAccordionCur">
+                        <p style="display:none"></p>
                     </div>
-                    <button #currentuasf type = "button" (click) = "dropdown(currentuasf)" name = "uasf" id = "currentuasf"><b>USAG</b>  Aerospace Studies (Air Force ROTC)</button>
-                    <div class = "accordion" id = "uasfAccordion">
-                        <li #currentUSAF1 class = "current course" (click) = "selectClass(currentUSAF1)">USAF 1</li>
-                        <li #currentUSAF2 class = "current course" (click) = "selectClass(currentUSAF2)">USAF 2</li>
-                        <li #currentUSAF3 class = "current course" (click) = "selectClass(currentUSAF3)">USAF 3</li>
+                    <button #currentusaf type = "button" (click) = "dropdown(currentusaf)" name = "usaf" id = "currentusaf"><b>USAF</b>  Aerospace Studies (Air Force ROTC)</button>
+                    <div class = "accordion" id = "usafAccordionCur">
+                        <p style="display:none"></p>
+                    </div>
+                    <button #currentusar type = "button" (click) = "dropdown(currentusar)" name = "usar" id = "currentusar"><b>USAR</b>  Military Science (Army ROTC)</button>
+                    <div class = "accordion" id = "usarAccordionCur">
+                        <p style="display:none"></p>
+                    </div>
+                    <button #currentusna type = "button" (click) = "dropdown(currentusna)" name = "usna" id = "currentusna"><b>USNA</b>  Naval Science (Navy ROTC)</button>
+                    <div class = "accordion" id = "usnaAccordionCur">
+                        <p style="display:none"></p>
                     </div>
                 </div>
             </div>
@@ -293,247 +233,187 @@
                 <!--HUMANITIES, ARTS, and SOCIAL SCIENCES-->
                 <h3>HASS</h3>
                 <button #prevarts type = "button" (click) = "dropdown(prevarts)" name = "arts" id = "prevarts"><b>ARTS</b>  Arts</button>
-                <div class = "accordion" id = "artsAccordion">
-                    <li #prevARTS1 class = "prev course" (click) = "selectClass(prevARTS1)">ARTS 1</li>
-                    <li #prevARTS2 class = "prev course" (click) = "selectClass(prevARTS2)">ARTS 2</li>
-                    <li #prevARTS3 class = "prev course" (click) = "selectClass(prevARTS3)">ARTS 3</li>
+                <div class = "accordion" id = "artsAccordionPrev">
+                    <p style="display:none"></p>
                 </div>
                 <button #prevcogs type = "button" (click) = "dropdown(prevcogs)" name = "cogs" id = "prevcogs"><b>COGS</b>  Cognitive Science</button>
-                <div class = "accordion" id = "cogsAccordion">
-                    <li #prevCOGS1 class = "prev course" (click) = "selectClass(prevCOGS1)">COGS 1</li>
-                    <li #prevCOGS2 class = "prev course" (click) = "selectClass(prevCOGS2)">COGS 2</li>
-                    <li #prevCOGS3 class = "prev course" (click) = "selectClass(prevCOGS3)">COGS 3</li>
+                <div class = "accordion" id = "cogsAccordionPrev">
+                    <p style="display:none"></p>
                 </div>
                 <button #prevcomm type = "button" (click) = "dropdown(prevcomm)" name = "comm" id = "prevcomm"><b>COMM</b>  Communication</button>
-                <div class = "accordion" id = "commAccordion">
-                    <li #prevCOMM1 class = "prev course" (click) = "selectClass(prevCOMM1)">COMM 1</li>
-                    <li #prevCOMM2 class = "prev course" (click) = "selectClass(prevCOMM2)">COMM 2</li>
-                    <li #prevCOMM3 class = "prev course" (click) = "selectClass(prevCOMM3)">COMM 3</li>
+                <div class = "accordion" id = "commAccordionPrev">
+                    <p style="display:none"></p>
                 </div>
                 <button #prevecon type = "button" (click) = "dropdown(prevecon)" name = "econ" id = "prevecon"><b>ECON</b>  Economics</button>
-                <div class = "accordion" id = "econAccordion">
-                    <li #prevECON1 class = "prev course" (click) = "selectClass(prevECON1)">ECON 1</li>
-                    <li #prevECON2 class = "prev course" (click) = "selectClass(prevECON2)">ECON 2</li>
-                    <li #prevECON3 class = "prev course" (click) = "selectClass(prevECON3)">ECON 3</li>
+                <div class = "accordion" id = "econAccordionPrev">
+                    <p style="display:none"></p>
                 </div>
                 <button #prevgsas type = "button" (click) = "dropdown(prevgsas)" name = "gsas" id = "prevgsas"><b>GSAS</b>  Game Simulation Arts and Sciences</button>
-                <div class = "accordion" id = "gsasAccordion">
-                    <li #prevGSAS1 class = "prev course" (click) = "selectClass(prevGSAS1)">GSAS 1</li>
-                    <li #prevGSAS2 tclass = "prev course" (click) = "selectClass(prevGSAS2)">GSAS 2</li>
-                    <li #prevGSAS3 class = "prev course" (click) = "selectClass(prevGSAS3)">GSAS 3</li>
+                <div class = "accordion" id = "gsasAccordionPrev">
+                    <p style="display:none"></p>
                 </div>
                 <button #prevIHSS type = "button" (click) = "dropdown(prevIHSS)" name = "ihss" id = "previhss"><b>IHSS</b>  Interdisciplinary Studies</button>
-                <div class = "accordion" id = "ihssAccordion">
-                    <li #prevIHSS1 class = "prev course" (click) = "selectClass(prevIHSS1)">IHSS 1</li>
-                    <li #prevIHSS2 class = "prev course" (click) = "selectClass(prevIHSS2)">IHSS 2</li>
-                    <li #prevIHSS3 class = "prev course" (click) = "selectClass(prevIHSS3)">IHSS 3</li>
+                <div class = "accordion" id = "ihssAccordionPrev">
+                    <p style="display:none"></p>
                 </div>
                 <button #prevlang type = "button" (click) = "dropdown(prevlang)" name = "lang" id = "prevlang"><b>LANG</b>  Foreign Languages</button>
-                <div class = "accordion" id = "langAccordion">
-                    <li #prevLANG1 class = "prev course" (click) = "selectClass(prevLANG1)">LANG 1</li>
-                    <li #prevLANG2 class = "prev course" (click) = "selectClass(prevLANG2)">LANG 2</li>
-                    <li #prevLANG3 class = "prev course" (click) = "selectClass(prevLANG3)">LANG 3</li>
+                <div class = "accordion" id = "langAccordionPrev">
+                    <p style="display:none"></p>
                 </div>
                 <button #prevlitr type = "button" (click) = "dropdown(prevlitr)" name = "litr" id = "prevlitr"><b>LITR</b>  Literature</button>
-                <div class = "accordion" id = "litrAccordion">
-                    <li #prevLITR1 class = "prev course" (click) = "selectClass(prevLITR1)">LITR 1</li>
-                    <li #prevLITR2 class = "prev course" (click) = "selectClass(prevLITR2)">LITR 2</li>
-                    <li #prevLITR3 class = "prev course" (click) = "selectClass(prevLITR3)">LITR 3</li>
+                <div class = "accordion" id = "litrAccordionPrev">
+                    <p style="display:none"></p>
                 </div>
                 <button #prevphil type = "button" (click) = "dropdown(prevphil)" name = "phil" id = "prevphil"><b>PHIL</b>  Philosophy</button>
-                <div class = "accordion" id = "philAccordion">
-                    <li #prevPHIL1 class = "prev course" (click) = "selectClass(prevPHIL1)">PHIL 1</li>
-                    <li #prevPHIL2 class = "prev course" (click) = "selectClass(prevPHIL2)">PHIL 2</li>
-                    <li #prevPHIL3 class = "prev course" (click) = "selectClass(prevPHIL3)">PHIL 3</li>
+                <div class = "accordion" id = "philAccordionPrev">
+                    <p style="display:none"></p>
                 </div>
                 <button #prevpsyc type = "button" (click) = "dropdown(prevpsyc)" name = "psyc" id = "prevpysc"><b>PSYC</b>  Psychology</button>
-                <div class = "accordion" id = "psycAccordion">
-                    <li #prevPSYC1 class = "prev course" (click) = "selectClass(prevPSYC1)">PSYC 1</li>
-                    <li #prevPSYC2 class = "prev course" (click) = "selectClass(prevPSYC2)">PSYC 2</li>
-                    <li #prevPSYC3 class = "prev course" (click) = "selectClass(prevPSYC3)">PSYC 3</li>
+                <div class = "accordion" id = "psycAccordionPrev">
+                    <p style="display:none"></p>
                 </div>
                 <button #prevwrit type = "button" (click) = "dropdown(prevwrit)" name = "writ" id = "prevwrit"><b>WRIT</b>  Writing</button>
-                <div class = "accordion" id = "writAccordion">
-                    <li #prevWRIT1 class = "prev course" (click) = "selectClass(prevWRIT1)">WRIT 1</li>
-                    <li #prevWRIT2 class = "prev course" (click) = "selectClass(prevWRIT2)">WRIT 2</li>
-                    <li #prevWRIT3 class = "prev course" (click) = "selectClass(prevWRIT3)">WRIT 3</li>
+                <div class = "accordion" id = "writAccordionPrev">
+                    <p style="display:none"></p>
                 </div>
             </div>
             <div class = "columns" id = "col2">
                 <!--SCIENCE-->
                 <h3>Science</h3>
                 <button #prevastr type = "button" (click) = "dropdown(prevastr)" name = "astr" id = "prevastr"><b>ASTR</b>  Astronomy</button>
-                <div class = "accordion" id = "astrAccordion">
-                    <li #prevASTR1 class = "prev course" (click) = "selectClass(prevASTR1)">ASTR 1</li>
-                    <li #prevASTR2 class = "prev course" (click) = "selectClass(prevASTR2)">ASTR 2</li>
-                    <li #prevASTR3 class = "prev course" (click) = "selectClass(prevASTR3)">ASTR 3</li>
+                <div class = "accordion" id = "astrAccordionPrev">
+                    <p style="display:none"></p>
                 </div>
                 <button #prevBCBP type = "button" (click) = "dropdown(prevBCBP)" name = "bcbp" id = "prevbcbp"><b>BCBP</b>  Biochemistry and Biophysics</button>
-                <div class = "accordion" id = "bcbpAccordion">
-                    <li #prevBCBP1 class = "prev course" (click) = "selectClass(prevBCBP1)">BCBP 1</li>
-                    <li #prevBCBP2 class = "prev course" (click) = "selectClass(prevBCBP2)">BCBP 2</li>
-                    <li #prevBCBP3 class = "prev course" (click) = "selectClass(prevBCBP3)">BCBP 3</li>
+                <div class = "accordion" id = "bcbpAccordionPrev">
+                    <p style="display:none"></p>
                 </div>
                 <button #prevbiol type = "button" (click) = "dropdown(prevbiol)" name = "biol" id = "prevbiol"><b>BIOL</b>  Biology</button>
-                <div class = "accordion" id = "biolAccordion">
-                    <li #prevBIOL1 class = "prev course" (click) = "selectClass(prevBIOL1)">BIOL 1</li>
-                    <li #prevBIOL2 class = "prev course" (click) = "selectClass(prevBIOL2)">BIOL 2</li>
-                    <li #prevBIOL3 class = "prev course" (click) = "selectClass(prevBIOL3)">BIOL 3</li>
+                <div class = "accordion" id = "biolAccordionPrev">
+                    <p style="display:none"></p>
                 </div>
                 <button #prevchem type = "button" (click) = "dropdown(prevchem)" name = "chem" id = "prevchem"><b>CHEM</b>  Chemistry</button>
-                <div class = "accordion" id = "chemAccordion">
-                    <li #prevCHEM1 class = "prev course" (click) = "selectClass(prevCHEM1)">CHEM 1</li>
-                    <li #prevCHEM2 class = "prev course" (click) = "selectClass(prevCHEM2)">CHEM 2</li>
-                    <li #prevCHEM3 class = "prev course" (click) = "selectClass(prevCHEM3)">CHEM 3</li>
+                <div class = "accordion" id = "chemAccordionPrev">
+                    <p style="display:none"></p>
                 </div>
                 <button #prevcsci type = "button" (click) = "dropdown(prevcsci)" name = "csci" id = "prevcsci"><b>CSCI</b>  Computer Science</button>
-                <div class = "accordion" id = "csciAccordion">
-                    <li #prevCSCI1 class = "prev course" (click) = "selectClass(prevCSCI1)">CSCI 1</li>
-                    <li #prevCSCI2 class = "prev course" (click) = "selectClass(prevCSCI2)">CSCI 2</li>
-                    <li #prevCSCI3 class = "prev course" (click) = "selectClass(prevCSCI3)">CSCI 3</li>
+                <div class = "accordion" id = "csciAccordionPrev">
+                    <p style="display:none"></p>
                 </div>
                 <button #preverth type = "button" (click) = "dropdown(preverth)" name = "erth" id = "preverth"><b>ERTH</b>  Earth and Environmental Science</button>
-                <div class = "accordion" id = "erthAccordion">
-                    <li #prevERTH1 class = "prev course" (click) = "selectClass(prevERTH1)">ERTH 1</li>
-                    <li #prevERTH2 class = "prev course" (click) = "selectClass(prevERTH2)">ERTH 2</li>
-                    <li #prevERTH3 class = "prev course" (click) = "selectClass(prevERTH3)">ERTH 3</li>
+                <div class = "accordion" id = "erthAccordionPrev">
+                    <p style="display:none"></p>
                 </div>
                 <button #previsci type = "button" (click) = "dropdown(previsci)" name = "isci" id = "previsci"><b>ISCI</b>  Interdisciplinary Science</button>
-                <div class = "accordion" id = "isciAccordion">
-                    <li #prevISCI1 class = "prev course" (click) = "selectClass(prevISCI1)">ISCI 1</li>
-                    <li #prevISCI2 class = "prev course" (click) = "selectClass(prevISCI2)">ISCI 2</li>
-                    <li #prevISCI3 class = "prev course" (click) = "selectClass(prevISCI3)">ISCI 3</li>
+                <div class = "accordion" id = "isciAccordionPrev">
+                    <p style="display:none"></p>
                 </div>
                 <button #previtws type = "button" (click) = "dropdown(previtws)" name = "itws" id = "previtws"><b>ITWS</b>  Information Technology and Web Science</button>
-                <div class = "accordion" id = "itwsAccordion">
-                    <li #prevITWS1 class = "prev course" (click) = "selectClass(prevITWS1)">ITWS 1</li>
-                    <li #prevITWS2 class = "prev course" (click) = "selectClass(prevITWS2)">ITWS 2</li>
-                    <li #prevITWS3 class = "prev course" (click) = "selectClass(prevITWS3)">ITWS 3</li>
+                <div class = "accordion" id = "itwsAccordionPrev">
+                    <p style="display:none"></p>
                 </div>
                 <button #prevmath type = "button" (click) = "dropdown(prevmath)" name = "math" id = "prevmath"><b>MATH</b>  Mathematics</button>
-                <div class = "accordion" id = "mathAccordion">
-                    <li #prevMATH1 class = "prev course" (click) = "selectClass(prevMATH1)">MATH 1</li>
-                    <li #prevMATH2 class = "prev course" (click) = "selectClass(prevMATH2)">MATH 2</li>
-                    <li #prevMATH3 class = "prev course" (click) = "selectClass(prevMATH3)">MATH 3</li>
+                <div class = "accordion" id = "mathAccordionPrev">
+                    <p style="display:none"></p>
                 </div>
                 <button #prevmatp type = "button" (click) = "dropdown(prevmatp)" name = "matp" id = "prevmatp"><b>MATP</b>  Mathematical Programming, Probability, and Statistics</button>
-                <div class = "accordion" id = "matpAccordion">
-                    <li #prevMATP1 class = "prev course" (click) = "selectClass(prevMATP1)">MATP 1</li>
-                    <li #prevMATP2 class = "prev course" (click) = "selectClass(prevMATP2)">MATP 2</li>
-                    <li #prevMATP3 class = "prev course" (click) = "selectClass(prevMATP3)">MATP 3</li>
+                <div class = "accordion" id = "matpAccordionPrev">
+                    <p style="display:none"></p>
+                </div>
+                <button #prevphys type = "button" (click) = "dropdown(prevphys)" name = "phys" id = "prevphys"><b>PHYS</b> PHYSICS</button>
+                <div class = "accordion" id = "physAccordionPrev">
+                    <p style="display:none"></p>
                 </div>
             </div>
             <div class = "columns" id = "col3">
                 <!--ENGINEERING-->
                 <h3>Engineering</h3>
                 <button #prevbmed type = "button" (click) = "dropdown(prevbmed)" name = "bmed" id = "prevbmed"><b>BMED</b>  Biomedical Engineering</button>
-                <div class = "accordion" id = "bmedAccordion">
-                    <li #prevBMED1 class = "prev course" (click) = "selectClass(prevBMED1)">BMED 1</li>
-                    <li #prevBMED2 class = "prev course" (click) = "selectClass(prevBMED2)">BMED 2</li>
-                    <li #prevBMED3 class = "prev course" (click) = "selectClass(prevBMED3)">BMED 3</li>
+                <div class = "accordion" id = "bmedAccordionPrev">
+                    <p style="display:none"></p>
                 </div>
                 <button #prevchme type = "button" (click) = "dropdown(prevchme)" name = "chme" id = "prevchme"><b>CHME</b>  Chemical Engineering</button>
-                <div class = "accordion" id = "chmeAccordion">
-                    <li #prevCHME1 class = "prev course" (click) = "selectClass(prevCHME1)">CHME 1</li>
-                    <li #prevCHME2 class = "prev course" (click) = "selectClass(prevCHME2)">CHME 2</li>
-                    <li #prevCHME3 class = "prev course" (click) = "selectClass(prevCHME3)">CHME 3</li>
+                <div class = "accordion" id = "chmeAccordionPrev">
+                    <p style="display:none"></p>
                 </div>
                 <button #prevcivl type = "button" (click) = "dropdown(prevcivl)" name = "civl" id = "prevcivl"><b>CIVL</b>  Civil Engineering</button>
-                <div class = "accordion" id = "civlAccordion">
-                    <li #prevCIVL1 class = "prev course" (click) = "selectClass(prevCIVL1)">CIVL 1</li>
-                    <li #prevCIVL2 class = "prev course" (click) = "selectClass(prevCIVL2)">CIVL 2</li>
-                    <li #prevCIVL3 class = "prev course" (click) = "selectClass(prevCIVL3)">CIVL 3</li>
+                <div class = "accordion" id = "civlAccordionPrev">
+                    <p style="display:none"></p>
                 </div>
-                <button #prevesce type = "button" (click) = "dropdown(prevesce)" name = "esce" id = "prevesce"><b>ESCE</b>  Electrical, Computer, and Systems Engineering</button>
-                <div class = "accordion" id = "esceAccordion">
-                    <li #prevESCE1 class = "prev course" (click) = "selectClass(prevESCE1)">ESCE 1</li>
-                    <li #prevESCE2 class = "prev course" (click) = "selectClass(prevESCE2)">ESCE 2</li>
-                    <li #prevESCE3 class = "prev course" (click) = "selectClass(prevESCE3)">ESCE 3</li>
+                <button #prevecse type = "button" (click) = "dropdown(prevecse)" name = "ecse" id = "prevecse"><b>ECSE</b>  Electrical, Computer, and Systems Engineering</button>
+                <div class = "accordion" id = "ecseAccordionPrev">
+                    <p style="display:none"></p>
                 </div>
                 <button #prevengr type = "button" (click) = "dropdown(prevengr)" name = "engr" id = "prevengr"><b>ENGR</b>  General Engineering</button>
-                <div class = "accordion" id = "engrAccordion">
-                    <li #prevENGR1 class = "prev course" (click) = "selectClass(prevENGR1)">ENGR 1</li>
-                    <li #prevENGR2 class = "prev course" (click) = "selectClass(prevENGR2)">ENGR 2</li>
-                    <li #prevENGR3 class = "prev course" (click) = "selectClass(prevENGR3)">ENGR 3</li>
+                <div class = "accordion" id = "engrAccordionPrev">
+                    <p style="display:none"></p>
                 </div>
                 <button #prevenve type = "button" (click) = "dropdown(prevenve)" name = "enve" id = "prevenve"><b>ENVE</b>  Evironmental Engineering</button>
-                <div class = "accordion" id = "enveAccordion">
-                    <li #prevENVE1 class = "prev course" (click) = "selectClass(prevENVE1)">ENVE 1</li>
-                    <li #prevENVE2 class = "prev course" (click) = "selectClass(prevENVE2)">ENVE 2</li>
-                    <li #prevENVE3 class = "prev course" (click) = "selectClass(prevENVE3)">ENVE 3</li>
+                <div class = "accordion" id = "enveAccordionPrev">
+                    <p style="display:none"></p>
                 </div>
                 <button #prevesci type = "button" (click) = "dropdown(prevesci)" name = "esci" id = "prevesci"><b>ESCI</b>  Engineering Science</button>
-                <div class = "accordion" id = "esciAccordion">
-                    <li #prevESCI1 class = "prev course" (click) = "selectClass(prevESCI1)">ESCI 1</li>
-                    <li #prevESCI2 class = "prev course" (click) = "selectClass(prevESCI2)">ESCI 2</li>
-                    <li #prevESCI3 class = "prev course" (click) = "selectClass(prevESCI3)">ESCI 3</li>
+                <div class = "accordion" id = "esciAccordionPrev">
+                    <p style="display:none"></p>
                 </div>
                 <button #previsye type = "button" (click) = "dropdown(previsye)" name = "isye" id = "previsye"><b>ISYE</b>  Industrial and Systems Engineering</button>
-                <div class = "accordion" id = "isyeAccordion">
-                    <li #prevISYE1 class = "prev course" (click) = "selectClass(prevISYE1)">ISYE 1</li>
-                    <li #prevISYE2 class = "prev course" (click) = "selectClass(prevISYE2)">ISYE 2</li>
-                    <li #prevISYE3 class = "prev course" (click) = "selectClass(prevISYE3)">ISYE 3</li>
+                <div class = "accordion" id = "isyeAccordionPrev">
+                    <p style="display:none"></p>
                 </div>
                 <button #prevmane type = "button" (click) = "dropdown(prevmane)" name = "mane" id = "prevmane"><b>MANE</b>  Mechanical, Aerospace, and Nuclear Engineering</button>
-                <div class = "accordion" id = "maneAccordion">
-                    <li #prevMANE1 class = "prev course" (click) = "selectClass(prevMANE1)">MANE 1</li>
-                    <li #prevMANE2 class = "prev course" (click) = "selectClass(prevMANE2)">MANE 2</li>
-                    <li #prevMANE3 class = "prev course" (click) = "selectClass(prevMANE3)">MANE 3</li>
+                <div class = "accordion" id = "maneAccordionPrev">
+                    <p style="display:none"></p>
+                </div>
+                <button #prevmtle type = "button" (click) = "dropdown(prevmtle)" name = "mtle" id = "prevmtle"><b>MTLE</b>  Material Science and Engineering</button>
+                <div class = "accordion" id = "mtleAccordionPrev">
+                    <p style="display:none"></p>
                 </div>
             </div>
             <div class = "columns" id = "col4">
                 <div class = "row" id = "row1">
                     <h3>Architecture</h3>
                     <button #prevarch type = "button" (click) = "dropdown(prevarch)" name = "arch" id = "prevarch"><b>ARCH</b>  Architecture</button>
-                    <div class = "accordion" id = "archAccordion">
-                        <li #prevARCH1 class = "prev course" (click) = "selectClass(prevARCH1)">ARCH 1</li>
-                        <li #prevARCH2 class = "prev course" (click) = "selectClass(prevARCH2)">ARCH 2</li>
-                        <li #prevARCH3 class = "prev course" (click) = "selectClass(prevARCH3)">ARCH 3</li>
+                    <div class = "accordion" id = "archAccordionPrev">
+                        <p style="display:none"></p>
                     </div>
                     <button #prevlght type = "button" (click) = "dropdown(prevlght)" name = "lght" id = "prevlght"><b>LGHT</b>  Lighting</button>
-                    <div class = "accordion" id = "lghtAccordion">
-                        <li #prevLGHT1 class = "prev course" (click) = "selectClass(prevLGHT1)">LGHT 1</li>
-                        <li #prevLGHT2 class = "prev course" (click) = "selectClass(prevLGHT2)">LGHT 2</li>
-                        <li #prevLGHT3 class = "prev course" (click) = "selectClass(prevLGHT3)">LGHT 3</li>
+                    <div class = "accordion" id = "lghtAccordionPrev">
+                        <p style="display:none"></p>
                     </div>
                 </div>
                 <div class = "row" id = "row2">
                     <h3>Other</h3>
                     <button #prevadmn type = "button" (click) = "dropdown(prevadmn)" name = "admn" id = "prevadmn"><b>ADMN</b>  Administrative Courses</button>
-                    <div class = "accordion" id = "admnAccordion">
-                        <li #prevADMN1 class = "prev course" (click) = "selectClass(prevADMN1)">ADMN 1</li>
-                        <li #prevADMN2 class = "prev course" (click) = "selectClass(prevADMN2)">ADMN 2</li>
-                        <li #prevADMN3 class = "prev course" (click) = "selectClass(prevADMN3)">ADMN 3</li>
+                    <div class = "accordion" id = "admnAccordionPrev">
+                        <p style="display:none"></p>
                     </div>
                     <button #prevbusn type = "button" (click) = "dropdown(prevbusn)" name = "busn" id = "prevbusn"><b>BUSN</b>  Business(H)</button>
-                    <div class = "accordion" id = "busnAccordion">
-                        <li #prevBUSN1 class = "prev course" (click) = "selectClass(prevBUSN1)">BUSN 1</li>
-                        <li #prevBUSN2 class = "prev course" (click) = "selectClass(prevBUSN2)">BUSN 2</li>
-                        <li #prevBUSN3 class = "prev course" (click) = "selectClass(prevBUSN3)">BUSN 3</li>
+                    <div class = "accordion" id = "busnAccordionPrev">
+                        <p style="display:none"></p>
                     </div>
                     <button #previenv type = "button" (click) = "dropdown(previenv)" name = "ienv" id = "previenv"><b>IENV</b>  Environmental Courses</button>
-                    <div class = "accordion" id = "ienvAccordion">
-                        <li #prevIENV1 class = "prev course" (click) = "selectClass(prevIENV1)">IENV 1</li>
-                        <li #prevIENV2 class = "prev course" (click) = "selectClass(prevIENV2)">IENV 2</li>
-                        <li #prevIENV3 class = "prev course" (click) = "selectClass(prevIENV3)">IENV 3</li>
+                    <div class = "accordion" id = "ienvAccordionPrev">
+                        <p style="display:none"></p>
                     </div>
                     <button #prevmgmt type = "button" (click) = "dropdown(prevmgmt)" name = "mgmt" id = "prevmgmt"><b>MGMT</b>  Management</button>
-                    <div class = "accordion" id = "mgmtAccordion">
-                        <li #prevMGMT1 class = "prev course" (click) = "selectClass(prevMGMT1)">MGMT 1</li>
-                        <li #prevMGMT2 class = "prev course" (click) = "selectClass(prevMGMT2)">MGMT 2</li>
-                        <li #prevMGMT3 class = "prev course" (click) = "selectClass(prevMGMT3)">MGMT 3</li>
+                    <div class = "accordion" id = "mgmtAccordionPrev">
+                        <p style="display:none"></p>
                     </div>
                     <button #prevstso type = "button" (click) = "dropdown(prevstso)" name = "stso" id = "prevstso"><b>STSO</b>  Science and Technology Studies (Humanities Courses)</button>
-                    <div class = "accordion" id = "stsoAccordion">
-                        <li #prevSTSO1 class = "prev course" (click) = "selectClass(prevSTSO1)">STSO 1</li>
-                        <li #prevSTSO2 class = "prev course" (click) = "selectClass(prevSTSO2)">STSO 2</li>
-                        <li #prevSTSO3 class = "prev course" (click) = "selectClass(prevSTSO3)">STSO 3</li>
+                    <div class = "accordion" id = "stsoAccordionPrev">
+                        <p style="display:none"></p>
                     </div>
-                    <button #prevuasf type = "button" (click) = "dropdown(prevuasf)" name = "uasf" id = "prevuasf"><b>USAG</b>  Aerospace Studies (Air Force ROTC)</button>
-                    <div class = "accordion" id = "uasfAccordion">
-                        <li #prevUSAF1 class = "prev course" (click) = "selectClass(prevUSAF1)">USAF 1</li>
-                        <li #prevUSAF2 class = "prev course" (click) = "selectClass(prevUSAF2)">USAF 2</li>
-                        <li #prevUSAF3 class = "prev course" (click) = "selectClass(prevUSAF3)">USAF 3</li>
+                    <button #prevusaf type = "button" (click) = "dropdown(prevusaf)" name = "usaf" id = "prevusaf"><b>USAF</b>  Aerospace Studies (Air Force ROTC)</button>
+                    <div class = "accordion" id = "usafAccordionPrev">
+                        <p style="display:none"></p>
+                    </div>
+                    <button #prevusar type = "button" (click) = "dropdown(prevusar)" name = "usar" id = "prevusar"><b>USAR</b>  Military Science (Army ROTC)</button>
+                    <div class = "accordion" id = "usarAccordionPrev">
+                        <p style="display:none"></p>
+                    </div>
+                    <button #prevusna type = "button" (click) = "dropdown(prevusna)" name = "usna" id = "prevusna"><b>USNA</b>  Naval Science (Navy ROTC)</button>
+                    <div class = "accordion" id = "usnaAccordionPrev">
+                        <p style="display:none"></p>
                     </div>
                 </div>
             </div>

@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter, OnInit, ViewChild } from '@angu
 import { ProfileComponent } from './profile/profile.component';
 import { MyRequestsComponent } from './my-requests/my-requests.component';
 import { RequestsComponent } from './requests/requests.component';
+import { RegisterComponent } from './register/register.component';
 import { HttpService } from './http.service';
 
 @Component({
@@ -15,6 +16,7 @@ export class AppComponent{
   @ViewChild(ProfileComponent) profile!: ProfileComponent;
   @ViewChild(MyRequestsComponent) myReqs!: MyRequestsComponent;
   @ViewChild(RequestsComponent) reqs!: RequestsComponent;
+  @ViewChild(RegisterComponent) reg!: RegisterComponent;
   title = 'rpi-connect';
   showHome = true;
   showRequests = false;
@@ -146,6 +148,8 @@ export class AppComponent{
       this.showRegister = true;
       this.showProfile = false;
       this.showMyRequests = false;
+      this.reg.loadCurrentClasses();
+      this.reg.loadPrevClasses();
     }
     else if(page == "myRequests" && this.sentId != 0){
       this.showHome = false;

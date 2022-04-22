@@ -55,6 +55,7 @@ export class MyRequestsComponent implements OnInit {
       datePosted:
       status:
       userId:
+      userDisc:
       userName:
       answerId:
     }
@@ -70,12 +71,14 @@ export class MyRequestsComponent implements OnInit {
     var reqClass = (<HTMLInputElement>course).value;
     var reqMsg = (<HTMLInputElement>msg).value
     var name = "";
+    var disc = ""
     var id = Math.floor(Math.random() * (1000000 - 10000 + 1)) + 10000;
     //get name
     this.httpService.sendGetRequest("user/" + this.profileId.toString()).subscribe((res) => {
       
       this.data = res;
       name = this.data.name;
+      disc = this.data.discord;
       var current = this.data.current;
       var enrolled = false;
       
@@ -114,6 +117,7 @@ export class MyRequestsComponent implements OnInit {
       "status" : "active",
       "userId" : this.profileId,
       "userName" : name,
+      "userDisc" : disc,
       "answerId" : 0
     };
 

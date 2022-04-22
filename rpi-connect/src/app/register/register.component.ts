@@ -1,10 +1,12 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
+import { ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class RegisterComponent implements OnInit {
   @Input() registerShow: boolean = false; 
@@ -187,7 +189,8 @@ public prevStep(step:HTMLElement){
 
   public selectClass(course:HTMLElement){
     //remove course from list
-    if(course.classList.contains("select")){
+
+    if((<HTMLElement>course).classList.contains("select")){
         course.classList.remove("select");
         //current
         if(course.classList.contains("current")){
@@ -247,38 +250,38 @@ public prevStep(step:HTMLElement){
     }//add course to list
     else{
         //find class from opposite class selection
-        if(course.classList.contains("current")){
+        if((<HTMLElement>course).classList.contains("current")){
             var prevs = document.getElementsByClassName("prev");
             for(var i = 0; i < prevs.length; i++){
-                if(prevs[i].innerHTML == course.innerHTML && prevs[i].classList.contains("select")){
+                if(prevs[i].innerHTML == course.innerHTML && (<HTMLElement>prevs[i]).classList.contains("select")){
                     alert("Already selected class in Previous Classes");
                     return;
                 }
             }
         }
-        if(course.classList.contains("prev")){
+        if((<HTMLElement>course).classList.contains("prev")){
             var currents = document.getElementsByClassName("current");
             for(var i = 0; i < currents.length; i++){
-                if(currents[i].innerHTML == course.innerHTML && currents[i].classList.contains("select")){
+                if(currents[i].innerHTML == course.innerHTML && (<HTMLElement>currents[i]).classList.contains("select")){
                     alert("Already selected class in Current Classes");
                     return;
                 }
             }
         }
-
-        course.classList.add("select");
+        
+        (<HTMLElement>course).classList.add("select");
         var prefix = course.innerHTML;
         //current
-        if(course.classList.contains("current")){
-            if(!(<HTMLElement>document.getElementById("current" + prefix.split(" ")[0].toLowerCase())).classList.contains("select")){
-                (<HTMLElement>document.getElementById("current" + prefix.split(" ")[0].toLowerCase())).classList.add("select");
+        if((<HTMLElement>course).classList.contains("current")){
+            if(!(<HTMLElement>document.getElementById("current" + prefix.split(" ")[0])).classList.contains("select")){
+                (<HTMLElement>document.getElementById("current" + prefix.split(" ")[0])).classList.add("select");
             }
-            
+            alert("hello");
             this.currentClasses.push(prefix);
         }
         else{//previous
-            if(!(<HTMLElement>document.getElementById("prev" + prefix.split(" ")[0].toLowerCase())).classList.contains("select")){
-                (<HTMLElement>document.getElementById("prev" + prefix.split(" ")[0].toLowerCase())).classList.add("select");
+            if(!(<HTMLElement>document.getElementById("prev" + prefix.split(" ")[0])).classList.contains("select")){
+                (<HTMLElement>document.getElementById("prev" + prefix.split(" ")[0])).classList.add("select");
             }
             this.prevClasses.push(prefix);
         }
@@ -302,6 +305,82 @@ public dropdown(target:HTMLElement) {
       (<HTMLElement>dropMenu).style.display = "block";
     }
 }
+
+  public loadCurrentClasses(){
+    this.httpService.sendGetRequest('courses').subscribe((res) => {
+      this.data = res;
+      /*
+      <div class = "accordion" id = "artsAccordion">
+                    <li #currentARTS1 class = "current course" (click) = "selectClass(currentARTS1)">ARTS 1</li>
+                    <li #currentARTS2 class = "current course" (click) = "selectClass(currentARTS2)">ARTS 2</li>
+                    <li #currentARTS3 class = "current course" (click) = "selectClass(currentARTS3)">ARTS 3</li>
+                </div>
+      */
+      for(var i = 0; i < this.data.length; i++){
+        var courses = this.data[i].courses;
+        var prefix = this.data[i].code.toLowerCase();
+        var dropdown = document.getElementById(prefix + "AccordionCur");
+        //alert(prefix + "Accordion");
+        //alert((<HTMLElement>dropdown).id);
+        //var after = (<HTMLElement>dropdown).querySelectorAll('p');
+        //var str = "";
+        for(var j = 0; j < courses.length; j++){
+          //str += "<li #current" + courses[j].id + "class = 'current course ' (click) = 'selectClass(current" + courses[j].id + ")'>" + courses[j].id + " " + courses[j].title + "</li>";
+          const elem = document.createElement('li');
+          elem.classList.add('current');
+          elem.classList.add('course');
+          elem.id = "current" + courses[j].id;
+          //elem.type = 'button';
+          elem.addEventListener('click', (e) => {
+            this.selectClass(elem);//your typescript function
+          });
+          elem.innerHTML = courses[j].id + " " + courses[j].title;
+          dropdown?.appendChild(elem);
+          //after[0].insertAdjacentHTML("afterend", elem);
+        }
+        //alert((<HTMLElement>dropdown).id);
+        //(<HTMLElement>dropdown).innerHTML = str;
+      }
+    });
+  }
+
+  public loadPrevClasses(){
+    this.httpService.sendGetRequest('courses').subscribe((res) => {
+      this.data = res;
+      /*
+      <div class = "accordion" id = "artsAccordion">
+                    <li #currentARTS1 class = "current course" (click) = "selectClass(currentARTS1)">ARTS 1</li>
+                    <li #currentARTS2 class = "current course" (click) = "selectClass(currentARTS2)">ARTS 2</li>
+                    <li #currentARTS3 class = "current course" (click) = "selectClass(currentARTS3)">ARTS 3</li>
+                </div>
+      */
+      for(var i = 0; i < this.data.length; i++){
+        var courses = this.data[i].courses;
+        var prefix = this.data[i].code.toLowerCase();
+        var dropdown = document.getElementById(prefix + "AccordionPrev");
+        //alert(prefix + "Accordion");
+        //alert((<HTMLElement>dropdown).id);
+        //var after = (<HTMLElement>dropdown).querySelectorAll('p');
+        //var str = "";
+        for(var j = 0; j < courses.length; j++){
+          //str += "<li #current" + courses[j].id + "class = 'current course ' (click) = 'selectClass(current" + courses[j].id + ")'>" + courses[j].id + " " + courses[j].title + "</li>";
+          const elem = document.createElement('li');
+          elem.classList.add('prev');
+          elem.classList.add('course');
+          elem.id = "prev" + courses[j].id;
+          //elem.type = 'button';
+          elem.addEventListener('click', (e) => {
+            this.selectClass(elem);//your typescript function
+          });
+          elem.innerHTML = courses[j].id + " " + courses[j].title;
+          dropdown?.appendChild(elem);
+          //after[0].insertAdjacentHTML("afterend", elem);
+        }
+        //alert((<HTMLElement>dropdown).id);
+        //(<HTMLElement>dropdown).innerHTML = str;
+      }
+    });    
+  }
 
 
 }

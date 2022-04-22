@@ -91,7 +91,15 @@ app.put('/user/:field/:input', (req, res) => {
       var query = {reqs : reqsArray};
       if (!err) {
           collection.updateOne(req.body, { $set : query } , { upsert: true },  function(err, result){
-            
+            if(!err){
+              res.json({
+                Insert: "Success",
+                Message: req.params.input.toString() + " has been successfully added to user's " + req.params.field.toString() + " field"
+              });
+            }
+            else{
+              res.send(err);
+            }
           });
       }
       else{
@@ -110,7 +118,15 @@ app.put('/user/:field/:input', (req, res) => {
         var query = {current : currentArray};
         if (!err) {
             collection.updateOne(req.body, { $set : query } , { upsert: true },  function(err, result){
-              
+              if(!err){
+                res.json({
+                  Insert: "Success",
+                  Message: req.params.input.toString() + " has been successfully added to user's " + req.params.field.toString() + " field"
+                });
+              }
+              else{
+                res.send(err);
+              }
             });
         }
         else{
@@ -130,7 +146,15 @@ app.put('/user/:field/:input', (req, res) => {
         var query = {prev : prevArray};
         if (!err) {
             collection.updateOne(req.body, { $set : query } , { upsert: true },  function(err, result){
-              
+              if(!err){
+                res.json({
+                  Insert: "Success",
+                  Message: req.params.input.toString() + " has been successfully added to user's " + req.params.field.toString() + " field"
+                });
+              }
+              else{
+                res.send(err);
+              }
             });
         }
         else{
@@ -142,6 +166,15 @@ app.put('/user/:field/:input', (req, res) => {
       var query = {}
       query[req.params.field] = req.params.input;
       collection.updateOne(req.body, { $set : query } , { upsert: true },  function(err, result){
+        if(!err){
+          res.json({
+            Insert: "Success",
+            Message: req.params.input.toString() + " has been successfully added to user's " + req.params.field.toString() + " field"
+          });
+        }
+        else{
+          res.send(err);
+        }
           console.log(result);
       });
     }
@@ -360,6 +393,35 @@ app.route('/req/:num')
   });
 })
 
+//get all classes
+app.get('/courses', (req, res) => {
+  client.connect(err => {
+    const collection = client.db("rpi-connect").collection("classes");
+    
+    collection.find().toArray(function(err, result){
+      if (!err) {
+              //console.log(result);
+              res.send(result);
+      }
+      else{
+          res.send(err);
+      }
+    });
+  });
+})
+
+//ERROR HANDLING
+app.all('*', (req, res) => {
+  console.log("404: Invalid Request");
+  res.status(404).send('<h1>404: Request Not Found</h1><p>Use /user or /req or /classes to get data');
+});
+
+
+app.use(function(err, req, res, next) {
+  console.log("500: Internal Server Error");
+  res.status(500).send('<h1>500: Internal Server Error</h1>');
+  console.log(err);
+});
 
 
 
