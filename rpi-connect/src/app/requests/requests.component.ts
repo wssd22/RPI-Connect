@@ -114,7 +114,7 @@ export class RequestsComponent implements OnInit {
     for(var i = 0; i < allChildElements.length; i++){
       if((<HTMLInputElement>allChildElements[i]).checked){
         selected = true;
-        this.search.push((<HTMLInputElement>allClassElements[i]).name);
+        this.search.push((<HTMLInputElement>allChildElements[i]).name);
       }
     }
     if(!selected){
@@ -205,8 +205,9 @@ export class RequestsComponent implements OnInit {
       }
       
       for(var i = this.classIndex; i < this.classIndex+10; i++){
+        for(var j = 0; j < this.search.length; j++){
         if(i < courses.length){
-          if(this.search[j] == this.data[i].class && (this.data[i].status == stat || stat == 'all')){
+          if(this.search[i] == courses[i]){
             var str = ""
             var card = document.createElement("div");
             card.classList.add("card");
@@ -240,7 +241,8 @@ export class RequestsComponent implements OnInit {
               
               card.appendChild(button);
             }
-
+          }
+        }
       }
       
       courses = [];
@@ -262,16 +264,13 @@ export class RequestsComponent implements OnInit {
     btn3.style.display = 'inline-block';
   }
 
-  public answerReq(reqId:number, elem:HTMLInputElement){
-    if(elem.value == ""){
-      alert("Cannot submit a blank answer to a request");
-      return;
-    }
+  public answerReq(reqId:number){
+    
     //add answerMsg to request
     //put answerMsg
-    var query = {answerMsg : elem.value};
-    var obj = JSON.stringify(query);
-    this.httpService.sendPutRequest('req/' + reqId, JSON.parse(obj)).subscribe((res) => {
+    //var query = {answerMsg : elem.value};
+    //var obj = JSON.stringify(query);
+    /*this.httpService.sendPutRequest('req/' + reqId, JSON.parse(obj)).subscribe((res) => {
 
     });
     //put answerId
@@ -286,8 +285,8 @@ export class RequestsComponent implements OnInit {
     this.httpService.sendPutRequest('req/' + reqId, JSON.parse(obj)).subscribe((res) => {
       this.hideAnswer(elem, <HTMLElement>document.getElementById('conf' + reqId.toString()), <HTMLElement>document.getElementById('canc' + reqId.toString()), <HTMLElement>document.getElementById(reqId.toString()));
 
-      this.loadClassRequests(<HTMLElement>document.getElementById('container'), <HTMLElement>document.getElementById('status'), <HTMLElement>document.getElementById('right-side'));
-    });
+      this.loadClassRequests(<HTMLElement>document.getElementById('container'));
+    });*/
 
     
   }
