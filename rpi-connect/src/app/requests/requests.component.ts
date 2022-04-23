@@ -21,6 +21,10 @@ export class RequestsComponent implements OnInit {
   view:string = "all";
   poster:string = "";
   search:any = [];
+
+  classIndex:number = 0;
+  totalClass:number = 0;
+  classData:any = [];
   
   constructor(private httpService: HttpService) { }
 
@@ -42,6 +46,17 @@ export class RequestsComponent implements OnInit {
   
   //load new view
   this.loadInterface();
+ }
+
+ public incrementReqs(direction:HTMLElement){
+  if(direction.id == "previous"){
+    this.classIndex -= 10;
+  }
+  else if(direction.id == "next"){
+    this.classIndex += 10;
+  }
+
+  this.loadClassRequests(<HTMLElement>document.getElementById('container'));
  }
 
  public loadInterface(){
@@ -81,16 +96,25 @@ export class RequestsComponent implements OnInit {
     
  }
 
-  public loadClassRequests(container:HTMLElement, status:HTMLElement, destination:HTMLElement){
+
+  public loadClassRequests(container:HTMLElement){
     //detect checked classes
 
-    var allClassElements = (<HTMLElement>container).querySelectorAll('.form-check-input');
+    var allChildElements = (<HTMLElement>container).querySelectorAll('.form-check-input');
+    var btns;
+    if((<HTMLElement>document.getElementById('dest'))){
+     btns = (<HTMLElement>document.getElementById('dest')).querySelectorAll('.btn');
+     for(var i = 0; i < btns.length; i++){
+      (<HTMLElement>btns[i]).style.display = 'none';
+     }
+    }
+   
     var selected = false;
- 
-    for(var i = 0; i < allClassElements.length; i++){
-      if((<HTMLInputElement>allClassElements[i]).checked){
+    this.search = [];
+    for(var i = 0; i < allChildElements.length; i++){
+      if((<HTMLInputElement>allChildElements[i]).checked){
         selected = true;
-        this.search.push((<HTMLInputElement>allClassElements[i]).name);
+        this.search.push((<HTMLInputElement>allChildElements[i]).name);
       }
     }
     if(!selected){
@@ -98,21 +122,15 @@ export class RequestsComponent implements OnInit {
       return;
     }
 
-    var allStatusElements = (<HTMLElement>status).querySelectorAll('.form-check-input');
-    selected = false;
-    var stat = "";
- 
-    for(var i = 0; i < allStatusElements.length; i++){
-      if((<HTMLInputElement>allStatusElements[i]).checked){
-        selected = true;
-        stat = (<HTMLInputElement>allStatusElements[i]).name;
-      }
+    var cards = document.getElementsByClassName('card');
+    var body = document.getElementsByClassName('card-body');
+    for(var i = 0; i < cards.length; i++){
+      (<HTMLElement>cards[i]).style.display = 'none';
     }
-    if(!selected){
-      alert("Please choose at least one class to find requests");
-      return;
+    for(var i = 0; i < body.length; i++){
+      (<HTMLElement>body[i]).style.display = 'none';
     }
-
+    
     //get requests for selected classes
     /*
     <div class="card">
@@ -125,86 +143,110 @@ export class RequestsComponent implements OnInit {
                 </div>
             </div>
     */
+   var outer = document.getElementById('outer');
+    (<HTMLElement>outer).innerHTML = "";
+    var dest = document.createElement('div');
+    dest.id = 'destination';
+    outer?.appendChild(dest);
     this.httpService.sendGetRequest('req').subscribe((res) => {
       this.data = res;
-      
+      var courses = [];
       for(var i = 0; i < this.data.length; i++){
         for(var j = 0; j < this.search.length; j++){
-          if(this.search[j] == this.data[i].class && (this.data[i].status == stat || stat == 'all')){
+          if(this.search[j] == this.data[i].class && this.data[i].status == "active"){
+            courses.push(this.data[i]);
+            
+          }
+        }
+      }
+      
+      //initialize variables
+      this.classData = courses;
+      this.totalClass = courses.length;
+      //alert(courses.length);
+      if(this.totalClass == 0){
+        dest.innerHTML = "<p id='msg'>There are no requests for the included classes</p>";
+        return;
+      }
+      else{
+        //steps
+        var top = 0;
+        if(courses.length - this.classIndex >= 10){
+          top = 10;
+        }
+        else{
+          top = courses.length - this.classIndex;
+        }
+        var step = <HTMLElement>document.getElementById("step");
+        if(courses.length - this.classIndex != 1){
+          step.innerHTML = this.classIndex+1 + " - " + (this.classIndex+top) + " of " + courses.length;
+        }
+        else{
+          (<HTMLElement>document.getElementById("step")).innerHTML = this.classIndex+1 + " of " + courses.length;
+        }
+        //buttons
+        var prev = document.getElementById("previous");
+        var next = document.getElementById("next");
+        
+        if(this.classIndex == 0){
+          (<HTMLElement>prev).style.display = "none";
+      
+        }
+        else{
+          (<HTMLElement>prev).style.display = "inline-block";
+        }
+        if(this.classIndex+10 >= this.totalClass){
+          (<HTMLElement>next).style.display = "none";
+        }
+        else{
+          (<HTMLElement>next).style.display = "inline-block";
+        }
+        
+      }
+      
+      for(var i = this.classIndex; i < this.classIndex+10; i++){
+        for(var j = 0; j < this.search.length; j++){
+        if(i < courses.length){
+          if(this.search[i] == courses[i]){
             var str = ""
             var card = document.createElement("div");
             card.classList.add("card");
             //str += '<div class="card">';
             str += '<div class="card-body">';
-            str += '<p class="card-title"><b>' + this.data[i].class + '</b></p>';
-            if(this.data[i].daysLeft >= 7 || this.data[i].status == 'answered'){
-              str += '<div class="card-days card-days-green" style="background-color: green;">' + this.data[i].status + '</div>';
-            }
-            else{
-              str += '<div class="card-days card-days-red" style="background-color: red;">' + this.data[i].status + '</div>';
-            }
-              if(this.profId == this.data[i].userId){
+            str += '<p class="card-title"><b>' + courses[i].class + '</b></p>';
+            str += '<div class="card-days card-days-green" style="background-color: green;">' + courses[i].status + '</div>'
+             if(this.profId == courses[i].userId){
               str += '<p class="card-text">Posted by: You</p>'; 
             }
             else{
-              str+='<p class="card-text">Posted by: ' + this.data[i].userName + '</p>';
+              str+='<p class="card-text">Posted by: ' + courses[i].userName + '</p>';
             }
             
-            str += '<p class="card-text">' + this.data[i].msg + '</p>';
-            str += '<p class="card-text" style="display: inline;"><small>Created: ' + this.data[i].datePosted + '</small></p>';
+            str += '<p class="card-text">' + courses[i].msg + '</p>';
+            str += '<p class="card-text" style="display: inline;"><small>Created: ' + courses[i].datePosted + '</small></p>';
             str += '</div>';
             card.innerHTML = str;
 
-            destination.appendChild(card);
-            if(this.profId != this.data[i].userId && this.data[i].status == 'active'){
-              const elem = document.createElement('input');
-              elem.type = 'text';
-              elem.style.display = 'none';
-              elem.id = 'answerMsg' + this.data[i].reqId;
-              card.appendChild(elem);
+
+            dest.appendChild(card);
             const button = document.createElement('button');
-            button.id = this.data[i].reqId;
-              
+            button.id = courses[i].reqId;
+              button.addEventListener('click', (e) => {
+              this.answerReq(Number(button.id));//your typescript function
+              });
               button.innerText = 'Answer';
               button.classList.add("btn");
               button.classList.add("btn-outline-danger");
               button.classList.add("btn-sm");
               
               card.appendChild(button);
-              
-              const button2 = document.createElement('button');
-              button2.id = "conf" + this.data[i].reqId;
-              button2.addEventListener('click', (e) => {
-              this.answerReq(Number(button.id), elem);//your typescript function
-              });
-              button2.innerText = 'Confirm';
-              button2.classList.add("btn");
-              button2.classList.add("btn-outline-danger");
-              button2.classList.add("btn-sm");
-              button2.style.display = 'none';             
-              
-              card.appendChild(button2);
-
-              const button3 = document.createElement('button');
-              button3.id = "canc" + this.data[i].reqId;
-              button3.addEventListener('click', (e) => {
-              this.hideAnswer(elem, button2, button3, button);//your typescript function
-              });
-              button3.innerText = 'Cancel';
-              button3.classList.add("btn");
-              button3.classList.add("btn-outline-danger");
-              button3.classList.add("btn-sm");
-              button3.style.display = 'none';
-              
-              card.appendChild(button3);
-              button.addEventListener('click', (e) => {
-                this.showAnswer(elem, button2, button3, button);//your typescript function
-              });
             }
           }
         }
       }
       
+      courses = [];
+
     });
   }
 
@@ -222,16 +264,13 @@ export class RequestsComponent implements OnInit {
     btn3.style.display = 'inline-block';
   }
 
-  public answerReq(reqId:number, elem:HTMLInputElement){
-    if(elem.value == ""){
-      alert("Cannot submit a blank answer to a request");
-      return;
-    }
+  public answerReq(reqId:number){
+    
     //add answerMsg to request
     //put answerMsg
-    var query = {answerMsg : elem.value};
-    var obj = JSON.stringify(query);
-    this.httpService.sendPutRequest('req/' + reqId, JSON.parse(obj)).subscribe((res) => {
+    //var query = {answerMsg : elem.value};
+    //var obj = JSON.stringify(query);
+    /*this.httpService.sendPutRequest('req/' + reqId, JSON.parse(obj)).subscribe((res) => {
 
     });
     //put answerId
@@ -246,8 +285,8 @@ export class RequestsComponent implements OnInit {
     this.httpService.sendPutRequest('req/' + reqId, JSON.parse(obj)).subscribe((res) => {
       this.hideAnswer(elem, <HTMLElement>document.getElementById('conf' + reqId.toString()), <HTMLElement>document.getElementById('canc' + reqId.toString()), <HTMLElement>document.getElementById(reqId.toString()));
 
-      this.loadClassRequests(<HTMLElement>document.getElementById('container'), <HTMLElement>document.getElementById('status'), <HTMLElement>document.getElementById('right-side'));
-    });
+      this.loadClassRequests(<HTMLElement>document.getElementById('container'));
+    });*/
 
     
   }

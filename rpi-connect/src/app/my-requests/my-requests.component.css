@@ -114,6 +114,13 @@
     transform: scaleX(0);
   }
 
+ .accordion{
+   max-height: 250px;
+   overflow: auto;
+ }
+
+
+
 .form-check{
   display: inline-block;
   padding: 2%;
@@ -124,3 +131,4 @@
   padding: 1%;
 }
  
+

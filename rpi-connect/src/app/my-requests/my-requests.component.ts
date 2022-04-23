@@ -54,7 +54,6 @@ export class MyRequestsComponent implements OnInit {
       datePosted:
       status:
       userId:
-      userDisc:
       userName:
       answerId:
     }
@@ -70,14 +69,12 @@ export class MyRequestsComponent implements OnInit {
     var reqClass = (<HTMLInputElement>course).value;
     var reqMsg = (<HTMLInputElement>msg).value
     var name = "";
-    var disc = ""
     var id = Math.floor(Math.random() * (1000000 - 10000 + 1)) + 10000;
     //get name
     this.httpService.sendGetRequest("user/" + this.profileId.toString()).subscribe((res) => {
       
       this.data = res;
       name = this.data.name;
-      disc = this.data.discord;
       var current = this.data.current;
       var enrolled = false;
       
@@ -116,7 +113,6 @@ export class MyRequestsComponent implements OnInit {
       "status" : "active",
       "userId" : this.profileId,
       "userName" : name,
-      "userDisc" : disc,
       "answerId" : 0
     };
 
@@ -151,9 +147,10 @@ export class MyRequestsComponent implements OnInit {
         str += '<label class="form-check-label" for="class' + i + '">' + courses[i] + '</label>';
         str += '</div>';
        }
-       (<HTMLElement>document.getElementById('pendingFilter')).innerHTML = str;
+
        (<HTMLElement>document.getElementById('activeFilter')).innerHTML = str;
-       (<HTMLElement>document.getElementById('answeredFilter')).innerHTML = str;
+
+
        (<HTMLElement>document.getElementById('expiredFilter')).innerHTML = str;
     });
     
@@ -208,10 +205,7 @@ export class MyRequestsComponent implements OnInit {
     this.loadActive(actData);
     //get Expried Requests
     this.loadExp(expData);
-    //get Answered Requests
-    this.loadAns(ansData);
-    //get Pending Requests
-    this.loadPen(penData);
+
     });
   }
 
@@ -318,12 +312,6 @@ export class MyRequestsComponent implements OnInit {
     else if(classes.id.includes('expired')){
       this.reloadData('expired');
     }
-    else if(classes.id.includes('pending')){
-      this.reloadData('pending');
-    }
-    else{//answered
-      this.reloadData('answered');
-    }
   }
 
   public reloadData(status:string){
@@ -340,30 +328,7 @@ export class MyRequestsComponent implements OnInit {
       this.activeReqs = tempData.length;
       this.loadActive(tempData);
     }
-    if(status == 'answered'){
-      for(var i = 0; i < this.answeredData.length; i++){
-        for(var j = 0; j < this.filter.length; j++){
-          if(this.answeredData[i].status == this.filter[j] || this.filter[j] == 'all'){
-            tempData.push(this.answeredData[i]);
-          }
-        }
-      }
-      this.answeredReqIndex = 0;
-      this.answeredReqs = tempData.length;
-      this.loadAns(tempData);
-    }
-    if(status == 'pending'){
-      for(var i = 0; i < this.pendingData.length; i++){
-        for(var j = 0; j < this.filter.length; j++){
-          if(this.pendingData[i].status == this.filter[j] || this.filter[j] == 'all'){
-            tempData.push(this.pendingData[i]);
-          }
-        }
-      }
-      this.pendingReqIndex = 0;
-      this.pendingReqs = tempData.length;
-      this.loadPen(tempData);
-    }
+
     if(status == 'expired'){
       for(var i = 0; i < this.expiredData.length; i++){
         for(var j = 0; j < this.filter.length; j++){
@@ -720,223 +685,6 @@ export class MyRequestsComponent implements OnInit {
         }
         else{
           (<HTMLElement>document.getElementById("expstep")).innerHTML = "No Expired Requests";
-        }
-  }
-
-  public loadAns(ansData:any){
-    var prev = document.getElementById("previousAns");
-     var next = document.getElementById("nextAns");
-    if(this.answeredReqIndex == 0){
-      (<HTMLElement>prev).style.display = "none";
-      
-    }
-    else{
-      (<HTMLElement>prev).style.display = "inline-block";
-    }
-    if(this.answeredReqIndex+4 >= this.answeredReqs){
-      (<HTMLElement>next).style.display = "none";
-    }
-    else{
-      (<HTMLElement>next).style.display = "inline-block";
-    }
-    var destination = document.getElementById("ansContainer");
-        (<HTMLElement>destination).innerHTML = "";
-        for(var i = this.answeredReqIndex; i < this.answeredReqIndex+5; i++){
-          if(i < ansData.length){
-          const elem1 = document.createElement("div");
-          elem1.classList.add('card');
-          elem1.id = i.toString();
-          (<HTMLElement>destination).appendChild(elem1);
-          //create card wrapper
-          const elem2 = document.createElement("div");
-          elem2.classList.add('card-body');
-          elem2.id = 'inner' + i.toString();
-          elem1.appendChild(elem2);
-          //add request class
-          const elem3 = document.createElement('p');
-          elem3.id = 'ansClass' + i.toString();
-          elem3.innerHTML = ansData[i].class;
-          elem3.classList.add('card-title');
-          elem2.appendChild(elem3);
-          //add msg
-          const elem6 = document.createElement('p');
-          elem6.innerHTML = ansData[i].msg;
-          elem6.id = 'ansMsg' + i.toString();
-          elem6.classList.add('card-text');
-          elem2.appendChild(elem6);
-          //add ansMsg
-          const elem9 = document.createElement('p');
-          elem9.innerHTML = ansData[i].answerMsg;
-          elem9.id = 'ansAnsMsg' + i.toString();
-          elem9.classList.add('card-text');
-          elem2.appendChild(elem9);
-          //add date
-          const elem8 = document.createElement('p');
-          elem8.innerHTML = ansData[i].datePosted;
-          elem8.id = 'ansDate' + i.toString();
-          elem8.classList.add('card-text');
-          elem2.appendChild(elem8);
-          //add buttons
-          /*
-            <button #edit class="btn btn-outline-primary btn-sm" style="display: inline;" (click)="openReqEdit(anscard2Id, anscard2ClassEdit, anscard2MsgEdit, anscard2Class, anscard2Msg, confirm, cancel, edit, remove)">Edit</button>
-            <button #confirm class="btn btn-outline-danger btn-sm rem" (click)="confirmEdit(anscard2Id, anscard2ClassEdit, anscard2MsgEdit)" style="display: none;">Confirm</button>
-            <button #cancel class="btn btn-outline-danger btn-sm rem" (click)="openReqEdit(anscard2Id, anscard2Class, anscard2Msg, anscard2ClassEdit, anscard2MsgEdit, edit, remove, confirm, cancel)" style="display: none;">Cancel</button>
-            <button #remove class="btn btn-outline-danger btn-sm rem" (click)="delReq(anscard2Id)" style="display: inline;">Remove</button>
-          */
-          //declare buttons
-          const button1 = document.createElement('button');
-          const button2 = document.createElement('button');
-          const button3 = document.createElement('button');
-          const button4 = document.createElement('button');
-          const id = ansData[i].reqId;
-
-          //remove button
-          
-          button4.addEventListener('click', (e) => {
-            this.delReq(id);
-          });
-          button4.id = 'deleteans' + i.toString();
-          button4.innerText = 'Remove';
-          button4.classList.add("btn");
-          button4.classList.add("btn-outline-danger");
-          button4.classList.add("btn-sm");
-          (<HTMLElement>elem2).appendChild(button4);
-        }
-        }
-        var top = 0;
-        if(ansData.length - this.answeredReqIndex >= 5){
-          top = 5;
-        }
-        else{
-          top = ansData.length - this.answeredReqIndex;
-        }
-
-        if(ansData.length > 0){
-          if(ansData.length - this.answeredReqIndex != 1){
-            (<HTMLElement>document.getElementById("ansstep")).innerHTML = this.answeredReqIndex+1 + " - " + (this.answeredReqIndex+top) + " of " + ansData.length;
-          }
-          else{
-            (<HTMLElement>document.getElementById("ansstep")).innerHTML = this.answeredReqIndex+1 + " of " + ansData.length;
-          }
-        }
-        else{
-          (<HTMLElement>document.getElementById("ansstep")).innerHTML = "No Answered Requests";
-        }
-  }
-
-  public loadPen(penData:any){
-    var prev = document.getElementById("previousPen");
-     var next = document.getElementById("nextPen");
-    if(this.pendingReqIndex == 0){
-      (<HTMLElement>prev).style.display = "none";
-      
-    }
-    else{
-      (<HTMLElement>prev).style.display = "inline-block";
-    }
-    if(this.pendingReqIndex+4 >= this.pendingReqs){
-      (<HTMLElement>next).style.display = "none";
-    }
-    else{
-      (<HTMLElement>next).style.display = "inline-block";
-    }
-    var destination = document.getElementById("penContainer");
-        (<HTMLElement>destination).innerHTML = "";
-        for(var i = this.pendingReqIndex; i < this.pendingReqIndex+5; i++){
-          if(i < penData.length){
-          const elem1 = document.createElement("div");
-          elem1.classList.add('card');
-          elem1.id = i.toString();
-          (<HTMLElement>destination).appendChild(elem1);
-          //create card wrapper
-          const elem2 = document.createElement("div");
-          elem2.classList.add('card-body');
-          elem2.id = 'inner' + i.toString();
-          elem1.appendChild(elem2);
-          //add request class
-          const elem3 = document.createElement('p');
-          elem3.id = 'penClass' + i.toString();
-          elem3.innerHTML = penData[i].class;
-          elem3.classList.add('card-title');
-          elem2.appendChild(elem3);
-          //add msg
-          const elem6 = document.createElement('p');
-          elem6.innerHTML = penData[i].msg;
-          elem6.id = 'penMsg' + i.toString();
-          elem6.classList.add('card-text');
-          elem2.appendChild(elem6);
-          //add ansMsg
-          const elem9 = document.createElement('p');
-          elem9.innerHTML = penData[i].answerMsg;
-          elem9.id = 'penAnsMsg' + i.toString();
-          elem9.classList.add('card-text');
-          elem2.appendChild(elem9);
-          //add date
-          const elem8 = document.createElement('p');
-          elem8.innerHTML = penData[i].datePosted;
-          elem8.id = 'penDate' + i.toString();
-          elem8.classList.add('card-text');
-          elem2.appendChild(elem8);
-          //add buttons
-        
-          //declare buttons
-          const button1 = document.createElement('button');
-          const button2 = document.createElement('button');
-          const button3 = document.createElement('button');
-          const button4 = document.createElement('button');
-          const id = penData[i].reqId;
-
-          //confirm answer button
-          button2.addEventListener('click', (e) => {
-            this.confirmAnswer(id);
-          });
-          button2.id = 'confirmpen' + i.toString();
-          button2.innerText = 'Confirm Answer';
-          button2.classList.add("btn");
-          button2.classList.add("btn-outline-danger");
-          button2.classList.add("btn-sm");
-          (<HTMLElement>elem2).appendChild(button2);
-          //cancel answer button
-          button3.addEventListener('click', (e) => {
-            this.cancelAnswer(id);
-          });
-          button3.id = 'cancelpen' + i.toString();
-          button3.innerText = 'Reject Answer';
-          button3.classList.add("btn");
-          button3.classList.add("btn-outline-danger");
-          button3.classList.add("btn-sm");
-          (<HTMLElement>elem2).appendChild(button3);
-          //remove button
-          
-          button4.addEventListener('click', (e) => {
-            this.delReq(id);
-          });
-          button4.id = 'deletepen' + i.toString();
-          button4.innerText = 'Remove';
-          button4.classList.add("btn");
-          button4.classList.add("btn-outline-danger");
-          button4.classList.add("btn-sm");
-          (<HTMLElement>elem2).appendChild(button4);
-        }
-        }
-        var top = 0;
-        if(penData.length - this.pendingReqIndex >= 5){
-          top = 5;
-        }
-        else{
-          top = penData.length - this.pendingReqIndex;
-        }
-
-        if(penData.length > 0){
-          if(penData.length - this.pendingReqIndex != 1){
-            (<HTMLElement>document.getElementById("penstep")).innerHTML = this.pendingReqIndex+1 + " - " + (this.pendingReqIndex+top) + " of " + penData.length;
-          }
-          else{
-            (<HTMLElement>document.getElementById("penstep")).innerHTML = this.pendingReqIndex+1 + " of " + penData.length;
-          }
-        }
-        else{
-          (<HTMLElement>document.getElementById("penstep")).innerHTML = "No Pending Requests";
         }
   }
 }

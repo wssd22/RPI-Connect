@@ -158,7 +158,7 @@ export class AppComponent{
       this.showRegister = false;
       this.showProfile = false;
       this.showMyRequests = true;
-      
+
       this.myReqs.loadRequests();
       this.myReqs.filters();
     }
