@@ -158,6 +158,7 @@ export class AppComponent{
       this.showRegister = false;
       this.showProfile = false;
       this.showMyRequests = true;
+      this.myReqs.filters();
       this.myReqs.loadRequests();
     }
     else if(page == "profile" && this.sentId != 0){

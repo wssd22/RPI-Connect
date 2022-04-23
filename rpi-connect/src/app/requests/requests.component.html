@@ -27,8 +27,22 @@
             </div>
             </div>
             <hr/>
-            <button class="btn btn-outline-primary" (click)="loadClassRequests(container, destination)">Refresh</button>
+            <button class="btn btn-outline-primary" (click)="loadClassRequests(container)">Refresh</button>
         </div>
-        <div #destination id="right-side">
+        <div id="right-side">
+            <div id = 'outer'>
+            <div #destination id = 'dest'>
+                <p id="msg">Choose how you would like to filter the displayed requests then hit Refresh to
+                see what questions you and your classmates have in the classes you are taking and have 
+                already taken!
+                </p>
+                
+            </div>
+        </div>
+            <div id = "reqnav">
+                <button #prev id="previous" class="btn btn-outline-primary btn-sm hide" (click)="incrementReqs(prev)">Prev</button>
+                <button #next id="next" class="btn btn-outline-primary btn-sm hide" (click)="incrementReqs(next)">Next</button>
+                </div>
+            <p #step id="step"></p>
         </div>
 </div>

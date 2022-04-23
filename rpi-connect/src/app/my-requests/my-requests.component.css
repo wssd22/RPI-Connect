@@ -114,4 +114,11 @@
     transform: scaleX(0);
   }
   
- 
+ .accordion{
+   max-height: 250px;
+   overflow: auto;
+ }
+
+ label{
+   display: block;
+ }

@@ -81,3 +81,12 @@
   margin: 2px;
 }
 
+#msg{
+  margin-top:13%;
+  width: 30%;
+  margin-left: 7%;
+}
+
+.hide{
+  display: none;
+}

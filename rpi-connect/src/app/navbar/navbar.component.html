@@ -11,18 +11,21 @@
       </a>
       <button
         class="navbar-toggler"
+        id="mobile-toggler"
         type="button"
-        data-toggle="collapse"
+        data-toggle="dropdown"
         data-target="#navbarNavAltMarkup"
         aria-controls="navbarNavAltMarkup"
         aria-expanded="false"
         aria-label="Toggle navigation"
+        (click)="dropdown(target)"
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div
+      <div #target
         class="collapse navbar-collapse justify-content-end ms-auto"
         id="navbarNavAltMarkup"
+        aria-labelledby="mobile-toggler"
       >
         <div class="navbar-nav">
           <a #requests id = "requests" class="nav-item nav-link active" (click) = "navigate(requests)">

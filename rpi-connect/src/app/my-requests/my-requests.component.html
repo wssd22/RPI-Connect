@@ -2,82 +2,25 @@
 <div style="height: 100px;"></div>
         <div id="left-side" style="width: 60%;">
             <h3>Current Requests</h3>
-            <div #actcard1 id = "actcard1" class="card">
-                <div #actcard11 id = "actcard11" class="card-body">
-                    <p #actcard1Id id = "actcard1Id" style="display:none"></p>
-                    <p #actcard1Class id = "actcard1Class" class="card-title"><b></b></p>
-                    <div #actcard1Days id = "actcard1Days" class="card-days"></div>
-                    <p #actcard1Msg id = "actcard1Msg" class="card-text"></p>
-                    <p #actcard1Date id="actcard1Date" class="card-text" style="display: inline;"><small></small></p>
-                    <button class="btn btn-outline-primary btn-sm" style="display: inline;">Edit</button>
-                    <button class="btn btn-outline-danger btn-sm rem" (click)="delReq(actcard1Id)" style="display: inline;">Remove</button>
-                </div>
-            </div>
-            <div #actcard2 id = "actcard2" class="card">
-                <div #actcard21 id = "actcard21" class="card-body">
-                    <p #actcard2Id id = "actcard2Id" style="display:none"></p>
-                    <p #actcard2Class id = "actcard2Class" class="card-title"><b></b></p>
-                    <input #actcard2ClassEdit type="text" id="actcard2ClassEdit" style="display:none">
-                    <div #actcard2Days id = "actcard2Days" class="card-days "></div>
-                    <p #actcard2Msg id = "actcard2Msg" class="card-text"></p>
-                    <input #actcard2MsgEdit type="text" id="actcard2MsgEdit" style="display:none">
-                    <p #actcard2Date id = "actcard2Date" class="card-text" style="display: inline;"><small></small></p>
-                    <button #edit class="btn btn-outline-primary btn-sm" style="display: inline;" (click)="openReqEdit(actcard2Id, actcard2ClassEdit, actcard2MsgEdit, actcard2Class, actcard2Msg, confirm, cancel, edit, remove)">Edit</button>
-                    <button #confirm class="btn btn-outline-danger btn-sm rem" (click)="confirmEdit(actcard2Id, actcard2ClassEdit, actcard2MsgEdit)" style="display: none;">Confirm</button>
-                    <button #cancel class="btn btn-outline-danger btn-sm rem" (click)="openReqEdit(actcard2Id, actcard2Class, actcard2Msg, actcard2ClassEdit, actcard2MsgEdit, edit, remove, confirm, cancel)" style="display: none;">Cancel</button>
-                    <button #remove class="btn btn-outline-danger btn-sm rem" (click)="delReq(actcard2Id)" style="display: inline;">Remove</button>
-                </div>
-            </div>
-            <div #actcard3 id = "actcard3" class="card">
-                <div #actcard31 id = "actcard31" class="card-body">
-                    <p #actcard3Id id = "actcard3Id" style="display:none"></p>
-                    <p #actcard3Class id = "actcard3Class" class="card-title"><b></b></p>
-                    <div #actcard3Days id = "actcard3Days" class="card-days"></div>
-                    <p #actcard3Msg id = "actcard3Msg" class="card-text"></p>
-                    <p #actcard3Date id = "actcard3Date" class="card-text" style="display: inline;"><small></small></p>
-                    <button class="btn btn-outline-primary btn-sm" style="display: inline;">Edit</button>
-                    <button class="btn btn-outline-danger btn-sm rem" (click)="delReq(actcard3Id)" style="display: inline;">Remove</button>
-                </div>
-            </div>
-            <div #actcard4 id = "actcard4" class="card">
-                <div #actcard41 id = "actcard41" class="card-body">
-                    <p #actcard4Id id = "actcard4Id" style="display:none"></p>
-                    <p #actcard4Class id = "actcard4Class" class="card-title"><b></b></p>
-                    <div #actcard4Days id = "actcard4Days" class="card-days"></div>
-                    <p #actcard4Msg id = "actcard4Msg" class="card-text"></p>
-                    <p #actcard4Date id = "actcard4Date" class="card-text" style="display: inline;"><small></small></p>
-                    <button class="btn btn-outline-primary btn-sm" style="display: inline;">Edit</button>
-                    <button class="btn btn-outline-danger btn-sm rem" (click)="delReq(actcard4Id)" style="display: inline;">Remove</button>
-                </div>
-            </div>
-            <div #actcard5 id = "actcard5" class="card">
-                <div #actcard51 id = "actcard51" class="card-body">
-                    <p #actcard5Id id = "actcard5Id" style="display:none"></p>
-                    <p #actcard5Class id = "actcard5Class" class="card-title"><b></b></p>
-                    <div #actcard5Days id = "actcard5Days" class="card-days"></div>
-                    <p #actcard5Msg id = "actcard5Msg" class="card-text"></p>
-                    <p #actcard5Date id = "actcard5Date" class="card-text" style="display: inline;"><small></small></p>
-                    <button class="btn btn-outline-primary btn-sm" style="display: inline;">Edit</button>
-                    <button class="btn btn-outline-danger btn-sm rem" (click)="delReq(actcard5Id)" style="display: inline;">Remove</button>
-                </div>
-            </div>
+            <div #activeFilter id="activeFilter"></div>
+            <button class="btn btn-outline-primary refresh" (click)="classFilter(activeFilter)">Refresh</button>
+            <div id = 'actContainer'></div>
             <!--go through list of current requests-->
             <div id = "reqnav">
-            <button #prev id="previous" class="btn btn-outline-primary btn-sm" syle="display:inline" (click)="incrementReqs(prev)">Prev</button>
-            <button #next id="next" class="btn btn-outline-primary btn-sm" syle="display:inline" (click)="incrementReqs(next)">Next</button>
+            <button #prevAct id="previousAct" class="btn btn-outline-primary btn-sm" syle="display:inline" (click)="incrementReqs(prevAct)">Prev</button>
+            <button #nextAct id="nextAct" class="btn btn-outline-primary btn-sm" syle="display:inline" (click)="incrementReqs(nextAct)">Next</button>
             </div>
             <p #actstep id="actstep"></p>
             <hr>
-            <h3>Killed Requests</h3>
-            <div class="card">
-                <div class="card-body">
-                    <p class="card-title"><b>BIOL 1010 Intro to Biology</b></p>
-                    <div class="card-days card-days-green" style="background-color: gray;">Inactive</div>
-                    <p class="card-text">What are the functions of mitochondria?</p>
-                    <p class="card-text" style="display: inline;"><small>Created: 1/1/2022</small></p>
-                    <button class="btn btn-outline-danger btn-sm" style="display: inline;">Remove</button>
-                </div>
+            <h3>Expired Requests</h3>
+            <div #expiredFilter id="expiredFilter"></div>
+            <button class="btn btn-outline-primary refresh" (click)="classFilter(expiredFilter)">Refresh</button>
+            <div id = 'expContainer'></div>
+            <div id = "expnav">
+                <button #prevExp id="previousExp" class="btn btn-outline-primary btn-sm" syle="display:inline" (click)="incrementReqs(prevExp)">Prev</button>
+                <button #nextExp id="nextExp" class="btn btn-outline-primary btn-sm" syle="display:inline" (click)="incrementReqs(nextExp)">Next</button>
             </div>
+                <p #expstep id="expstep"></p>
         </div>
         <div id="right-side" style="width: 40%;">
             <form id = "basicInfo">
