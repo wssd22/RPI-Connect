@@ -255,11 +255,11 @@ export class ProfileComponent implements OnInit {
       (<HTMLInputElement>document.getElementById("addCurrent")).value = "";
     }
     else{
-      document.getElementById("prevList");
+      destination = document.getElementById("prevList");
       editDest = document.getElementById("editPrev");
       (<HTMLInputElement>document.getElementById("addPrev")).value = "";
     }
-    var element = document.createElement("li");
+    var element = document.createElement("p");
     element.innerHTML = (<HTMLInputElement>course).value;
     element.id = (<HTMLInputElement>course).value + "Edit";
     (<HTMLElement>editDest).appendChild(element);
@@ -273,8 +273,9 @@ export class ProfileComponent implements OnInit {
         button.classList.add("btn");
         button.classList.add("btn-outline-danger");
         button.classList.add("btn-sm");
+        button.style.cssText = 'margin-left: 10px; width: auto;';
     element.appendChild(button);
-    var elem = document.createElement("li");
+    var elem = document.createElement("p");
     elem.innerHTML = (<HTMLInputElement>course).value;
     elem.id = (<HTMLInputElement>course).value;
     (<HTMLElement>destination).appendChild(elem);
