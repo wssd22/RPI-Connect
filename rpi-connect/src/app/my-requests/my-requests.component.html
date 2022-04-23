@@ -19,6 +19,7 @@
             <div id = "expnav">
                 <button #prevExp id="previousExp" class="btn btn-outline-primary btn-sm" syle="display:inline" (click)="incrementReqs(prevExp)">Prev</button>
                 <button #nextExp id="nextExp" class="btn btn-outline-primary btn-sm" syle="display:inline" (click)="incrementReqs(nextExp)">Next</button>
+
             </div>
                 <p #expstep id="expstep"></p>
         </div>
@@ -44,6 +45,25 @@
                 </div>
                 <button type = "button" id = "basic" class = "btn btn-outline-primary" (click) = "addRequest(class, msg);">+ Create New</button>
             </form>
+            <h3>Pending Requests</h3>
+            <div #pendingFilter id="pendingFilter"></div>
+            <button class="btn btn-outline-primary refresh" (click)="classFilter(pendingFilter)">Refresh</button>
+            <div id = "penContainer"></div>
+            <div id = "reqnav">
+                <button #prevPen id="previousPen" class="btn btn-outline-primary btn-sm" syle="display:inline" (click)="incrementReqs(prevPen)">Prev</button>
+                <button #nextPen id="nextPen" class="btn btn-outline-primary btn-sm" syle="display:inline" (click)="incrementReqs(nextPen)">Next</button>
+                </div>
+                <p #penstep id="penstep"></p>
+            <hr>
+            <h3>Answered Requests</h3>
+            <div #answeredFilter id="answeredFilter"></div>
+            <button class="btn btn-outline-primary refresh" (click)="classFilter(answeredFilter)">Refresh</button>
+            <div id = "ansContainer"></div>
+            <div id = "reqnav">
+                <button #prevAns id="previousAns" class="btn btn-outline-primary btn-sm" syle="display:inline" (click)="incrementReqs(prevAns)">Prev</button>
+                <button #nextAns id="nextAns" class="btn btn-outline-primary btn-sm" syle="display:inline" (click)="incrementReqs(nextAns)">Next</button>
+                </div>
+                <p #actstep id="ansstep"></p>
         </div>
     </div>
 

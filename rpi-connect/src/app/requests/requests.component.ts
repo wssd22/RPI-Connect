@@ -1,10 +1,12 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
+import { ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-requests',
   templateUrl: './requests.component.html',
-  styleUrls: ['./requests.component.css']
+  styleUrls: ['./requests.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class RequestsComponent implements OnInit {
   @Input() reqShow:boolean = false;
@@ -94,6 +96,7 @@ export class RequestsComponent implements OnInit {
     
  }
 
+
   public loadClassRequests(container:HTMLElement){
     //detect checked classes
 
@@ -111,7 +114,7 @@ export class RequestsComponent implements OnInit {
     for(var i = 0; i < allChildElements.length; i++){
       if((<HTMLInputElement>allChildElements[i]).checked){
         selected = true;
-        this.search.push((<HTMLInputElement>allChildElements[i]).name);
+        this.search.push((<HTMLInputElement>allClassElements[i]).name);
       }
     }
     if(!selected){
@@ -203,14 +206,15 @@ export class RequestsComponent implements OnInit {
       
       for(var i = this.classIndex; i < this.classIndex+10; i++){
         if(i < courses.length){
+          if(this.search[j] == this.data[i].class && (this.data[i].status == stat || stat == 'all')){
             var str = ""
             var card = document.createElement("div");
             card.classList.add("card");
             //str += '<div class="card">';
             str += '<div class="card-body">';
             str += '<p class="card-title"><b>' + courses[i].class + '</b></p>';
-            str += '<div class="card-days card-days-green" style="background-color: green;">' + courses[i].status + '</div>';
-            if(this.profId == courses[i].userId){
+            str += '<div class="card-days card-days-green" style="background-color: green;">' + courses[i].status + '</div>'
+             if(this.profId == courses[i].userId){
               str += '<p class="card-text">Posted by: You</p>'; 
             }
             else{
@@ -221,6 +225,7 @@ export class RequestsComponent implements OnInit {
             str += '<p class="card-text" style="display: inline;"><small>Created: ' + courses[i].datePosted + '</small></p>';
             str += '</div>';
             card.innerHTML = str;
+
 
             dest.appendChild(card);
             const button = document.createElement('button');
@@ -235,6 +240,7 @@ export class RequestsComponent implements OnInit {
               
               card.appendChild(button);
             }
+
       }
       
       courses = [];
@@ -242,8 +248,48 @@ export class RequestsComponent implements OnInit {
     });
   }
 
-  public answerReq(reqId:number){
-    alert(reqId);
+  public showAnswer(field:HTMLElement, btn1:HTMLElement, btn2:HTMLElement, btn3:HTMLElement){
+    field.style.display = 'block';
+    btn1.style.display = 'inline-block';
+    btn2.style.display = 'inline-block';
+    btn3.style.display = 'none';
+  }
+
+  public hideAnswer(field:HTMLElement, btn1:HTMLElement, btn2:HTMLElement, btn3:HTMLElement){
+    field.style.display = 'none';
+    btn1.style.display = 'none';
+    btn2.style.display = 'none';
+    btn3.style.display = 'inline-block';
+  }
+
+  public answerReq(reqId:number, elem:HTMLInputElement){
+    if(elem.value == ""){
+      alert("Cannot submit a blank answer to a request");
+      return;
+    }
+    //add answerMsg to request
+    //put answerMsg
+    var query = {answerMsg : elem.value};
+    var obj = JSON.stringify(query);
+    this.httpService.sendPutRequest('req/' + reqId, JSON.parse(obj)).subscribe((res) => {
+
+    });
+    //put answerId
+    var query2 = {answerId : this.profId};
+    obj = JSON.stringify(query2);
+    this.httpService.sendPutRequest('req/' + reqId, JSON.parse(obj)).subscribe((res) => {
+
+    });
+    //change answerStatus
+    var query3 = {status : 'pending'};
+    obj = JSON.stringify(query3);
+    this.httpService.sendPutRequest('req/' + reqId, JSON.parse(obj)).subscribe((res) => {
+      this.hideAnswer(elem, <HTMLElement>document.getElementById('conf' + reqId.toString()), <HTMLElement>document.getElementById('canc' + reqId.toString()), <HTMLElement>document.getElementById(reqId.toString()));
+
+      this.loadClassRequests(<HTMLElement>document.getElementById('container'), <HTMLElement>document.getElementById('status'), <HTMLElement>document.getElementById('right-side'));
+    });
+
+    
   }
 
 }

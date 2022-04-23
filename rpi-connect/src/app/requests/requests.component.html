@@ -20,14 +20,32 @@
                     <input #past (click)="currentOrPast(past)" type="radio" class="btn-check" name="btnradio" id="past" value="past" autocomplete="off">
                     <label class="btn btn-outline-primary" for="past">Past</label>
                 </div>
-                <hr/>
-                <h6>By Major:</h6>
-                <div #container id = "container">
+                <hr/>      
+                <h6>By Major:</h6>        
+                <div #container id = "container" class = 'options'> 
+                    
+                </div>
                 
-            </div>
+                <div #status id = "status" class = 'options'>
+                    <h6>By Status:</h6>
+                    <div class="form-check">
+                        <input type="checkbox" value='checked' class="form-check-input" checked id="allCheck" name="all">
+                        <label class="form-check-label" for="allCheck">All</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="activeCheck" name="active">
+                        <label class="form-check-label" for="activeCheck">Active</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="answeredCheck" name="answered">
+                        <label class="form-check-label" for="answeredCheck">Answered</label>
+                    </div>
+                </div>
             </div>
             <hr/>
+
             <button class="btn btn-outline-primary" (click)="loadClassRequests(container)">Refresh</button>
+
         </div>
         <div id="right-side">
             <div id = 'outer'>

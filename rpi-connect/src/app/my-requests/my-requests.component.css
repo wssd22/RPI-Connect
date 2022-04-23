@@ -113,12 +113,22 @@
   .btn-1 a:hover::after {
     transform: scaleX(0);
   }
-  
+
  .accordion{
    max-height: 250px;
    overflow: auto;
  }
 
- label{
-   display: block;
- }
+
+
+.form-check{
+  display: inline-block;
+  padding: 2%;
+}
+
+.refresh{
+  display: inline;
+  padding: 1%;
+}
+ 
+

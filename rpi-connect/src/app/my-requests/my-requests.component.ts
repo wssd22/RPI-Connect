@@ -1,6 +1,7 @@
 import { Component, Input, Output, OnInit, ElementRef } from '@angular/core';
 import { HttpService } from '../http.service';
 import { ViewEncapsulation } from '@angular/core';
+import { empty } from 'rxjs';
 
 @Component({
   selector: 'app-my-requests',
@@ -148,6 +149,8 @@ export class MyRequestsComponent implements OnInit {
        }
 
        (<HTMLElement>document.getElementById('activeFilter')).innerHTML = str;
+
+
        (<HTMLElement>document.getElementById('expiredFilter')).innerHTML = str;
     });
     
@@ -325,6 +328,7 @@ export class MyRequestsComponent implements OnInit {
       this.activeReqs = tempData.length;
       this.loadActive(tempData);
     }
+
     if(status == 'expired'){
       for(var i = 0; i < this.expiredData.length; i++){
         for(var j = 0; j < this.filter.length; j++){
