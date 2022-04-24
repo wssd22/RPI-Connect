@@ -1,70 +1,170 @@
 <div *ngIf="profileShow">
-<div style="height: 100px;">
-        <div #confirm id = "confirm">
-            <div id = "confPage">
-            <div id = "confInfo">
-                <h3>Basic Info</h3>
-                <p #fullName id = "fullName">Name: {{name}}</p>
-                
-                <p #gradYr id = "gradYr">Graduation Year: {{year}}</p>
-                <p #rpi id = "rpi">Email: {{email}}</p>
-                <p #disc id = "disc">Discord: {{discord}}</p>
-            </div>
-            <div id = "confCurrent">
-                <h2>Current Classes</h2>
-                <div #currentList id = "currentList">
+    <div #confirm id = "confirm">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-text profile-title t1"><b>Basic Info</b></h5>
+                                    <div class="container"><div class="row">
+                                        <div class="col-4">
+                                            <p class="card-text profile-field" id = "fullName">NAME</p>
+                                        </div>
+                                        <div class="col-8">
+                                            <p #fullName class="card-text profile-value" id = "fullName">{{name}}</p>
+                                        </div>
+                                    </div></div>
+                                    <hr />
+                                    <div class="container"><div class="row">
+                                        <div class="col-4">
+                                            <p class="card-text profile-field" id = "gradYr">CLASS OF</p>
+                                        </div>
+                                        <div class="col-8">
+                                            <p #gradYr class="card-text profile-value" id = "gradYr">{{year}}</p>
+                                        </div>
+                                    </div></div>
+                                    <hr />
+                                    <div class="container"><div class="row">
+                                        <div class="col-4">
+                                            <p class="card-text profile-field" id = "rpi">EMAIL</p>
+                                        </div>
+                                        <div class="col-8">
+                                            <p #rpi class="card-text profile-value" id = "rpi">{{email}}</p>
+                                        </div>
+                                    </div></div>
+                                    <hr />
+                                    <div class="container"><div class="row">
+                                        <div class="col-4">
+                                            <p class="card-text profile-field" id = "disc">DISCORD</p>
+                                        </div>
+                                        <div class="col-8">
+                                            <p #disc class="card-text profile-value" id = "disc">{{discord}}</p>
+                                        </div>
+                                    </div></div>
+                                    <div class="container"><div class="row">
+                                        <div class="col-12" style="text-align: center; margin-top: 20px;">
+                                            <button type="button" class="btn btn-outline-primary" style="width: 100%;" (click)="showEdit(edit, confirm)">Edit</button>
+                                        </div>
+                                    </div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-text profile-title"><b>Current Classes</b></h5>
+                                    <div #currentList id = "currentList"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-text profile-title"><b>Previous Classes</b></h5>
+                                    <div #prevList id = "prevList"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div id = "confPrev">
-                <h2>Previous Classes</h2>
-                <div #prevList id = "prevList">
-                </div>
-            </div>
-            <button type="button" (click)="showEdit(edit, confirm)">Edit</button>
         </div>
     </div>
     <div #edit id = "edit" style="display: none">
-        <div id = "confPage">
-            <div id = "confInfo">
-                <h3>Edit Info</h3>
-                <div class="section">
-                <label for="editName">Name: </label>
-                <input #editName type="text" id="editName" [value]="name">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-text profile-title t1"><b>Basic Info</b></h5>
+                                    <div class="container"><div class="row">
+                                        <div class="col-4">
+                                            <p class="card-text profile-field" id = "fullName">NAME</p>
+                                        </div>
+                                        <div class="col-8">
+                                            <input #editName class="form-control profile-value" type="text" id="editName" [value]="name">
+                                        </div>
+                                    </div></div>
+                                    <hr />
+                                    <div class="container"><div class="row">
+                                        <div class="col-4">
+                                            <p class="card-text profile-field" id = "gradYr">CLASS OF</p>
+                                        </div>
+                                        <div class="col-8">
+                                            <input #editYr class="form-control profile-value" type="text" id="editYr" [value]="year">
+                                        </div>
+                                    </div></div>
+                                    <hr />
+                                    <div class="container"><div class="row">
+                                        <div class="col-4">
+                                            <p class="card-text profile-field" id = "rpi">EMAIL</p>
+                                        </div>
+                                        <div class="col-8">
+                                            <input #editEmail class="form-control profile-value" type="text" id="editEmail" [value]="email">
+                                        </div>
+                                    </div></div>
+                                    <hr />
+                                    <div class="container"><div class="row">
+                                        <div class="col-4">
+                                            <p class="card-text profile-field" id = "disc">DISCORD</p>
+                                        </div>
+                                        <div class="col-8">
+                                            <input #editDiscord class="form-control profile-value" type="text" id="editDiscord" [value]="discord">
+                                        </div>
+                                    </div></div>
+                                    <div class="container"><div class="row">
+                                        <div class="col-6" style="text-align: center; margin-top: 20px;">
+                                            <button type="button" class="btn btn-outline-primary" (click)="showEdit(confirm, edit)" style="width: 100%;">Cancel</button>
+                                        </div>
+                                        <div class="col-6" style="text-align: center; margin-top: 20px;">
+                                            <button type="button" class="btn btn-outline-danger" (click)="editProfile(editName, editYr, editEmail, editDiscord, edit, confirm)" style="width: 100%;">Confirm</button>
+                                        </div>
+                                    </div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="section">
-                <label for="editYr">Year: </label>
-                <input #editYr type="text" id="editYr" [value]="year">
-                </div>
-                <div class="section">
-                <label for="editEmail">Email: </label>
-                <input #editEmail type="text" id="editEmail" [value]="email">
-                </div>
-                <div class="section">
-                <label for="editDiscord">Discord: </label>
-                <input #editDiscord type="text" id="editDiscord" [value]="discord">
+                <div class="col-8">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-text profile-title"><b>Current Classes</b></h5>
+                                    <input #currentAdd class="form-control" type="text" id="prevAdd" style="width: 50%; display: inline;">
+                                    <button class="btn btn-outline-primary" id="addCurrent" type="button" (click)="addClass(currentAdd, 'current')" style="display: inline; margin-left: 10px; width: auto;">Add Class</button>
+                                    <div #editCurrent id = "editCurrent" style="margin-top: 10px;">
+                                    </div>
+                                    <p>Note: Deleting a Current Class will delete any associated Requests</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-text profile-title"><b>Previous Classes</b></h5>
+                                    <input #prevAdd class="form-control" type="text" id="prevAdd" style="width: 50%; display: inline;">
+                                    <button class="btn btn-outline-primary" id="addPrev" type="button" (click)="addClass(prevAdd, 'prev')" style="display: inline; margin-left: 10px; width: auto;">Add Class</button>
+                                    <div #editPrev id = "editPrev" style="margin-top: 10px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <button type="button" (click)="showEdit(confirm, edit)">Cancel</button>
-            <button type="button" (click)="editProfile(editName, editYr, editEmail, editDiscord, edit, confirm)">Confirm</button>
-            <div id = "confCurrent">
-                <h2>Current Classes</h2>
-                <p>Note: Deleting a Current Class will delete any associated Requests</p>
-                <div #editCurrent id = "editCurrent">
-                </div>
-                <label for="prevAdd">Add Current Class</label>
-                <input #currentAdd type="text" id="prevAdd">
-                <button id="addCurrent" type="button" (click)="addClass(currentAdd, 'current')">Add Class</button>
-            </div>
-            <div id = "confPrev">
-                <h2>Previous Classes</h2>
-                <div #editPrev id = "editPrev">
-                </div>
-                <label for="prevAdd">Add Previously Taken Class</label>
-                <input #prevAdd type="text" id="prevAdd">
-                <button id="addPrev" type="button" (click)="addClass(prevAdd, 'prev')">Add Class</button>
-            </div>
-            
         </div>
     </div>
-</div>
 </div>

@@ -43,14 +43,28 @@ export class ProfileComponent implements OnInit {
       
       var current = "";
       for(var i = 0; i < this.data.current.length; i++){
-        current += "<li id='" + this.data.current[i] + "'>" + this.data.current[i] + "</li>";
+        if (i % 2 == 0) {
+          current += "<div class='row' style='background-color: white;'>";
+          current += "<div class='col-6'><p class='card-text' id='" + this.data.current[i] + "'>" + this.data.current[i] + "</p></div>";
+        }
+        else {
+          current += "<div class='col-6'><p class='card-text' id='" + this.data.current[i] + "'>" + this.data.current[i] + "</p></div>";
+          current += "</div>";
+        }
       }
       (<HTMLElement>currentList).innerHTML = current;
 
       var prev = "";
       var prevList = document.getElementById("prevList");
       for(var i = 0; i < this.data.prev.length; i++){
-        prev += "<li id='" + this.data.prev[i] + "'>" + this.data.prev[i] + "</li>";
+        if (i % 2 == 0) {
+          prev += "<div class='row' style='background-color: white;'>";
+          prev += "<div class='col-6'><p class='card-text' id='" + this.data.prev[i] + "'>" + this.data.prev[i] + "</p></div>";
+        }
+        else {
+          prev += "<div class='col-6'><p class='card-text' id='" + this.data.prev[i] + "'>" + this.data.prev[i] + "</p></div>";
+          prev += "</div>";
+        }
       }
       (<HTMLElement>prevList).innerHTML = prev;
 
@@ -59,7 +73,7 @@ export class ProfileComponent implements OnInit {
       var element;
       var destination = document.getElementById("editCurrent");
       for(var i = 0; i < this.data.current.length; i++){
-        element = document.createElement("li");
+        element = document.createElement("p");
         element.innerHTML = this.data.current[i];
         element.id = this.data.current[i] + "Edit";
         (<HTMLElement>destination).appendChild(element);
@@ -73,13 +87,14 @@ export class ProfileComponent implements OnInit {
         button.classList.add("btn");
         button.classList.add("btn-outline-danger");
         button.classList.add("btn-sm");
+        button.style.cssText = 'margin-left: 10px; width: auto;';
         (<HTMLElement>element).appendChild(button);
       }
 
       //prev 
       destination = document.getElementById("editPrev");
       for(var i = 0; i < this.data.prev.length; i++){
-        element = document.createElement("li");
+        element = document.createElement("p");
         element.innerHTML = this.data.prev[i];
         element.id = this.data.prev[i] + "Edit";
         (<HTMLElement>destination).appendChild(element);
@@ -93,6 +108,7 @@ export class ProfileComponent implements OnInit {
         button.classList.add("btn");
         button.classList.add("btn-outline-danger");
         button.classList.add("btn-sm");
+        button.style.cssText = 'margin-left: 10px; width: auto;';
         (<HTMLElement>element).appendChild(button);
       }
 
@@ -249,11 +265,11 @@ export class ProfileComponent implements OnInit {
       (<HTMLInputElement>document.getElementById("addCurrent")).value = "";
     }
     else{
-      document.getElementById("prevList");
+      destination = document.getElementById("prevList");
       editDest = document.getElementById("editPrev");
       (<HTMLInputElement>document.getElementById("addPrev")).value = "";
     }
-    var element = document.createElement("li");
+    var element = document.createElement("p");
     element.innerHTML = (<HTMLInputElement>course).value;
     element.id = (<HTMLInputElement>course).value + "Edit";
     (<HTMLElement>editDest).appendChild(element);
@@ -267,8 +283,9 @@ export class ProfileComponent implements OnInit {
         button.classList.add("btn");
         button.classList.add("btn-outline-danger");
         button.classList.add("btn-sm");
+        button.style.cssText = 'margin-left: 10px; width: auto;';
     element.appendChild(button);
-    var elem = document.createElement("li");
+    var elem = document.createElement("p");
     elem.innerHTML = (<HTMLInputElement>course).value;
     elem.id = (<HTMLInputElement>course).value;
     (<HTMLElement>destination).appendChild(elem);
