@@ -37,7 +37,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 const { Client, Intents, MessageEmbed } = require('discord.js');
 const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
-const token = "OTY2NzQ5NDUwOTg0OTE1MDY0.YmGRlg._nO9Y-YYD4-mpSCszjEoyOrUN7I";
+const { token } = require('./config.json');
 
 app.post('/postToDiscord', (req, res) => {
   console.log(req.body);
