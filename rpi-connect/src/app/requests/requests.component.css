@@ -6,12 +6,12 @@
 }
 
 #left-side {
-  width: 60%;
+  width: 75%;
   float: left;
 }
 
 #right-side {
-  width: 40%;
+  width: 25%;
   float: right;
 }
 
