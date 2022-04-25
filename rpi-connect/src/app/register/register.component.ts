@@ -20,6 +20,7 @@ export class RegisterComponent implements OnInit {
   gradYr:string = "";
   email:string = "";
   discord:string = "";
+  discordId:string = "";
   prevClasses:any = [];
   currentClasses:any = [];
   reqs:any = [];
@@ -74,6 +75,7 @@ export class RegisterComponent implements OnInit {
         this.gradYr = (<HTMLInputElement>document.getElementById("gradYr")).value;
         this.email = (<HTMLInputElement>document.getElementById("rpi")).value;
         this.discord = (<HTMLInputElement>document.getElementById("discord")).value;
+        this.discordId = (<HTMLInputElement>document.getElementById("discordId")).value;
         //hide last step and show next step
         (<HTMLElement>document.getElementById("basicInfo")).style.display = "none";
         (<HTMLElement>document.getElementById("currentClasses")).style.display = "block";
@@ -168,6 +170,7 @@ public prevStep(step:HTMLElement){
       "gradYr" : this.gradYr,
       "email" : this.email,
       "discord" : this.discord,
+      "discordId": this.discordId,
       "current" : this.currentClasses,
       "prev" : this.prevClasses,
       "reqs" : this.reqs

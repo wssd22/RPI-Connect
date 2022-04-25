@@ -34,6 +34,86 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = "mongodb+srv://websci22:wBTafSVIyYnZMPrn@cluster0.v7p54.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
+
+const { Client, Intents, MessageEmbed } = require('discord.js');
+const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+const token = "OTY2NzQ5NDUwOTg0OTE1MDY0.YmGRlg._nO9Y-YYD4-mpSCszjEoyOrUN7I";
+
+app.post('/postToDiscord', (req, res) => {
+  console.log(req.body);
+  bot.login(token);
+
+  bot.on('ready', () => {
+    console.log('the client is ready\n');
+    const msg = new MessageEmbed()
+    .setColor('#0099ff')
+    .setTitle('New Request Reply')
+    .addFields(
+      { name: 'Class Name', value: req.body.className},
+      { name: 'Question', value: req.body.message},
+      { name: 'From', value: req.body.discord },
+      { name: '\u200B', value: '\u200B' },
+    )
+    .setTimestamp()
+    .setFooter({ text: 'DM'+req.body.discord+'to receive help on this question'});
+
+    bot.users.fetch(req.body.discordId).then((user) => {
+      user.send({ embeds: [msg] });
+    })
+  })
+});
+
+app.get('discordInfo/:curId/:postedId', (req, res) => {
+  var id = Number(req.params.curId);
+  var postId = Number(req.params.postedId);
+  var query = {reqId : id};
+  var query2 = {id: postId};
+
+  var userPosted = "";
+  var userReplied = "";
+  var className = "";
+  var question = "";
+  var userId = "";
+
+  // get classname, message and user id from reqs (user id to get discordId to send them a msg)
+  client.connect(err => {
+    const collection = client.db("rpi-connect").collection("requests");
+    
+    collection.findOne(query, function(err, result){
+      console.log(result);
+      className = result.class;
+      question = result.msg;
+      userId = result.userId;
+    });
+
+    // get current user's discord username
+    const collection2 = client.db("rpi-connect").collection("users");
+    
+    collection2.findOne(query2, function(err, result){
+      console.log(result);
+      userReplied = result.discord;
+    });
+
+    // get user who posted's discordId to send them a message
+    var query3 = {id: userId};
+    const collection3 = client.db("rpi-connect").collection("users");
+    
+    collection3.findOne(query3, function(err, result){
+      console.log(result);
+      userPosted = result.discordId;
+    });
+  });
+
+  obj = {
+    "discordId": userPosted,
+    "discord": userReplied,
+    "className": className,
+    "message": question
+  }
+  res.send(obj);
+
+})
+
 //add new user to collection
 app.post('/user/add', (req, res) => {
 
@@ -47,6 +127,7 @@ app.post('/user/add', (req, res) => {
             gradYr:
             email:
             discord:
+            discordId: 
             current: []
             prev: []
             reqs: []
@@ -387,7 +468,7 @@ app.route('/req/:num')
     const collection = client.db("rpi-connect").collection("requests");
     
     collection.findOne(query, function(err, result){
-      //console.log(result);
+      console.log(result);
       res.send(result);
     });
   });

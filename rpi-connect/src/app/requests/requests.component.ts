@@ -25,6 +25,12 @@ export class RequestsComponent implements OnInit {
   ngOnInit(): void {
     
   }
+  
+  public sendToDiscord() {
+    var url = "https://discord.com/api/webhooks/967520024338255892/oZYqEmgjfEovhjzOuOPwJJOd7uug99znSF4wajZGFwMi0X9P1vxru4oCTXRxgoXc771r";
+    var msg = "here";
+    
+  }
 
  public currentOrPast(type:HTMLElement){
   //choose view
@@ -138,12 +144,22 @@ export class RequestsComponent implements OnInit {
             const button = document.createElement('button');
             button.id = this.data[i].reqId;
               button.addEventListener('click', (e) => {
-              this.answerReq(Number(button.id));//your typescript function
+                this.answerReq(Number(button.id));//your typescript function
+                this.httpService.sendGetRequest("discordInfo/"+this.profId+"/"+button.id).subscribe((res) => {
+                  this.data2 = res;
+                  console.log(res);
+                  var msg = JSON.stringify(this.data2);
+            
+                  this.httpService.sendPostRequest("postToDiscord", JSON.parse(msg)).subscribe((res) => {
+                    this.data = res;
+                  });
+                });
               });
-              button.innerText = 'Answer';
+              button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16"><path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/></svg>Send Discord Notification';
               button.classList.add("btn");
-              button.classList.add("btn-outline-danger");
               button.classList.add("btn-sm");
+              button.style.backgroundColor = "#5865F2";
+              button.style.color = "white";
               
               card.appendChild(button);
           }
@@ -155,6 +171,7 @@ export class RequestsComponent implements OnInit {
 
   public answerReq(reqId:number){
     alert(reqId);
+    
   }
 
 }
