@@ -410,6 +410,37 @@ app.get('/courses', (req, res) => {
   });
 })
 
+// get list of all major codes
+app.get('/majors', (req, res) => {
+  client.connect(err => {
+    const collection = client.db("rpi-connect").collection("classes");
+    
+    collection.find({ "code": { "$exists": true } }).sort({'code': 1}).toArray(function(err, result){
+      if (!err) {
+              console.log(result);
+              res.send(result);
+      }
+      else{
+          res.send(err);
+      }
+    });
+  });
+})
+
+// get list of classes in major based on code
+app.get('/majors/:code',(req, res) => {
+  var id = req.params.code;
+  var query = {code : id};
+  client.connect(err => {
+    const collection = client.db("rpi-connect").collection("classes");
+    
+    collection.findOne(query, function(err, result){
+      console.log(result);
+      res.send(result);
+    });
+  });
+})
+
 //ERROR HANDLING
 app.all('*', (req, res) => {
   console.log("404: Invalid Request");
