@@ -35,13 +35,13 @@ const uri = "mongodb+srv://websci22:wBTafSVIyYnZMPrn@cluster0.v7p54.mongodb.net/
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 
-const { Client, Intents, MessageEmbed } = require('discord.js');
+/*const { Client, Intents, MessageEmbed } = require('discord.js');
 const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
-const { token } = require('./config.json');
+const { token } = require('./config.json');*/
 
 app.post('/postToDiscord', (req, res) => {
   console.log(req.body);
-  bot.login(token);
+  /*bot.login(token);
 
   bot.on('ready', () => {
     console.log('the client is ready\n');
@@ -60,7 +60,7 @@ app.post('/postToDiscord', (req, res) => {
     bot.users.fetch(req.body.discordId).then((user) => {
       user.send({ embeds: [msg] });
     })
-  })
+  })*/
 });
 
 app.get('discordInfo/:curId/:postedId', (req, res) => {
