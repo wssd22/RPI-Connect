@@ -11,10 +11,15 @@
                 <div class="row">
                     <div class="col">
                         <p class="card-text profile-field" id="mr-newreq-field">CLASS NAME:</p>
-                        <input #class class="form-control profile-value" id="mr-newreq-input" type="text" name="class">
+                        <select class="form-select" id="mr-newreq-input" (change)="setClassName($event);">
+                            <option selected>Select class name</option>
+                            <option *ngFor="let course of courses;" [value]="course">
+                                {{course}}
+                            </option>
+                        </select>
                         <p class="card-text profile-field" id="mr-newreq-field">MESSAGE:</p>
                         <input #msg class="form-control profile-value" id="mr-newreq-input" type="text" name="msg">
-                        <button type = "button" id = "basic" class = "btn btn-outline-primary" id="mr-newreq-btn" (click) = "addRequest(class, msg);">+ Add</button>
+                        <button type = "button" id = "basic" class = "btn btn-outline-primary" id="mr-newreq-btn" (click) = "addRequest(msg);">+ Add</button>
                     </div>
                 </div>
             </div>
