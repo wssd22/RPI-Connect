@@ -1,7 +1,6 @@
 import { Component, Input, Output, OnInit, ElementRef } from '@angular/core';
 import { HttpService } from '../http.service';
 import { ViewEncapsulation } from '@angular/core';
-import { empty } from 'rxjs';
 
 @Component({
   selector: 'app-my-requests',
@@ -447,7 +446,7 @@ export class MyRequestsComponent implements OnInit {
 
           //confirm edit button
           button2.addEventListener('click', (e) => {
-            this.confirmEdit(id, elem4, elem7, elem3, elem6, button2, button3, button1, button4);
+            this.confirmEdit(id, elem4, elem7, elem3, elem6, button1, button4, button2, button3);
           });
           button2.id = 'confirmAct' + i.toString();
           button2.innerText = 'Confirm';
@@ -458,7 +457,7 @@ export class MyRequestsComponent implements OnInit {
           (<HTMLElement>elem2).appendChild(button2);
           //cancel button
           button3.addEventListener('click', (e) => {
-            this.openReqEdit(elem3, elem6, elem4, elem7, button1, button4, button1, button3);
+            this.openReqEdit(elem3, elem6, elem4, elem7, button1, button4, button2, button3);
           });
           button3.id = 'cancelAct' + i.toString();
           button3.innerText = 'Cancel';
