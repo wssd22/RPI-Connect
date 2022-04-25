@@ -5,6 +5,16 @@
   font-weight: 500;
 }
 
+#left-side {
+  width: 60%;
+  float: left;
+}
+
+#right-side {
+  width: 40%;
+  float: right;
+}
+
 #nav-color {
   background-color: rgba(214, 0, 28, 0.9);
 }

@@ -356,67 +356,7 @@ export class MyRequestsComponent implements OnInit {
     else if(direction.id == "nextExp"){
       this.expiredReqIndex += 5;
     }
-    else if(direction.id == "previousAns"){
-      this.answeredReqIndex -= 5;
-    }
-    else if(direction.id == "nextAns"){
-      this.answeredReqIndex += 5;
-    }
-    else if(direction.id == "previousPen"){
-      this.pendingReqIndex -= 5;
-    }
-    else if(direction.id == "nextPen"){
-      this.pendingReqIndex += 5;
-    }
     this.loadRequests()
-  }
-
-  public confirmAnswer(id:number){
-    //increment answerId's answered questions stat
-    //get req to get ansId
-    this.httpService.sendGetRequest('req/' + id.toString()).subscribe((res) => {
-      this.data = res;
-      var ansId = this.data.answerId;
-      //get answer profile
-      this.httpService.sendGetRequest('user/' + ansId.toString()).subscribe((res) => {
-        //put incremented numAnsed to profile
-        this.data2 = res;
-        var newNum =  this.data2.numAnsed + 1;
-        var query = {id : this.data2.id};
-        var obj = JSON.stringify(query);
-        this.httpService.sendPutRequest('user/numAnsed/' + newNum.toString(), JSON.parse(obj)).subscribe((res) => {
-
-        });
-      });
-    });
-    //change status to inactive
-    var query = {status : 'answered'};
-    var obj = JSON.stringify(query);
-    this.httpService.sendPutRequest('req/' + id.toString(), JSON.parse(obj)).subscribe((res) => {
-      this.loadRequests();
-    });
-    
-  }
-
-  public cancelAnswer(id:number){
-    //change status back to active
-    var query = {status : 'active'};
-    var obj = JSON.stringify(query);
-    this.httpService.sendPutRequest('req/' + id.toString(), JSON.parse(obj)).subscribe((res) => {
-
-    });
-    //set answerId to 0
-    var query2 = {answerId : 0};
-    obj = JSON.stringify(query2);
-    this.httpService.sendPutRequest('req/' + id.toString(), JSON.parse(obj)).subscribe((res) => {
-
-    });
-    //set answerMsg to ''
-    var query3 = {answerMsg : ''};
-    obj = JSON.stringify(query3);
-    this.httpService.sendPutRequest('req/' + id.toString(), JSON.parse(obj)).subscribe((res) => {
-      this.loadRequests();
-    });
   }
 
   public loadActive(actData:any){
