@@ -40,8 +40,8 @@ const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MES
 const { token } = require('./config.json');*/
 
 app.post('/postToDiscord', (req, res) => {
-  console.log(req.body);
-  /*bot.login(token);
+  //console.log(req.body);
+  bot.login(token);
 
   bot.on('ready', () => {
     console.log('the client is ready\n');
@@ -60,7 +60,7 @@ app.post('/postToDiscord', (req, res) => {
     bot.users.fetch(req.body.discordId).then((user) => {
       user.send({ embeds: [msg] });
     })
-  })*/
+  })
 });
 
 app.get('discordInfo/:curId/:postedId', (req, res) => {
@@ -80,7 +80,7 @@ app.get('discordInfo/:curId/:postedId', (req, res) => {
     const collection = client.db("rpi-connect").collection("requests");
     
     collection.findOne(query, function(err, result){
-      console.log(result);
+      //console.log(result);
       className = result.class;
       question = result.msg;
       userId = result.userId;
@@ -90,7 +90,7 @@ app.get('discordInfo/:curId/:postedId', (req, res) => {
     const collection2 = client.db("rpi-connect").collection("users");
     
     collection2.findOne(query2, function(err, result){
-      console.log(result);
+      //console.log(result);
       userReplied = result.discord;
     });
 
@@ -99,7 +99,7 @@ app.get('discordInfo/:curId/:postedId', (req, res) => {
     const collection3 = client.db("rpi-connect").collection("users");
     
     collection3.findOne(query3, function(err, result){
-      console.log(result);
+      //console.log(result);
       userPosted = result.discordId;
     });
   });
