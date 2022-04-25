@@ -7,16 +7,9 @@
                     <input #uname type="text" placeholder="Enter Username" name="uname" required>
                     <label for="psw"><b>Password</b></label>
                     <input #psw type="password" placeholder="Enter Password" name="psw" required>
-                    <button class="login-button" type="button" (click) = "login(uname, psw)">Login</button>
-                    <label>
-                        <input type="checkbox" checked="checked" name="remember"> Remember me
-                    </label>
                 </div>
                 <div class="container" style="background-color:#E7E7E7">
-                    <a href="/">
-                        <button type="button" class="cancelbtn" (click) = "return()">Cancel</button>
-                    </a>
-                    <span class="psw">Forgot <a href="#">password?</a></span>
+                    <button class="login-button" type="button" (click) = "login(uname, psw)">Login</button>
                 </div>
             </form>
         </div>
