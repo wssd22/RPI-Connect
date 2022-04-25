@@ -344,16 +344,16 @@ export class MyRequestsComponent implements OnInit {
 
   public incrementReqs(direction:HTMLElement){
     if(direction.id == "previousAct"){
-      this.activeReqIndex -= 5;
+      this.activeReqIndex -= 4;
     }
     else if(direction.id == "nextAct"){
-      this.activeReqIndex += 5;
+      this.activeReqIndex += 4;
     }
     else if(direction.id == "previousExp"){
-      this.expiredReqIndex -= 5;
+      this.expiredReqIndex -= 4;
     }
     else if(direction.id == "nextExp"){
-      this.expiredReqIndex += 5;
+      this.expiredReqIndex += 4;
     }
     this.loadRequests()
   }
@@ -368,7 +368,7 @@ export class MyRequestsComponent implements OnInit {
     else{
       (<HTMLElement>prev).style.display = "inline-block";
     }
-    if(this.activeReqIndex+5 >= this.activeReqs){
+    if(this.activeReqIndex+4 >= this.activeReqs){
       (<HTMLElement>next).style.display = "none";
     }
     else{
@@ -377,7 +377,7 @@ export class MyRequestsComponent implements OnInit {
 
     var destination = document.getElementById("actContainer");
         (<HTMLElement>destination).innerHTML = "";
-        for(var i = this.activeReqIndex; i < this.activeReqIndex+5; i++){
+        for(var i = this.activeReqIndex; i < this.activeReqIndex+4; i++){
           if(i < actData.length){
           const elem1 = document.createElement("div");
           elem1.classList.add('card');
@@ -492,8 +492,8 @@ export class MyRequestsComponent implements OnInit {
         }
         }
         var top = 0;
-        if(actData.length - this.activeReqIndex >= 5){
-          top = 5;
+        if(actData.length - this.activeReqIndex >= 4){
+          top = 4;
         }
         else{
           top = actData.length - this.activeReqIndex;
@@ -531,7 +531,7 @@ export class MyRequestsComponent implements OnInit {
 
     var destination = document.getElementById("expContainer");
         (<HTMLElement>destination).innerHTML = "";
-        for(var i = this.expiredReqIndex; i < this.expiredReqIndex+5; i++){
+        for(var i = this.expiredReqIndex; i < this.expiredReqIndex+4; i++){
           if(i < expData.length){
           const elem1 = document.createElement("div");
           elem1.classList.add('card');
@@ -607,8 +607,8 @@ export class MyRequestsComponent implements OnInit {
         }
         }
         var top = 0;
-        if(expData.length - this.expiredReqIndex >= 5){
-          top = 5;
+        if(expData.length - this.expiredReqIndex >= 4){
+          top = 4;
         }
         else{
           top = expData.length - this.expiredReqIndex;
