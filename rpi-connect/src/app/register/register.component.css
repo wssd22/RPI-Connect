@@ -130,6 +130,10 @@ h3{
     text-align: center;
 }
 
-.row{
+#row1{
+    background-color: #E7E7E7;
+}
+
+#row2{
     background-color: #E7E7E7;
 }

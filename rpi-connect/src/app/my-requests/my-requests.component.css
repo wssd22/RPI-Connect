@@ -1,11 +1,18 @@
-#mr-left-side {
-    width: 60%;
-    float: left;
+#mr-newreq-field {
+  display: inline;
+  margin: 5px;
 }
 
-#mr-right-side {
-    width: 40%;
-    float: right;
+#mr-newreq-input {
+  display: inline;
+  margin: 5px;
+  width: 30%;
+}
+
+#mr-newreq-btn {
+  display: inline;
+  margin: 5px;
+  width: auto;
 }
 
 .card {
@@ -128,13 +135,34 @@
   display: inline;
   padding: 1%;
 }
+
+@media only screen and (max-width: 992px) {
+  #mr-newreq-field {
+    display: inline;
+    margin: 5px;
+  }
+  
+  #mr-newreq-input {
+    display: inline;
+    margin: 5px;
+    width: 20%;
+  }
+  
+  #mr-newreq-btn {
+    display: inline;
+    margin: 5px;
+    width: auto;
+  }
+}
  
 @media only screen and (max-width: 600px) {
-  #mr-left-side {
-    width: 100%;
+  #mr-newreq-field {
+    display: block;
   }
-
-  #mr-right-side {
-      width: 100%;
+  #mr-newreq-input {
+    display: inline;
+  }
+  #mr-newreq-btn {
+    display: block;
   }
 }

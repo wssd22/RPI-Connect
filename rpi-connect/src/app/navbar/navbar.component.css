@@ -21,6 +21,11 @@
     border-color: white;
 }
 
+#mobile-toggler {
+  width: auto;
+  margin-right: 0;
+}
+
 .nav{
     display:inline;
 }

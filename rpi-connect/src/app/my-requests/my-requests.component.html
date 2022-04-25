@@ -1,48 +1,59 @@
 <div *ngIf = "myRequestsShow">
-<div style="height: 100px;"></div>
-        <div id="mr-left-side">
-            <h3>Current Requests</h3>
-            <div #activeFilter id="activeFilter"></div>
-            <button class="btn btn-outline-primary refresh" (click)="classFilter(activeFilter)">Refresh</button>
-            <div id = 'actContainer'></div>
-            <!--go through list of current requests-->
-            <div id = "reqnav">
-            <button #prevAct id="previousAct" class="btn btn-outline-primary btn-sm" syle="display:inline" (click)="incrementReqs(prevAct)">Prev</button>
-            <button #nextAct id="nextAct" class="btn btn-outline-primary btn-sm" syle="display:inline" (click)="incrementReqs(nextAct)">Next</button>
+    <div style="height: 100px;"></div>
+    <div>
+        <form id = "addReq">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h3>Create New Request</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p class="card-text profile-field" id="mr-newreq-field">CLASS NAME:</p>
+                        <input #class class="form-control profile-value" id="mr-newreq-input" type="text" name="class">
+                        <p class="card-text profile-field" id="mr-newreq-field">MESSAGE:</p>
+                        <input #msg class="form-control profile-value" id="mr-newreq-input" type="text" name="msg">
+                        <button type = "button" id = "basic" class = "btn btn-outline-primary" id="mr-newreq-btn" (click) = "addRequest(class, msg);">+ Add</button>
+                    </div>
+                </div>
             </div>
-            <p #actstep id="actstep"></p>
-            <hr>
-            <h3>Expired Requests</h3>
-            <div #expiredFilter id="expiredFilter"></div>
-            <button class="btn btn-outline-primary refresh" (click)="classFilter(expiredFilter)">Refresh</button>
-            <div id = 'expContainer'></div>
-            <div id = "expnav">
-                <button #prevExp id="previousExp" class="btn btn-outline-primary btn-sm" syle="display:inline" (click)="incrementReqs(prevExp)">Prev</button>
-                <button #nextExp id="nextExp" class="btn btn-outline-primary btn-sm" syle="display:inline" (click)="incrementReqs(nextExp)">Next</button>
-
+        </form>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <h3>Current Requests</h3>
+                <div #activeFilter id="activeFilter"></div>
+                <button class="btn btn-outline-primary refresh" (click)="classFilter(activeFilter)">Refresh</button>
             </div>
-                <p #expstep id="expstep"></p>
+            <div class="col-8">
+                <div id = 'actContainer'></div>
+                <!--go through list of current requests-->
+                <div id = "reqnav">
+                    <button #prevAct id="previousAct" class="btn btn-outline-primary btn-sm" syle="display:inline" (click)="incrementReqs(prevAct)">Prev</button>
+                    <button #nextAct id="nextAct" class="btn btn-outline-primary btn-sm" syle="display:inline" (click)="incrementReqs(nextAct)">Next</button>
+                </div>
+                <p #actstep id="actstep"></p>
+            </div>
         </div>
-        <div id="mr-right-side">
-            <form id = "addReq">
-                <div class="container">
-                    <div class="row"><div class="col-12">
-                        <p class="card-text profile-field">CLASS NAME:</p>
-                    </div></div>
-                    <div class="row"><div class="col-12">
-                        <input #class class="form-control profile-value" type="text" name="class">
-                    </div></div>
+        <hr>
+        <div class="row">
+            <div class="col-4">
+                <h3>Expired Requests</h3>
+                <div #expiredFilter id="expiredFilter"></div>
+                <button class="btn btn-outline-primary refresh" (click)="classFilter(expiredFilter)">Refresh</button>
+            </div>
+            <div class="col-8">
+                <div id = 'expContainer'></div>
+                <div id = "expnav">
+                    <button #prevExp id="previousExp" class="btn btn-outline-primary btn-sm" syle="display:inline" (click)="incrementReqs(prevExp)">Prev</button>
+                    <button #nextExp id="nextExp" class="btn btn-outline-primary btn-sm" syle="display:inline" (click)="incrementReqs(nextExp)">Next</button>
                 </div>
-                <div class="container">
-                    <div class="row"><div class="col-12">
-                        <p class="card-text profile-field">MESSAGE:</p>
-                    </div></div>
-                    <div class="row"><div class="col-12">
-                        <input #msg class="form-control profile-value" type="text" name="msg">
-                    </div></div>
-                </div>
-                <button type = "button" id = "basic" class = "btn btn-outline-primary" (click) = "addRequest(class, msg);">+ Create New</button>
-            </form>
+                <p #expstep id="expstep"></p>
+            </div>
         </div>
     </div>
+</div>
 
