@@ -1,12 +1,10 @@
-
-
-#left-side {
-    width: 25%;
+#mr-left-side {
+    width: 60%;
     float: left;
 }
 
-#right-side {
-    width: 75%;
+#mr-right-side {
+    width: 40%;
     float: right;
 }
 
@@ -131,4 +129,12 @@
   padding: 1%;
 }
  
+@media only screen and (max-width: 600px) {
+  #mr-left-side {
+    width: 100%;
+  }
 
+  #mr-right-side {
+      width: 100%;
+  }
+}

@@ -1,6 +1,6 @@
 <div *ngIf = "myRequestsShow">
 <div style="height: 100px;"></div>
-        <div id="left-side" style="width: 60%;">
+        <div id="mr-left-side">
             <h3>Current Requests</h3>
             <div #activeFilter id="activeFilter"></div>
             <button class="btn btn-outline-primary refresh" (click)="classFilter(activeFilter)">Refresh</button>
@@ -23,47 +23,26 @@
             </div>
                 <p #expstep id="expstep"></p>
         </div>
-        <div id="right-side" style="width: 40%;">
-            <form id = "basicInfo">
-                <div id = "info">
-                    <!--<div>
-                        <label for = "major">Major</label>
-                        <input type="text" id="major" name = "major">
-                    </div>
-                    <div>
-                        <label for = "code">Class Code</label>
-                        <input type = "text" id = "code" name = "code">
-                    </div>-->
-                    <div>
-                        <label for = "class">Class Name</label>
-                        <input #class type="text" id="class" name = "class">
-                    </div>
-                    <div>
-                        <label for = "msg">Message</label>
-                        <input #msg type="textarea" id="msg" name = "msg">
-                    </div>
+        <div id="mr-right-side">
+            <form id = "addReq">
+                <div class="container">
+                    <div class="row"><div class="col-12">
+                        <p class="card-text profile-field">CLASS NAME:</p>
+                    </div></div>
+                    <div class="row"><div class="col-12">
+                        <input #class class="form-control profile-value" type="text" name="class">
+                    </div></div>
+                </div>
+                <div class="container">
+                    <div class="row"><div class="col-12">
+                        <p class="card-text profile-field">MESSAGE:</p>
+                    </div></div>
+                    <div class="row"><div class="col-12">
+                        <input #msg class="form-control profile-value" type="text" name="msg">
+                    </div></div>
                 </div>
                 <button type = "button" id = "basic" class = "btn btn-outline-primary" (click) = "addRequest(class, msg);">+ Create New</button>
             </form>
-            <h3>Pending Requests</h3>
-            <div #pendingFilter id="pendingFilter"></div>
-            <button class="btn btn-outline-primary refresh" (click)="classFilter(pendingFilter)">Refresh</button>
-            <div id = "penContainer"></div>
-            <div id = "reqnav">
-                <button #prevPen id="previousPen" class="btn btn-outline-primary btn-sm" syle="display:inline" (click)="incrementReqs(prevPen)">Prev</button>
-                <button #nextPen id="nextPen" class="btn btn-outline-primary btn-sm" syle="display:inline" (click)="incrementReqs(nextPen)">Next</button>
-                </div>
-                <p #penstep id="penstep"></p>
-            <hr>
-            <h3>Answered Requests</h3>
-            <div #answeredFilter id="answeredFilter"></div>
-            <button class="btn btn-outline-primary refresh" (click)="classFilter(answeredFilter)">Refresh</button>
-            <div id = "ansContainer"></div>
-            <div id = "reqnav">
-                <button #prevAns id="previousAns" class="btn btn-outline-primary btn-sm" syle="display:inline" (click)="incrementReqs(prevAns)">Prev</button>
-                <button #nextAns id="nextAns" class="btn btn-outline-primary btn-sm" syle="display:inline" (click)="incrementReqs(nextAns)">Next</button>
-                </div>
-                <p #actstep id="ansstep"></p>
         </div>
     </div>
 

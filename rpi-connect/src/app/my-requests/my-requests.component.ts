@@ -1,7 +1,6 @@
 import { Component, Input, Output, OnInit, ElementRef } from '@angular/core';
 import { HttpService } from '../http.service';
 import { ViewEncapsulation } from '@angular/core';
-import { empty } from 'rxjs';
 
 @Component({
   selector: 'app-my-requests',
@@ -345,78 +344,18 @@ export class MyRequestsComponent implements OnInit {
 
   public incrementReqs(direction:HTMLElement){
     if(direction.id == "previousAct"){
-      this.activeReqIndex -= 5;
+      this.activeReqIndex -= 4;
     }
     else if(direction.id == "nextAct"){
-      this.activeReqIndex += 5;
+      this.activeReqIndex += 4;
     }
     else if(direction.id == "previousExp"){
-      this.expiredReqIndex -= 5;
+      this.expiredReqIndex -= 4;
     }
     else if(direction.id == "nextExp"){
-      this.expiredReqIndex += 5;
-    }
-    else if(direction.id == "previousAns"){
-      this.answeredReqIndex -= 5;
-    }
-    else if(direction.id == "nextAns"){
-      this.answeredReqIndex += 5;
-    }
-    else if(direction.id == "previousPen"){
-      this.pendingReqIndex -= 5;
-    }
-    else if(direction.id == "nextPen"){
-      this.pendingReqIndex += 5;
+      this.expiredReqIndex += 4;
     }
     this.loadRequests()
-  }
-
-  public confirmAnswer(id:number){
-    //increment answerId's answered questions stat
-    //get req to get ansId
-    this.httpService.sendGetRequest('req/' + id.toString()).subscribe((res) => {
-      this.data = res;
-      var ansId = this.data.answerId;
-      //get answer profile
-      this.httpService.sendGetRequest('user/' + ansId.toString()).subscribe((res) => {
-        //put incremented numAnsed to profile
-        this.data2 = res;
-        var newNum =  this.data2.numAnsed + 1;
-        var query = {id : this.data2.id};
-        var obj = JSON.stringify(query);
-        this.httpService.sendPutRequest('user/numAnsed/' + newNum.toString(), JSON.parse(obj)).subscribe((res) => {
-
-        });
-      });
-    });
-    //change status to inactive
-    var query = {status : 'answered'};
-    var obj = JSON.stringify(query);
-    this.httpService.sendPutRequest('req/' + id.toString(), JSON.parse(obj)).subscribe((res) => {
-      this.loadRequests();
-    });
-    
-  }
-
-  public cancelAnswer(id:number){
-    //change status back to active
-    var query = {status : 'active'};
-    var obj = JSON.stringify(query);
-    this.httpService.sendPutRequest('req/' + id.toString(), JSON.parse(obj)).subscribe((res) => {
-
-    });
-    //set answerId to 0
-    var query2 = {answerId : 0};
-    obj = JSON.stringify(query2);
-    this.httpService.sendPutRequest('req/' + id.toString(), JSON.parse(obj)).subscribe((res) => {
-
-    });
-    //set answerMsg to ''
-    var query3 = {answerMsg : ''};
-    obj = JSON.stringify(query3);
-    this.httpService.sendPutRequest('req/' + id.toString(), JSON.parse(obj)).subscribe((res) => {
-      this.loadRequests();
-    });
   }
 
   public loadActive(actData:any){
@@ -429,7 +368,7 @@ export class MyRequestsComponent implements OnInit {
     else{
       (<HTMLElement>prev).style.display = "inline-block";
     }
-    if(this.activeReqIndex+5 >= this.activeReqs){
+    if(this.activeReqIndex+4 >= this.activeReqs){
       (<HTMLElement>next).style.display = "none";
     }
     else{
@@ -438,7 +377,7 @@ export class MyRequestsComponent implements OnInit {
 
     var destination = document.getElementById("actContainer");
         (<HTMLElement>destination).innerHTML = "";
-        for(var i = this.activeReqIndex; i < this.activeReqIndex+5; i++){
+        for(var i = this.activeReqIndex; i < this.activeReqIndex+4; i++){
           if(i < actData.length){
           const elem1 = document.createElement("div");
           elem1.classList.add('card');
@@ -499,62 +438,62 @@ export class MyRequestsComponent implements OnInit {
             <button #remove class="btn btn-outline-danger btn-sm rem" (click)="delReq(actcard2Id)" style="display: inline;">Remove</button>
           */
           //declare buttons
-          const button1 = document.createElement('button');
-          const button2 = document.createElement('button');
-          const button3 = document.createElement('button');
-          const button4 = document.createElement('button');
+          const editBtn = document.createElement('button');
+          const confirmBtn = document.createElement('button');
+          const cancelBtn = document.createElement('button');
+          const removeBtn = document.createElement('button');
           const id = actData[i].reqId;
 
           //confirm edit button
-          button2.addEventListener('click', (e) => {
-            this.confirmEdit(id, elem4, elem7, elem3, elem6, button2, button3, button1, button4);
+          confirmBtn.addEventListener('click', (e) => {
+            this.confirmEdit(id, elem4, elem7, elem3, elem6, editBtn, removeBtn, confirmBtn, cancelBtn);
           });
-          button2.id = 'confirmAct' + i.toString();
-          button2.innerText = 'Confirm';
-          button2.style.display = "none";
-          button2.classList.add("btn");
-          button2.classList.add("btn-outline-danger");
-          button2.classList.add("btn-sm");
-          (<HTMLElement>elem2).appendChild(button2);
+          confirmBtn.id = 'confirmAct' + i.toString();
+          confirmBtn.innerText = 'Confirm';
+          confirmBtn.style.display = "none";
+          confirmBtn.classList.add("btn");
+          confirmBtn.classList.add("btn-outline-danger");
+          confirmBtn.classList.add("btn-sm");
+          (<HTMLElement>elem2).appendChild(confirmBtn);
           //cancel button
-          button3.addEventListener('click', (e) => {
-            this.openReqEdit(elem3, elem6, elem4, elem7, button1, button4, button1, button3);
+          cancelBtn.addEventListener('click', (e) => {
+            this.openReqEdit(elem3, elem6, elem4, elem7, editBtn, removeBtn, confirmBtn, cancelBtn);
           });
-          button3.id = 'cancelAct' + i.toString();
-          button3.innerText = 'Cancel';
-          button3.style.display = 'none';
-          button3.classList.add("btn");
-          button3.classList.add("btn-outline-danger");
-          button3.classList.add("btn-sm");
-          (<HTMLElement>elem2).appendChild(button3);
+          cancelBtn.id = 'cancelAct' + i.toString();
+          cancelBtn.innerText = 'Cancel';
+          cancelBtn.style.display = 'none';
+          cancelBtn.classList.add("btn");
+          cancelBtn.classList.add("btn-outline-danger");
+          cancelBtn.classList.add("btn-sm");
+          (<HTMLElement>elem2).appendChild(cancelBtn);
           //remove button
           
-          button4.addEventListener('click', (e) => {
+          removeBtn.addEventListener('click', (e) => {
             this.delReq(id);
           });
-          button4.id = 'deleteAct' + i.toString();
-          button4.innerText = 'Remove';
-          button4.classList.add("btn");
-          button4.classList.add("btn-outline-danger");
-          button4.classList.add("btn-sm");
+          removeBtn.id = 'deleteAct' + i.toString();
+          removeBtn.innerText = 'Remove';
+          removeBtn.classList.add("btn");
+          removeBtn.classList.add("btn-outline-danger");
+          removeBtn.classList.add("btn-sm");
           //edit button
-          button1.id = 'editAct' + i.toString();
-          button1.addEventListener('click', (e) => {
-            this.openReqEdit(elem4, elem7, elem3, elem6, button2, button3, button1, button4);//your typescript function
+          editBtn.id = 'editAct' + i.toString();
+          editBtn.addEventListener('click', (e) => {
+            this.openReqEdit(elem4, elem7, elem3, elem6, confirmBtn, cancelBtn, editBtn, removeBtn);//your typescript function
           });
           //button.id += "btn";
-          button1.id = 'editAct' + i.toString();
-          button1.innerText = 'Edit';
-          button1.classList.add("btn");
-          button1.classList.add("btn-outline-danger");
-          button1.classList.add("btn-sm");
-          (<HTMLElement>elem2).appendChild(button1);
-          (<HTMLElement>elem2).appendChild(button4);
+          editBtn.id = 'editAct' + i.toString();
+          editBtn.innerText = 'Edit';
+          editBtn.classList.add("btn");
+          editBtn.classList.add("btn-outline-danger");
+          editBtn.classList.add("btn-sm");
+          (<HTMLElement>elem2).appendChild(editBtn);
+          (<HTMLElement>elem2).appendChild(removeBtn);
         }
         }
         var top = 0;
-        if(actData.length - this.activeReqIndex >= 5){
-          top = 5;
+        if(actData.length - this.activeReqIndex >= 4){
+          top = 4;
         }
         else{
           top = actData.length - this.activeReqIndex;
@@ -592,7 +531,7 @@ export class MyRequestsComponent implements OnInit {
 
     var destination = document.getElementById("expContainer");
         (<HTMLElement>destination).innerHTML = "";
-        for(var i = this.expiredReqIndex; i < this.expiredReqIndex+5; i++){
+        for(var i = this.expiredReqIndex; i < this.expiredReqIndex+4; i++){
           if(i < expData.length){
           const elem1 = document.createElement("div");
           elem1.classList.add('card');
@@ -652,24 +591,24 @@ export class MyRequestsComponent implements OnInit {
             <button #remove class="btn btn-outline-danger btn-sm rem" (click)="delReq(expcard2Id)" style="display: inline;">Remove</button>
           */
           //declare buttons
-          const button4 = document.createElement('button');
+          const removeBtn = document.createElement('button');
           const id = expData[i].reqId;
           //remove button
           
-          button4.addEventListener('click', (e) => {
+          removeBtn.addEventListener('click', (e) => {
             this.delReq(id);
           });
-          button4.id = 'deleteexp' + i.toString();
-          button4.innerText = 'Remove';
-          button4.classList.add("btn");
-          button4.classList.add("btn-outline-danger");
-          button4.classList.add("btn-sm");
-          (<HTMLElement>elem2).appendChild(button4);
+          removeBtn.id = 'deleteexp' + i.toString();
+          removeBtn.innerText = 'Remove';
+          removeBtn.classList.add("btn");
+          removeBtn.classList.add("btn-outline-danger");
+          removeBtn.classList.add("btn-sm");
+          (<HTMLElement>elem2).appendChild(removeBtn);
         }
         }
         var top = 0;
-        if(expData.length - this.expiredReqIndex >= 5){
-          top = 5;
+        if(expData.length - this.expiredReqIndex >= 4){
+          top = 4;
         }
         else{
           top = expData.length - this.expiredReqIndex;
