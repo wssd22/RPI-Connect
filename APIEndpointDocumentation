@@ -1,0 +1,48 @@
+'/user/add'
+    post
+        Add a new User to the database.
+        On success: client will receive "User has been successfully added to the database" 
+
+'/user/:field/:input'
+    put
+        Update information for a User
+        On success: no message will be sent
+    
+'/user/:id'
+    get
+        Get the info for a specific User
+        On success: client will receive the profile for the specified User
+
+'/user/:userID/:list'
+    delete
+        Delete a class from a User profile
+        On success: no message will be sent
+
+'/user'
+    get
+        Get a list of every User in the database
+        On success: client will receive the list of every User in the database
+
+'/req'
+    post
+        Create a new request object
+        On success: client will receive "User has successfully made a request"
+    get
+        Get a list of every request in the database
+        On success: client will receive the list of every request in the database
+
+'/req/:num'
+    delete
+        Delete a specific request from the database
+        On success: no message will be sent
+    put
+        
+    get
+
+
+
+
+Endpoints and verbs they can take
+What the client can expect back from a successful call
+Common errors and the reason for them
+    -try to add a class that doesnt exist or something like that

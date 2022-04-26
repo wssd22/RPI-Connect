@@ -477,38 +477,11 @@ app.all('*', (req, res) => {
   res.status(404).send('<h1>404: Request Not Found</h1><p>Use /user or /req or /classes to get data');
 });
 
-
 app.use(function(err, req, res, next) {
   console.log("500: Internal Server Error");
   res.status(500).send('<h1>500: Internal Server Error</h1>');
   console.log(err);
 });
-
-/////////////////////////////////////////
-
-app.get('/', (req, res) => {
-    res.status(200).sendFile(path.join(__dirname, '/public/index.html'));
-})
-
-app.get('/requests', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, '/public/Requests.html'));
-})
-
-app.get('/login', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, '/public/login.html'));
-})
-
-app.get('/register', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, '/public/register.html'));
-})
-
-app.get('/myRequests', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, '/public/myRequests.html'));
-})
-
-app.get('/profile', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, '/public/Profile.html'));
-})
 
 app.get('/userInfo', (req, res) => {
   res.json(
