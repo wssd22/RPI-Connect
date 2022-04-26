@@ -165,8 +165,10 @@
   }
   #mr-newreq-input {
     display: inline;
+    width: 90%;
   }
   #mr-newreq-btn {
     display: block;
+    width: 90%;
   }
 }
