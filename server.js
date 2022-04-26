@@ -37,6 +37,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 const { Client, Intents, MessageEmbed } = require('discord.js');
 const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 const { token } = require('./config.json');
+const { PermissionFlagsBits } = require('discord-api-types/v10');
 
 app.post('/postToDiscord', (req, res) => {
   //console.log(req.body);
@@ -60,58 +61,8 @@ app.post('/postToDiscord', (req, res) => {
       user.send({ embeds: [msg] });
     })
   })
+  res.send('done');
 });
-
-app.get('discordInfo/:curId/:postedId', (req, res) => {
-  var id = Number(req.params.curId);
-  var postId = Number(req.params.postedId);
-  var query = {reqId : id};
-  var query2 = {id: postId};
-
-  var userPosted = "";
-  var userReplied = "";
-  var className = "";
-  var question = "";
-  var userId = "";
-
-  // get classname, message and user id from reqs (user id to get discordId to send them a msg)
-  client.connect(err => {
-    const collection = client.db("rpi-connect").collection("requests");
-    
-    collection.findOne(query, function(err, result){
-      //console.log(result);
-      className = result.class;
-      question = result.msg;
-      userId = result.userId;
-    });
-
-    // get current user's discord username
-    const collection2 = client.db("rpi-connect").collection("users");
-    
-    collection2.findOne(query2, function(err, result){
-      //console.log(result);
-      userReplied = result.discord;
-    });
-
-    // get user who posted's discordId to send them a message
-    var query3 = {id: userId};
-    const collection3 = client.db("rpi-connect").collection("users");
-    
-    collection3.findOne(query3, function(err, result){
-      //console.log(result);
-      userPosted = result.discordId;
-    });
-  });
-
-  obj = {
-    "discordId": userPosted,
-    "discord": userReplied,
-    "className": className,
-    "message": question
-  }
-  res.send(obj);
-
-})
 
 //add new user to collection
 app.post('/user/add', (req, res) => {
