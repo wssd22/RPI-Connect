@@ -1,6 +1,6 @@
 <div *ngIf="reqShow">
     <div style="height: 100px;"></div>
-        <div id="left-side">
+        <div id="left-side" style="padding: 10px;">
             <div>
                 <div class="btn-group-sm" role="group" aria-label="Basic radio toggle button group" >
                     <input #all (click)="currentOrPast(all)" type="radio" class="btn-check" name="btnradio" id="all" autocomplete="off" value="all" checked>
@@ -18,7 +18,7 @@
             </div>
             <hr/>
 
-            <button class="btn btn-outline-primary" (click)="loadClassRequests(container)">Refresh</button>
+            <button class="btn btn-outline-primary" (click)="loadClassRequests(container)" style="width: 95%; margin: 5px;">Refresh</button>
 
         </div>
         <div id="right-side">
