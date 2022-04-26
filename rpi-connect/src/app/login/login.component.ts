@@ -74,13 +74,10 @@ export class LoginComponent implements OnInit {
           this.data = res;
           var found = false;
           for(var i = 0; i < this.data.length; i++){
-            //console.log(this.data[i]);
-            //alert(this.data[i].id +  '==' +  this.user.id);
             if(this.data[i].id == this.user.id){
               found = true;
               //this.profId.emit(id);
               //this.reroute.emit("profile");
-              alert("plz;)");
               this.profId.emit(this.user.id);
               this.reroute.emit("profile");
               //this.router.navigate(['profile']);
@@ -88,6 +85,7 @@ export class LoginComponent implements OnInit {
             }
           }
           if(!found){
+            this.profId.emit(this.user.id);
             this.reroute.emit("register");
           }
         });
@@ -96,13 +94,11 @@ export class LoginComponent implements OnInit {
         alert("Please log in with a valid Google Account");
         
       }
-    });
-    //alert(this.user.uid);
-    //alert(this.authService.user.uid);
-    if(false){
-      this.checkStatus();
-    }
-      
+    });    
+  }
+
+  public googleLogout(){
+    this.authService.SignOut();
   }
 
   public checkStatus(){
@@ -120,6 +116,7 @@ export class LoginComponent implements OnInit {
         }
       }
       if(!found){
+        this.profId.emit(id);
         this.reroute.emit("register");
       }
     });

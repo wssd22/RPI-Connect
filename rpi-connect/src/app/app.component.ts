@@ -3,6 +3,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { MyRequestsComponent } from './my-requests/my-requests.component';
 import { RequestsComponent } from './requests/requests.component';
 import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 import { HttpService } from './http.service';
 
 @Component({
@@ -17,6 +18,7 @@ export class AppComponent{
   @ViewChild(MyRequestsComponent) myReqs!: MyRequestsComponent;
   @ViewChild(RequestsComponent) reqs!: RequestsComponent;
   @ViewChild(RegisterComponent) reg!: RegisterComponent;
+  @ViewChild(LoginComponent) log!: LoginComponent;
   title = 'rpi-connect';
   showHome = true;
   showRequests = false;
@@ -125,6 +127,7 @@ export class AppComponent{
       this.sentId = '0';
       this.loggedOut = true;
       this.loggedIn = false;
+      this.log.googleLogout();
     }
     else if(page == "login"){
       this.showHome = false;
@@ -171,7 +174,8 @@ export class AppComponent{
       this.showRegister = false;
       this.showProfile = true;
       this.showMyRequests = false;
-      
+      this.loggedOut = false;
+      this.loggedIn = true;
       this.profile.loadProfile(this.sentId);
     }
     else if(this.sentId == '0'){

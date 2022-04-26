@@ -46,7 +46,7 @@ export class ProfileComponent implements OnInit {
 
   public loadProfile(id:string){
     this.profileId = id;
-    alert(id);
+  
     this.httpService.sendGetRequest("user/" + this.profileId).subscribe((res) => {
       this.data = res;
       console.log(this.data);
