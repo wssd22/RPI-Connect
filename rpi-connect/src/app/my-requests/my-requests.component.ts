@@ -11,7 +11,7 @@ import { ViewEncapsulation } from '@angular/core';
 export class MyRequestsComponent implements OnInit {
 
   @Input() myRequestsShow:boolean = false;
-  @Input() profileId:string = '0';
+  @Input() profileId = 0;
   private data:any = [];
   courses:any = [];
   className:string = "";
@@ -75,35 +75,11 @@ export class MyRequestsComponent implements OnInit {
     var name = "";
     var id = Math.floor(Math.random() * (1000000 - 10000 + 1)) + 10000;
 
-    //get name
-    this.httpService.sendGetRequest("user/" + this.profileId).subscribe((res) => {
-      
-      this.data = res;
-      name = this.data.name;
-      var current = this.data.current;
-      var enrolled = false;
-      
-      /*for(var i = 0; i < current.length; i++){
-        
-        if(current[i] == reqClass){
-          
-          
-          enrolled = true;
-          i = current.length;
-        }
-      }
-      if(!enrolled){
-        alert("You are not currently enrolled in " + reqClass + " or it is an invalid class");
-        (<HTMLInputElement>courses).value = "";
-        return;
-      }
-      else{*/
-        //add reqId
-        var query = '{"id" :"' + this.profileId + '"}';
-        this.httpService.sendPutRequest("user/reqs/" + id.toString(), JSON.parse(query)).subscribe((res) => {
-        });
-        var today = new Date();
-        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var query = '{"id" :"' + this.profileId + '"}';
+    this.httpService.sendPutRequest("user/reqs/" + id.toString(), JSON.parse(query)).subscribe((res) => {
+
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     
         //date = date.slice(0,9);
         var obj = {
@@ -275,7 +251,7 @@ export class MyRequestsComponent implements OnInit {
   }
 
   public delReq(targetReq:number){
-    this.httpService.sendDeleteRequest("req/" + targetReq.toString() +"?user=" + this.profileId, "").subscribe((res) =>{
+    this.httpService.sendDeleteRequest("req/" + targetReq.toString() +"?user=" + this.profileId.toString(), "").subscribe((res) =>{
       
     });
     
