@@ -18,6 +18,7 @@ export class ProfileComponent implements OnInit {
   year:string = "";
   email:string = "";
   discord:string = "";
+  discordId:string = "";
   private data:any = [];
   majors:any = [];
   classes:any = [];
@@ -54,6 +55,7 @@ export class ProfileComponent implements OnInit {
       this.year = this.data.gradYr;
       this.email = this.data.email;
       this.discord = this.data.discord;
+      this.discordId = this.data.discordId;
       //read in classes
       var current = "";
       var currentList = document.getElementById("currentList");
@@ -145,7 +147,7 @@ export class ProfileComponent implements OnInit {
     hide.style.display = "none";
   }
 
-  public editProfile(name:HTMLElement, year:HTMLElement, email:HTMLElement, disc:HTMLElement, show:HTMLElement, hide:HTMLElement){
+  public editProfile(name:HTMLElement, year:HTMLElement, email:HTMLElement, disc:HTMLElement, discId:HTMLElement, show:HTMLElement, hide:HTMLElement){
     //validity checks
     if((<HTMLInputElement>name).value == ""){
       alert("Name field cannot be left blank");
@@ -171,11 +173,16 @@ export class ProfileComponent implements OnInit {
       alert("Discord Username field cannot be left blank");
       return;
     }
+    if((<HTMLInputElement>discId).value == ""){
+      alert("Discord Id field cannot be left blank");
+      return;
+    }
 
     this.name = (<HTMLInputElement>name).value;
     this.year = (<HTMLInputElement>year).value;
     this.email = (<HTMLInputElement>email).value;
     this.discord = (<HTMLInputElement>disc).value;
+    this.discordId = (<HTMLInputElement>discId).value;
 
     //get request to update user
     this.httpService.sendGetRequest('user/' + this.profileId.toString()).subscribe((res) => {
@@ -209,6 +216,11 @@ export class ProfileComponent implements OnInit {
       }
       if(this.discord != this.data.discord){
         this.httpService.sendPutRequest('user/discord/' + this.discord, JSON.parse(json)).subscribe((res) => {
+
+        });
+      }
+      if(this.discord != this.data.discord){
+        this.httpService.sendPutRequest('user/discordId/' + this.discordId, JSON.parse(json)).subscribe((res) => {
 
         });
       }

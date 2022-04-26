@@ -73,6 +73,8 @@ export class MyRequestsComponent implements OnInit {
     var reqClass = this.className;
     var reqMsg = (<HTMLInputElement>msg).value
     var name = "";
+    var disc = "";
+
     var id = Math.floor(Math.random() * (1000000 - 10000 + 1)) + 10000;
 
     var query = '{"id" :"' + this.profileId + '"}';
@@ -102,13 +104,14 @@ export class MyRequestsComponent implements OnInit {
       this.className = "";
       (<HTMLInputElement>msg).value = "";
       alert("New Request Added to " + reqClass);
-      this.loadRequests();
+      //this.loadRequests();
     });
 
     });
     
   }
 
+  
   public filters(){
     this.httpService.sendGetRequest('user/' + this.profileId).subscribe((res) => {
       this.data = res;
@@ -608,4 +611,5 @@ export class MyRequestsComponent implements OnInit {
           (<HTMLElement>document.getElementById("expstep")).innerHTML = "No Expired Requests";
         }
   }
+
 }

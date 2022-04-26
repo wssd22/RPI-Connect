@@ -34,6 +34,35 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = "mongodb+srv://websci22:wBTafSVIyYnZMPrn@cluster0.v7p54.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
+const { Client, Intents, MessageEmbed } = require('discord.js');
+const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+const { token } = require('./config.json');
+bot.login(token);
+
+app.post('/postToDiscord', (req, res) => {
+  //console.log(req.body);
+
+  bot.on('ready', () => {
+    console.log('the client is ready\n');
+    const msg = new MessageEmbed()
+    .setColor('#0099ff')
+    .setTitle('New Request Reply')
+    .addFields(
+      { name: 'Class Name', value: req.body.className},
+      { name: 'Question', value: req.body.message},
+      { name: 'From', value: req.body.discord },
+      { name: '\u200B', value: '\u200B' },
+    )
+    .setTimestamp()
+    .setFooter({ text: 'DM'+req.body.discord+'to receive help on this question'});
+
+    bot.users.fetch(req.body.discordId).then((user) => {
+      user.send({ embeds: [msg] });
+    })
+  })
+  res.send('done');
+});
+
 //add new user to collection
 app.post('/user/add', (req, res) => {
 
@@ -47,6 +76,7 @@ app.post('/user/add', (req, res) => {
             gradYr:
             email:
             discord:
+            discordId: 
             current: []
             prev: []
             reqs: []

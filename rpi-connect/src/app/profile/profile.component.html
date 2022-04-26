@@ -22,7 +22,7 @@
                                             <p class="card-text profile-field" id = "gradYr">CLASS OF</p>
                                         </div>
                                         <div class="col-8">
-                                            <p #gradYr class="card-text profile-value" id = "gradYr">{{year}}</p>
+                                            <p #gradYr class="card-text profile-value" id = "gradYr" style="text-align: left;">{{year}}</p>
                                         </div>
                                     </div></div>
                                     <hr />
@@ -41,6 +41,15 @@
                                         </div>
                                         <div class="col-8">
                                             <p #disc class="card-text profile-value" id = "disc">{{discord}}</p>
+                                        </div>
+                                    </div></div>
+                                    <hr />
+                                    <div class="container"><div class="row">
+                                        <div class="col-4">
+                                            <p class="card-text profile-field" id = "discId">DISCORD ID</p>
+                                        </div>
+                                        <div class="col-8">
+                                            <p #discId class="card-text profile-value" id = "discId">{{discordId}}</p>
                                         </div>
                                     </div></div>
                                     <div class="container"><div class="row">
@@ -122,12 +131,21 @@
                                             <input #editDiscord class="form-control profile-value" type="text" id="editDiscord" [value]="discord">
                                         </div>
                                     </div></div>
+                                    <hr />
+                                    <div class="container"><div class="row">
+                                        <div class="col-4">
+                                            <p class="card-text profile-field" id = "discId">DISCORD ID</p>
+                                        </div>
+                                        <div class="col-8">
+                                            <input #editDiscordId class="form-control profile-value" type="text" id="editDiscordId" [value]="discordId">
+                                        </div>
+                                    </div></div>
                                     <div class="container"><div class="row">
                                         <div class="col-6" style="text-align: center; margin-top: 20px;">
                                             <button type="button" class="btn btn-outline-primary" (click)="showEdit(confirm, edit)" style="width: 100%;">Cancel</button>
                                         </div>
                                         <div class="col-6" style="text-align: center; margin-top: 20px;">
-                                            <button type="button" class="btn btn-outline-danger" (click)="editProfile(editName, editYr, editEmail, editDiscord, edit, confirm)" style="width: 100%;">Confirm</button>
+                                            <button type="button" class="btn btn-outline-danger" (click)="editProfile(editName, editYr, editEmail, editDiscord, editDiscordId, edit, confirm)" style="width: 100%;">Confirm</button>
                                         </div>
                                     </div></div>
                                 </div>
