@@ -67,10 +67,11 @@ export class MyRequestsComponent implements OnInit {
       return;
     }
     if(this.className == ""){
-      alert("Please enter a message for your request");
+      alert("Please select a class for your request");
       return;
     }
     var reqClass = this.className;
+    (<HTMLInputElement>document.getElementById('mr-newreq-input')).value = "Select class name";
     var reqMsg = (<HTMLInputElement>msg).value
     var name = "";
     var disc = "";

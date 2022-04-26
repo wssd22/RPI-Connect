@@ -257,7 +257,7 @@ export class ProfileComponent implements OnInit {
     if(document.getElementById(course + "btn")){
       (<HTMLElement>document.getElementById(course + "btn")).style.display = "none";
     }
-    alert(course + "Edit");
+    //alert(course + "Edit");
     if(document.getElementById(course + "Edit")){
       (<HTMLElement>document.getElementById(course + "Edit")).style.display = "none";
     }
