@@ -245,7 +245,6 @@ export class RequestsComponent implements OnInit {
             const button = document.createElement('button');
             button.id = courses[i].reqId;
               button.addEventListener('click', (e) => {
-                this.answerReq(Number(button.id));//your typescript function
                 this.httpService.sendGetRequest("req/"+button.id).subscribe((res) => {
                   this.data2 = res;
                   this.className = this.data2.class;
