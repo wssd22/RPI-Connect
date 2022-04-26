@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
   }
 
   public googleLogin(){
-    this.authService.SigninWithGoogle().then((result:any) =>{
+    this.authService.SigninWithGoogle().then((result) =>{
       //alert("hello");
       //console.log(result.additionalUserInfo);
       if(result.additionalUserInfo){
