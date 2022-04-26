@@ -78,6 +78,8 @@ export class MyRequestsComponent implements OnInit {
     var query = '{"id" :"' + this.profileId + '"}';
     this.httpService.sendPutRequest("user/reqs/" + id.toString(), JSON.parse(query)).subscribe((res) => {
 
+
+   
     var today = new Date();
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     
