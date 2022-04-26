@@ -20,13 +20,30 @@ export class ProfileComponent implements OnInit {
   discord:string = "";
   discordId:string = "";
   private data:any = [];
+  majors:any = [];
+  classes:any = [];
+  showClasses:boolean = false;
+  className:string = "";
 
   constructor(private httpService: HttpService) { }
 
   ngOnInit(): void {
   }
 
-  
+  public getClasses(event:any){
+    console.log(event.target.value);
+    console.log("got here\n");
+    this.httpService.sendGetRequest("majors/" + event.target.value).subscribe((res) => {
+      this.classes = res;
+      this.showClasses = true;
+      console.log(this.classes);
+    });
+  }
+
+  public setClassName(event:any) {
+    this.className = event.target.value;
+    console.log(event.target.value);
+  }
 
   public loadProfile(id:number){
     this.profileId = id;
@@ -118,6 +135,10 @@ export class ProfileComponent implements OnInit {
 
     });
 
+    this.httpService.sendGetRequest('majors').subscribe((res) => {
+      this.majors = res;
+    });
+
   }
 
   public showEdit(show:HTMLElement, hide:HTMLElement){
@@ -171,6 +192,16 @@ export class ProfileComponent implements OnInit {
       if(this.name != this.data.name){
         this.httpService.sendPutRequest('user/name/' + this.name, JSON.parse(json)).subscribe((res) => {
 
+        });
+        //update userName in requests
+        this.httpService.sendGetRequest('user/' + this.profileId.toString()).subscribe((res) => {
+          this.data = res;
+          for(var i = 0; i < this.data.reqs.length; i++){
+            var obj = {userName : this.name};
+            var json = JSON.stringify(obj);
+            this.httpService.sendPutRequest('req/' + this.data.reqs[i].toString(), JSON.parse(json)).subscribe((res) => {
+            });
+          }
         });
       }
       if(this.year != this.data.gradYr){
@@ -234,26 +265,26 @@ export class ProfileComponent implements OnInit {
     //this.loadProfile(this.profileId);
   }
 
-  public addClass(course:HTMLElement, list:string){
+  public addClass(list:string){
     //need to add list of classes to check to make sure class is valid
     this.httpService.sendGetRequest("user/" + this.profileId.toString()).subscribe((res) => {
       this.data = res;
       var courseList = this.data.current;
       for(var i = 0; i < courseList.length; i++){
-        if(courseList[i] == (<HTMLInputElement>course).value){
-          alert((<HTMLInputElement>course).value + " is a already a member of your Current Classes list");
+        if(courseList[i] == this.className){
+          alert(this.className + " is a already a member of your Current Classes list");
         }
       }
       courseList = this.data.prev;
       for(var i = 0; i < courseList.length; i++){
-        if(courseList[i] == (<HTMLInputElement>course).value){
-          alert((<HTMLInputElement>course).value + " is a already a member of your Previous Classes list");
+        if(courseList[i] == this.className){
+          alert(this.className + " is a already a member of your Previous Classes list");
         }
       }
     });
     var obj = {id : this.profileId};
     var query = JSON.stringify(obj);
-    this.httpService.sendPutRequest("user/" + list + "/" + (<HTMLInputElement>course).value, JSON.parse(query)).subscribe((res) => {
+    this.httpService.sendPutRequest("user/" + list + "/" + this.className, JSON.parse(query)).subscribe((res) => {
 
     });
     (<HTMLElement>document.getElementById("confirm")).style.display = "block";
@@ -272,11 +303,11 @@ export class ProfileComponent implements OnInit {
       (<HTMLInputElement>document.getElementById("addPrev")).value = "";
     }
     var element = document.createElement("p");
-    element.innerHTML = (<HTMLInputElement>course).value;
-    element.id = (<HTMLInputElement>course).value + "Edit";
+    element.innerHTML = this.className;
+    element.id = this.className + "Edit";
     (<HTMLElement>editDest).appendChild(element);
     const button = document.createElement("button");
-    button.id = (<HTMLInputElement>course).value;
+    button.id = this.className;
     button.addEventListener('click', (e) => {
       this.delClass(button.id, list);//your typescript function
     });
@@ -288,8 +319,8 @@ export class ProfileComponent implements OnInit {
         button.style.cssText = 'margin-left: 10px; width: auto;';
     element.appendChild(button);
     var elem = document.createElement("p");
-    elem.innerHTML = (<HTMLInputElement>course).value;
-    elem.id = (<HTMLInputElement>course).value;
+    elem.innerHTML = this.className;
+    elem.id = this.className;
     (<HTMLElement>destination).appendChild(elem);
     //this.loadProfile(this.profileId);
   }

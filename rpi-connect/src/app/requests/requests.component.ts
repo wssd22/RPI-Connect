@@ -1,10 +1,12 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
+import { ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-requests',
   templateUrl: './requests.component.html',
-  styleUrls: ['./requests.component.css']
+  styleUrls: ['./requests.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class RequestsComponent implements OnInit {
   @Input() reqShow:boolean = false;
@@ -25,6 +27,10 @@ export class RequestsComponent implements OnInit {
   view:string = "all";
   poster:string = "";
   search:any = [];
+
+  classIndex:number = 0;
+  totalClass:number = 0;
+  classData:any = [];
   
   constructor(private httpService: HttpService) { }
 
@@ -52,6 +58,17 @@ export class RequestsComponent implements OnInit {
   
   //load new view
   this.loadInterface();
+ }
+
+ public incrementReqs(direction:HTMLElement){
+  if(direction.id == "previous"){
+    this.classIndex -= 10;
+  }
+  else if(direction.id == "next"){
+    this.classIndex += 10;
+  }
+
+  this.loadClassRequests(<HTMLElement>document.getElementById('container'));
  }
 
  public loadInterface(){
@@ -91,13 +108,21 @@ export class RequestsComponent implements OnInit {
     
  }
 
-  public loadClassRequests(container:HTMLElement, destination:HTMLElement){
+
+  public loadClassRequests(container:HTMLElement){
     //detect checked classes
 
     var allChildElements = (<HTMLElement>container).querySelectorAll('.form-check-input');
-
+    var btns;
+    if((<HTMLElement>document.getElementById('dest'))){
+     btns = (<HTMLElement>document.getElementById('dest')).querySelectorAll('.btn');
+     for(var i = 0; i < btns.length; i++){
+      (<HTMLElement>btns[i]).style.display = 'none';
+     }
+    }
+   
     var selected = false;
- 
+    this.search = [];
     for(var i = 0; i < allChildElements.length; i++){
       if((<HTMLInputElement>allChildElements[i]).checked){
         selected = true;
@@ -109,6 +134,15 @@ export class RequestsComponent implements OnInit {
       return;
     }
 
+    var cards = document.getElementsByClassName('card');
+    var body = document.getElementsByClassName('card-body');
+    for(var i = 0; i < cards.length; i++){
+      (<HTMLElement>cards[i]).style.display = 'none';
+    }
+    for(var i = 0; i < body.length; i++){
+      (<HTMLElement>body[i]).style.display = 'none';
+    }
+    
     //get requests for selected classes
     /*
     <div class="card">
@@ -121,34 +155,95 @@ export class RequestsComponent implements OnInit {
                 </div>
             </div>
     */
+   var outer = document.getElementById('outer');
+    (<HTMLElement>outer).innerHTML = "";
+    var dest = document.createElement('div');
+    dest.id = 'destination';
+    outer?.appendChild(dest);
     this.httpService.sendGetRequest('req').subscribe((res) => {
       this.data = res;
-      
+      var courses = [];
       for(var i = 0; i < this.data.length; i++){
         for(var j = 0; j < this.search.length; j++){
           if(this.search[j] == this.data[i].class && this.data[i].status == "active"){
+            courses.push(this.data[i]);
+            
+          }
+        }
+      }
+      
+      //initialize variables
+      this.classData = courses;
+      this.totalClass = courses.length;
+      //alert(courses.length);
+      if(this.totalClass == 0){
+        dest.innerHTML = "<p id='msg'>There are no requests for the included classes</p>";
+        return;
+      }
+      else{
+        //steps
+        var top = 0;
+        if(courses.length - this.classIndex >= 10){
+          top = 10;
+        }
+        else{
+          top = courses.length - this.classIndex;
+        }
+        var step = <HTMLElement>document.getElementById("step");
+        if(courses.length - this.classIndex != 1){
+          step.innerHTML = this.classIndex+1 + " - " + (this.classIndex+top) + " of " + courses.length;
+        }
+        else{
+          (<HTMLElement>document.getElementById("step")).innerHTML = this.classIndex+1 + " of " + courses.length;
+        }
+        //buttons
+        var prev = document.getElementById("previous");
+        var next = document.getElementById("next");
+        
+        if(this.classIndex == 0){
+          (<HTMLElement>prev).style.display = "none";
+      
+        }
+        else{
+          (<HTMLElement>prev).style.display = "inline-block";
+        }
+        if(this.classIndex+10 >= this.totalClass){
+          (<HTMLElement>next).style.display = "none";
+        }
+        else{
+          (<HTMLElement>next).style.display = "inline-block";
+        }
+        
+      }
+      
+      for(var i = this.classIndex; i < this.classIndex+10; i++){
+        for(var j = 0; j < this.search.length; j++){
+        if(i < courses.length){
+          if(this.search[j] == courses[i].class){
+
             var str = ""
             var card = document.createElement("div");
             card.classList.add("card");
             //str += '<div class="card">';
             str += '<div class="card-body">';
-            str += '<p class="card-title"><b>' + this.data[i].class + '</b></p>';
-            str += '<div class="card-days card-days-green" style="background-color: green;">' + this.data[i].status + '</div>';
-            if(this.profId == this.data[i].userId){
+            str += '<p class="card-title"><b>' + courses[i].class + '</b></p>';
+            str += '<div class="card-days card-days-green" style="background-color: green;">' + courses[i].status + '</div>'
+             if(this.profId == courses[i].userId){
               str += '<p class="card-text">Posted by: You</p>'; 
             }
             else{
-              str+='<p class="card-text">Posted by: ' + this.data[i].userName + '</p>';
+              str+='<p class="card-text">Posted by: ' + courses[i].userName + '</p>';
             }
             
-            str += '<p class="card-text">' + this.data[i].msg + '</p>';
-            str += '<p class="card-text" style="display: inline;"><small>Created: ' + this.data[i].datePosted + '</small></p>';
+            str += '<p class="card-text">' + courses[i].msg + '</p>';
+            str += '<p class="card-text" style="display: inline;"><small>Created: ' + courses[i].datePosted + '</small></p>';
             str += '</div>';
             card.innerHTML = str;
 
-            destination.appendChild(card);
+
+            dest.appendChild(card);
             const button = document.createElement('button');
-            button.id = this.data[i].reqId;
+            button.id = courses[i].reqId;
               button.addEventListener('click', (e) => {
                 this.answerReq(Number(button.id));//your typescript function
                 this.httpService.sendGetRequest("req/"+button.id).subscribe((res) => {
@@ -178,16 +273,28 @@ export class RequestsComponent implements OnInit {
               button.style.color = "white";
               
               card.appendChild(button);
+            }
           }
         }
       }
       
+      courses = [];
+
     });
   }
 
-  public answerReq(reqId:number){
-    alert(reqId);
-    
+  public showAnswer(field:HTMLElement, btn1:HTMLElement, btn2:HTMLElement, btn3:HTMLElement){
+    field.style.display = 'block';
+    btn1.style.display = 'inline-block';
+    btn2.style.display = 'inline-block';
+    btn3.style.display = 'none';
+  }
+
+  public hideAnswer(field:HTMLElement, btn1:HTMLElement, btn2:HTMLElement, btn3:HTMLElement){
+    field.style.display = 'none';
+    btn1.style.display = 'none';
+    btn2.style.display = 'none';
+    btn3.style.display = 'inline-block';
   }
 
 }

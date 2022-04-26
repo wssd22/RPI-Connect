@@ -159,8 +159,19 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-text profile-title"><b>Current Classes</b></h5>
-                                    <input #currentAdd class="form-control" type="text" id="prevAdd" style="width: 50%; display: inline;">
-                                    <button class="btn btn-outline-primary" id="addCurrent" type="button" (click)="addClass(currentAdd, 'current')" style="display: inline; margin-left: 10px; width: auto;">Add Class</button>
+                                    <select class="form-select" id="add-cur" aria-label="Default select example" style="width: 40%; display: inline;" (change)="getClasses($event);">
+                                        <option selected>Select course code</option>
+                                        <option *ngFor="let major of majors;" [value]="major.code">
+                                            {{major.code}}
+                                        </option>
+                                    </select>
+                                    <select *ngIf="showClasses" class="form-select" id="add-cl" aria-label="Default select example" style="width: 40%; display: inline;" (change)="setClassName($event);">
+                                        <option selected>Select class name</option>
+                                        <option *ngFor="let class of classes.courses;" [value]="class.id+' '+class.title">
+                                            {{class.title}}
+                                        </option>
+                                    </select>
+                                    <button class="btn btn-outline-primary" id="addCurrent" type="button" (click)="addClass('current')" style="display: inline; margin-left: 10px; width: auto;">Add Class</button>
                                     <div #editCurrent id = "editCurrent" style="margin-top: 10px;">
                                     </div>
                                     <p>Note: Deleting a Current Class will delete any associated Requests</p>
@@ -173,8 +184,19 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-text profile-title"><b>Previous Classes</b></h5>
-                                    <input #prevAdd class="form-control" type="text" id="prevAdd" style="width: 50%; display: inline;">
-                                    <button class="btn btn-outline-primary" id="addPrev" type="button" (click)="addClass(prevAdd, 'prev')" style="display: inline; margin-left: 10px; width: auto;">Add Class</button>
+                                    <select class="form-select" id="add-cur" aria-label="Default select example" style="width: 40%; display: inline;" (change)="getClasses($event);">
+                                        <option selected>Select course code</option>
+                                        <option *ngFor="let major of majors;" [value]="major.code">
+                                            {{major.code}}
+                                        </option>
+                                    </select>
+                                    <select *ngIf="showClasses" class="form-select" id="add-cl" aria-label="Default select example" style="width: 40%; display: inline;" (change)="setClassName($event);">
+                                        <option selected>Select class name</option>
+                                        <option *ngFor="let class of classes.courses;" [value]="class.id+' '+class.title">
+                                            {{class.title}}
+                                        </option>
+                                    </select>
+                                    <button class="btn btn-outline-primary" id="addPrev" type="button" (click)="addClass('prev')" style="display: inline; margin-left: 10px; width: auto;">Add Class</button>
                                     <div #editPrev id = "editPrev" style="margin-top: 10px;">
                                     </div>
                                 </div>
@@ -186,3 +208,12 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+
+    function changeFunc() {
+     var selectBox = document.getElementById("add-cur");
+     var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+     alert(selectedValue);
+    }
+ 
+</script>
