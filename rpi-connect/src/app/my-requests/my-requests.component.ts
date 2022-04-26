@@ -83,7 +83,7 @@ export class MyRequestsComponent implements OnInit {
       var current = this.data.current;
       var enrolled = false;
       
-      for(var i = 0; i < current.length; i++){
+      /*for(var i = 0; i < current.length; i++){
         
         if(current[i] == reqClass){
           
@@ -97,15 +97,11 @@ export class MyRequestsComponent implements OnInit {
         (<HTMLInputElement>course).value = "";
         return;
       }
-      else{
+      else{*/
         //add reqId
         var query = '{"id" :"' + this.profileId + '"}';
-        this.httpService.sendPutRequest("user/reqs/" + id.toString(), JSON.parse(query)).subscribe((res) => {
-
-
-    var query = '{"id" :' + this.profileId + '}';
     this.httpService.sendPutRequest("user/reqs/" + id.toString(), JSON.parse(query)).subscribe((res) => {
-
+    });
     var today = new Date();
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     
