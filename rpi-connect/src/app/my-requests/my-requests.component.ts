@@ -11,7 +11,7 @@ import { ViewEncapsulation } from '@angular/core';
 export class MyRequestsComponent implements OnInit {
 
   @Input() myRequestsShow:boolean = false;
-  @Input() profileId = 0;
+  @Input() profileId:string = '0';
   private data:any = [];
   private data2:any = [];
 

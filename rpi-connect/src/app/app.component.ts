@@ -32,7 +32,7 @@ export class AppComponent{
 
 
   private data:any = [];
-  sentId:number = 0;
+  sentId:string = '0';
   
   currentClass:any = [];
   prevClass:any = [];
@@ -58,6 +58,7 @@ export class AppComponent{
     this.httpService.sendGetRequest("req").subscribe((res) =>{
       this.data = res;
       for(var i = 0; i < this.data.length; i++){
+        if(this.data[i].datePosted){
         var reqDate = this.data[i].datePosted.split('-');
         var reqDay = reqDate[2];
         var reqMonth = reqDate[1];
@@ -90,11 +91,12 @@ export class AppComponent{
           });
         }
       }
+    }
     });
     
   }
 
-  public setId(num:number):void{
+  public setId(num:string):void{
     this.sentId = num;
     this.loggedOut = false;
     this.loggedIn = true;
@@ -120,7 +122,7 @@ export class AppComponent{
       this.showRegister = false;
       this.showProfile = false;
       this.showMyRequests = false;
-      this.sentId = 0;
+      this.sentId = '0';
       this.loggedOut = true;
       this.loggedIn = false;
     }
@@ -132,7 +134,7 @@ export class AppComponent{
       this.showProfile = false;
       this.showMyRequests = false;
     }
-    else if(page == "requests" && this.sentId != 0){
+    else if(page == "requests" && this.sentId != '0'){
       this.showHome = false;
       this.showRequests = true;
       this.showLogin = false;
@@ -151,7 +153,7 @@ export class AppComponent{
       this.reg.loadCurrentClasses();
       this.reg.loadPrevClasses();
     }
-    else if(page == "myRequests" && this.sentId != 0){
+    else if(page == "myRequests" && this.sentId != '0'){
       this.showHome = false;
       this.showRequests = false;
       this.showLogin = false;
@@ -162,7 +164,7 @@ export class AppComponent{
       this.myReqs.loadRequests();
       this.myReqs.filters();
     }
-    else if(page == "profile" && this.sentId != 0){
+    else if(page == "profile" && this.sentId != '0'){
       this.showHome = false;
       this.showRequests = false;
       this.showLogin = false;
@@ -172,7 +174,7 @@ export class AppComponent{
       
       this.profile.loadProfile(this.sentId);
     }
-    else if(this.sentId == 0){
+    else if(this.sentId == '0'){
       this.showHome = false;
       this.showRequests = false;
       this.showLogin = true;

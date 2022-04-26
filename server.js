@@ -184,7 +184,7 @@ app.put('/user/:field/:input', (req, res) => {
 //get specific user
 app.get('/user/:id', (req, res) => {
   var id = req.params.id;
-  var query = {id : Number(id)};
+  var query = {id : id};
  
 
   client.connect(err => {

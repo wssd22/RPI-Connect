@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-navbar',
@@ -11,9 +12,10 @@ export class NavbarComponent implements OnInit {
   @Input() profId:number = 0;
   @Input() loggedIn:boolean = false;
   @Input() loggedOut:boolean = true;
+  sentId:number = 0;
   
   
-  constructor() { }
+  constructor(public router : Router) { }
 
   ngOnInit(): void {
   }
@@ -38,40 +40,37 @@ export class NavbarComponent implements OnInit {
   //navigation between pages
   public navigate(page:HTMLElement){
     this.target.emit(page.id);
-    /*if(target.id == "home"){
-      this.showHome = true;
-      this.showRequests = false;
-      this.showLogin = false;
-      this.showRegister = false;
-      this.showProfile = false;
+    /*if(page.id == "home"){
+      this.router.navigate(['home']);
     }
-    else if(target.id == "login"){
-      this.showHome = false;
-      this.showRequests = false;
-      this.showLogin = true;
-      this.showRegister = false;
-      this.showProfile = false;
+    else if(page.id == "logout"){
+      this.sentId = 0;
+      this.loggedOut = true;
+      this.loggedIn = false;
     }
-    else if(target.id == "requests"){
-      this.showHome = false;
-      this.showRequests = true;
-      this.showLogin = false;
-      this.showRegister = false;
-      this.showProfile = false;
+    else if(page.id == "login"){
+      this.router.navigate(['login']);
     }
-    else if(target.id == "register"){
-      this.showHome = false;
-      this.showRequests = false;
-      this.showLogin = false;
-      this.showRegister = true;
-      this.showProfile = false;
+    else if(page.id == "requests" && this.sentId != 0){
+
+      //this.reqs.loadInterface();
     }
-    else if(target.id == "profile"){
-      this.showHome = false;
-      this.showRequests = false;
-      this.showLogin = false;
-      this.showRegister = false;
-      this.showProfile = true;
+    else if(page.id == "register"){
+
+      //this.reg.loadCurrentClasses();
+      //this.reg.loadPrevClasses();
+    }
+    else if(page.id == "myRequests" && this.sentId != 0){
+
+      //this.myReqs.loadRequests();
+      //this.myReqs.filters();
+    }
+    else if(page.id == "profile" && this.sentId != 0){
+      
+      //this.profile.loadProfile(this.sentId);
+    }
+    else if(this.sentId == 0){
+      this.router.navigate(['login']);
     }*/
   }
 
