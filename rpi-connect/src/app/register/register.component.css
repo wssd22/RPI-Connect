@@ -2,6 +2,10 @@
     display: none;
 }
 
+#r-basic-info-row {
+    margin-bottom: 5px;
+}
+
 #info{
     background-color: #E7E7E7;
     overflow: hidden;
@@ -10,13 +14,6 @@
     width: 50%;
     margin-left: auto;
     margin-right: auto;
-}
-
-#name, #gradYr, #contact{
-    margin-left: auto;
-    margin-right: auto;
-    margin: 1%;
-    text-align: center;
 }
 
 .step{
@@ -41,11 +38,18 @@
 
 }
 
-button{
+.r-class-button{
     display: block;
     background-color: #E7E7E7;
     padding: 4%;
     border: 0px solid black;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.r-step-button {
     text-align: center;
     margin-left: auto;
     margin-right: auto;
@@ -130,6 +134,38 @@ h3{
     text-align: center;
 }
 
-.row{
+#row1{
     background-color: #E7E7E7;
+}
+
+#row2{
+    background-color: #E7E7E7;
+}
+
+.r-profile-title {
+    margin-bottom: 20px;
+    background-image: url("../images/text-background.png");
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: 180px 15px;
+    text-align: center;
+}
+  
+.r-t1 {
+    background-size: 120px 15px;
+    text-align: center;
+}
+  
+.r-profile-field {
+    color: gray;
+    display: inline;
+}
+  
+.r-profile-value {
+    width: 100%;
+    display: inline;
+}
+
+.r-center-col-text {
+    text-align: center;
 }

@@ -13,7 +13,8 @@ export class MyRequestsComponent implements OnInit {
   @Input() myRequestsShow:boolean = false;
   @Input() profileId = 0;
   private data:any = [];
-  private data2:any = [];
+  courses:any = [];
+  className:string = "";
 
   pendingReqs:number = 0;
   activeReqs:number = 0;
@@ -43,7 +44,11 @@ export class MyRequestsComponent implements OnInit {
     
   }
 
-  public addRequest(course:HTMLElement, msg:HTMLElement){
+  public setClassName(event:any) {
+    this.className = event.target.value;
+  }
+
+  public addRequest(msg:HTMLElement){
     //Request Schema
   /*
     {
@@ -61,45 +66,19 @@ export class MyRequestsComponent implements OnInit {
       alert("Please enter a message for your request");
       return;
     }
-    if((<HTMLInputElement>course).value == ""){
+    if(this.className == ""){
       alert("Please enter a message for your request");
       return;
     }
-    var reqClass = (<HTMLInputElement>course).value;
+    var reqClass = this.className;
     var reqMsg = (<HTMLInputElement>msg).value
     var name = "";
     var id = Math.floor(Math.random() * (1000000 - 10000 + 1)) + 10000;
-    //get name
-    this.httpService.sendGetRequest("user/" + this.profileId.toString()).subscribe((res) => {
-      
-      this.data = res;
-      name = this.data.name;
-      var current = this.data.current;
-      var enrolled = false;
-      
-      for(var i = 0; i < current.length; i++){
-        
-        if(current[i] == reqClass){
-          
-          
-          enrolled = true;
-          i = current.length;
-        }
-      }
-      if(!enrolled){
-        alert("You are not currently enrolled in " + reqClass + " or it is an invalid class");
-        (<HTMLInputElement>course).value = "";
-        return;
-      }
-      else{
-        //add reqId
-        var query = '{"id" :' + this.profileId + '}';
-        this.httpService.sendPutRequest("user/reqs/" + id.toString(), JSON.parse(query)).subscribe((res) => {
 
-        });
-      }
+    var query = '{"id" :' + this.profileId + '}';
+    this.httpService.sendPutRequest("user/reqs/" + id.toString(), JSON.parse(query)).subscribe((res) => {
 
-      var today = new Date();
+    var today = new Date();
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     
     //date = date.slice(0,9);
@@ -118,7 +97,7 @@ export class MyRequestsComponent implements OnInit {
     var req = JSON.stringify(obj);
 
     this.httpService.sendPostRequest("req", JSON.parse(req)).subscribe((res) => {
-      (<HTMLInputElement>course).value = "";
+      this.className = "";
       (<HTMLInputElement>msg).value = "";
       alert("New Request Added to " + reqClass);
       this.loadRequests();
@@ -132,23 +111,22 @@ export class MyRequestsComponent implements OnInit {
     this.httpService.sendGetRequest('user/' + this.profileId).subscribe((res) => {
       this.data = res;
       var str = "";
-      var courses = [];
+      this.courses = [];
       for(var i = 0; i < this.data.current.length; i++){
-        courses.push(this.data.current[i]);
+        this.courses.push(this.data.current[i]);
       }
       str += '<div class="form-check">';
       str += '<input type="checkbox" checked class="form-check-input" id="all" name="all">';
       str += '<label class="form-check-label" for="all">All</label>';
       str += '</div>';
-      for(var i = 0; i < courses.length; i++){
+      for(var i = 0; i < this.courses.length; i++){
         str += '<div class="form-check">';
-        str += '<input type="checkbox" class="form-check-input" id="class' + i + '" name="' + courses[i] + '">';
-        str += '<label class="form-check-label" for="class' + i + '">' + courses[i] + '</label>';
+        str += '<input type="checkbox" class="form-check-input" id="class' + i + '" name="' + this.courses[i] + '">';
+        str += '<label class="form-check-label" for="class' + i + '">' + this.courses[i] + '</label>';
         str += '</div>';
        }
 
        (<HTMLElement>document.getElementById('activeFilter')).innerHTML = str;
-
 
        (<HTMLElement>document.getElementById('expiredFilter')).innerHTML = str;
     });
@@ -476,6 +454,7 @@ export class MyRequestsComponent implements OnInit {
           removeBtn.classList.add("btn");
           removeBtn.classList.add("btn-outline-danger");
           removeBtn.classList.add("btn-sm");
+          removeBtn.classList.add("mr-edit-remove-btn");
           //edit button
           editBtn.id = 'editAct' + i.toString();
           editBtn.addEventListener('click', (e) => {
@@ -487,6 +466,7 @@ export class MyRequestsComponent implements OnInit {
           editBtn.classList.add("btn");
           editBtn.classList.add("btn-outline-danger");
           editBtn.classList.add("btn-sm");
+          editBtn.classList.add("mr-edit-remove-btn");
           (<HTMLElement>elem2).appendChild(editBtn);
           (<HTMLElement>elem2).appendChild(removeBtn);
         }
