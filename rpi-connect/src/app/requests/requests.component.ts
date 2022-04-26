@@ -10,7 +10,7 @@ import { ViewEncapsulation } from '@angular/core';
 })
 export class RequestsComponent implements OnInit {
   @Input() reqShow:boolean = false;
-  @Input() profId:string = '0';
+  @Input() profId:number = 0;
   @Output() prevEmitter = new EventEmitter();
   @Output() currentEmitter = new EventEmitter();
   private data:any = [];

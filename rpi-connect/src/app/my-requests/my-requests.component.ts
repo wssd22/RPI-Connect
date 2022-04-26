@@ -11,7 +11,7 @@ import { ViewEncapsulation } from '@angular/core';
 export class MyRequestsComponent implements OnInit {
 
   @Input() myRequestsShow:boolean = false;
-  @Input() profileId:string = '0';
+  @Input() profileId = 0;
   private data:any = [];
   courses:any = [];
   className:string = "";
@@ -83,23 +83,10 @@ export class MyRequestsComponent implements OnInit {
       var current = this.data.current;
       var enrolled = false;
       
-      /*for(var i = 0; i < current.length; i++){
-        
-        if(current[i] == reqClass){
-          
-          
-          enrolled = true;
-          i = current.length;
-        }
-      }
-      if(!enrolled){
-        alert("You are not currently enrolled in " + reqClass + " or it is an invalid class");
-        (<HTMLInputElement>course).value = "";
-        return;
-      }
-      else{*/
+  
         //add reqId
         var query = '{"id" :"' + this.profileId + '"}';
+
     this.httpService.sendPutRequest("user/reqs/" + id.toString(), JSON.parse(query)).subscribe((res) => {
     });
     var today = new Date();
@@ -275,7 +262,7 @@ export class MyRequestsComponent implements OnInit {
   }
 
   public delReq(targetReq:number){
-    this.httpService.sendDeleteRequest("req/" + targetReq.toString() +"?user=" + this.profileId, "").subscribe((res) =>{
+    this.httpService.sendDeleteRequest("req/" + targetReq.toString() +"?user=" + this.profileId.toString(), "").subscribe((res) =>{
       
     });
     
