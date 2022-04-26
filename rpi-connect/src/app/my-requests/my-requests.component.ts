@@ -83,7 +83,7 @@ export class MyRequestsComponent implements OnInit {
       var current = this.data.current;
       var enrolled = false;
       
-      for(var i = 0; i < current.length; i++){
+      /*for(var i = 0; i < current.length; i++){
         
         if(current[i] == reqClass){
           
@@ -94,44 +94,40 @@ export class MyRequestsComponent implements OnInit {
       }
       if(!enrolled){
         alert("You are not currently enrolled in " + reqClass + " or it is an invalid class");
-        (<HTMLInputElement>course).value = "";
+        (<HTMLInputElement>courses).value = "";
         return;
       }
-      else{
+      else{*/
         //add reqId
         var query = '{"id" :"' + this.profileId + '"}';
         this.httpService.sendPutRequest("user/reqs/" + id.toString(), JSON.parse(query)).subscribe((res) => {
-
-
-    var query = '{"id" :' + this.profileId + '}';
-    this.httpService.sendPutRequest("user/reqs/" + id.toString(), JSON.parse(query)).subscribe((res) => {
-
-    var today = new Date();
-    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        });
+        var today = new Date();
+        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     
-    //date = date.slice(0,9);
-    var obj = {
-      "reqId" : id,
-      "msg" : reqMsg,
-      "class" : reqClass,
-      "datePosted" : date,
-      "daysLeft" : 14,
-      "status" : "active",
-      "userId" : this.profileId,
-      "userName" : name,
-      "answerId" : 0
-    };
+        //date = date.slice(0,9);
+        var obj = {
+          "reqId" : id,
+          "msg" : reqMsg,
+          "class" : reqClass,
+          "datePosted" : date,
+          "daysLeft" : 14,
+          "status" : "active",
+          "userId" : this.profileId,
+          "userName" : name,
+          "answerId" : 0
+        };
 
-    var req = JSON.stringify(obj);
+        var req = JSON.stringify(obj);
 
-    this.httpService.sendPostRequest("req", JSON.parse(req)).subscribe((res) => {
-      this.className = "";
-      (<HTMLInputElement>msg).value = "";
-      alert("New Request Added to " + reqClass);
-      this.loadRequests();
-    });
+        this.httpService.sendPostRequest("req", JSON.parse(req)).subscribe((res) => {
+        this.className = "";
+        (<HTMLInputElement>msg).value = "";
+        alert("New Request Added to " + reqClass);
+        //this.loadRequests();
+        });
 
-    });
+      });
     
   }
 
@@ -634,4 +630,7 @@ export class MyRequestsComponent implements OnInit {
           (<HTMLElement>document.getElementById("expstep")).innerHTML = "No Expired Requests";
         }
   }
+  
+
+  
 }
