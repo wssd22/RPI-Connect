@@ -83,29 +83,10 @@ export class MyRequestsComponent implements OnInit {
       var current = this.data.current;
       var enrolled = false;
       
-      for(var i = 0; i < current.length; i++){
-        
-        if(current[i] == reqClass){
-          
-          
-          enrolled = true;
-          i = current.length;
-        }
-      }
-      if(!enrolled){
-        alert("You are not currently enrolled in " + reqClass + " or it is an invalid class");
-        (<HTMLInputElement>course).value = "";
-        return;
-      }
-      else{
         //add reqId
         var query = '{"id" :"' + this.profileId + '"}';
         this.httpService.sendPutRequest("user/reqs/" + id.toString(), JSON.parse(query)).subscribe((res) => {
-
-
-    var query = '{"id" :' + this.profileId + '}';
-    this.httpService.sendPutRequest("user/reqs/" + id.toString(), JSON.parse(query)).subscribe((res) => {
-
+        });
     var today = new Date();
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     
