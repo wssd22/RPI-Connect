@@ -54,6 +54,8 @@
 
 
 
+
+
 #cta {
   position: absolute;
   left: 750px;
@@ -81,4 +83,18 @@
 
 #home-text {
   margin: 2px;
+}
+
+@media screen and (max-width: 600px) {
+  #hero-rectangle {
+    display: none;
+  }
+  
+  #hero-text {
+    display: none;
+  }
+
+  #show-image {
+    margin-top: 120px;
+  }
 }
