@@ -61,6 +61,7 @@ export class AppComponent{
       this.data = res;
       for(var i = 0; i < this.data.length; i++){
         if(this.data[i].datePosted){
+
         var reqDate = this.data[i].datePosted.split('-');
         var reqDay = reqDate[2];
         var reqMonth = reqDate[1];

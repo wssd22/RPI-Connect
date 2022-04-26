@@ -21,6 +21,7 @@ export class RegisterComponent implements OnInit {
   gradYr:string = "";
   email:string = "";
   discord:string = "";
+  discordId:string = "";
   prevClasses:any = [];
   currentClasses:any = [];
   reqs:any = [];
@@ -75,6 +76,7 @@ export class RegisterComponent implements OnInit {
         this.gradYr = (<HTMLInputElement>document.getElementById("gradYr")).value;
         this.email = (<HTMLInputElement>document.getElementById("rpi")).value;
         this.discord = (<HTMLInputElement>document.getElementById("discord")).value;
+        this.discordId = (<HTMLInputElement>document.getElementById("discordId")).value;
         //hide last step and show next step
         (<HTMLElement>document.getElementById("basicInfo")).style.display = "none";
         (<HTMLElement>document.getElementById("currentClasses")).style.display = "block";
@@ -97,27 +99,22 @@ export class RegisterComponent implements OnInit {
         (<HTMLElement>document.getElementById("previousClasses")).style.display = "none";
         (<HTMLElement>document.getElementById("confirm")).style.display = "block";
         //read in confirmation
-        (<HTMLElement>document.getElementById("fullName")).innerHTML = "Name: " + this.fname + "  "  + this.lname;
-        (<HTMLElement>document.getElementById("grad")).innerHTML = "Graduation Year: " + this.gradYr;
-        (<HTMLElement>document.getElementById("rpi")).innerHTML = "RPI Email: " + this.email;
-        (<HTMLElement>document.getElementById("disc")).innerHTML = "Discord: " + this.discord;
+        (<HTMLElement>document.getElementById("fullName")).innerHTML = this.fname + "  "  + this.lname;
+        (<HTMLElement>document.getElementById("grad")).innerHTML = this.gradYr;
+        (<HTMLElement>document.getElementById("email")).innerHTML = this.email;
+        (<HTMLElement>document.getElementById("disc")).innerHTML = this.discord;
+        (<HTMLElement>document.getElementById("discId")).innerHTML = this.discordId;
         var list = "";
-        for(var i = 0; i < this.currentClasses.length; i+=2){
-            list += "<p class = \"list\">" + this.currentClasses[i] + "  " ;
-            if(this.currentClasses.length > i+1){
-              list += this.currentClasses[i+1];
-            }
-            list += "</p>";
+        for(var i = 0; i < this.currentClasses.length; i++){
+          list += "<div class='row'>";
+          list += "<div class='col-12'><p class='card-text'>" + this.currentClasses[i] + "</p></div>";
         }
         (<HTMLElement>document.getElementById("currentList")).innerHTML = list;
         list = "";
 
-        for(var i = 0; i < this.prevClasses.length; i += 2){
-            list += "<p class = \"list\">" + this.prevClasses[i] + "  ";
-            if(this.prevClasses.length > i+1){
-              list+= this.prevClasses[i+1];
-            }
-            list += "</p>";
+        for(var i = 0; i < this.prevClasses.length; i ++){
+          list += "<div class='row'>";
+          list += "<div class='col-12'><p class='card-text'>" + this.prevClasses[i] + "</p></div>";
         }
         (<HTMLElement>document.getElementById("prevList")).innerHTML = list;
     }
@@ -169,6 +166,7 @@ public prevStep(step:HTMLElement){
       "gradYr" : this.gradYr,
       "email" : this.email,
       "discord" : this.discord,
+      "discordId": this.discordId,
       "current" : this.currentClasses,
       "prev" : this.prevClasses,
       "reqs" : this.reqs
