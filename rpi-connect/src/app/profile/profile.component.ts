@@ -10,7 +10,7 @@ import { HttpService } from '../http.service';
 })
 export class ProfileComponent implements OnInit {
   @Input() profileShow: boolean = false;
-  @Input() profileId:string = '0';
+  @Input() profileId:number = 0;
 
   @Output() loginSend = new EventEmitter();
 
@@ -44,12 +44,11 @@ export class ProfileComponent implements OnInit {
     console.log(event.target.value);
   }
 
-  public loadProfile(id:string){
+  public loadProfile(id:number){
     this.profileId = id;
-  
-    this.httpService.sendGetRequest("user/" + this.profileId).subscribe((res) => {
+    this.httpService.sendGetRequest("user/" + this.profileId.toString()).subscribe((res) => {
       this.data = res;
-      console.log(this.data);
+      
       this.name = this.data.name;
 
       this.year = this.data.gradYr;
