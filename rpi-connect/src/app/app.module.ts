@@ -14,6 +14,10 @@ import { RequestsComponent } from './requests/requests.component';
 import { AjaxComponent } from './ajax/ajax.component';
 import { MyRequestsComponent } from './my-requests/my-requests.component';
 
+import { AngularFireModule } from "@angular/fire/compat";
+import { AngularFireAuthModule } from "@angular/fire/compat/auth";
+import { environment } from '../environments/environment.prod';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +33,9 @@ import { MyRequestsComponent } from './my-requests/my-requests.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    AngularFireAuthModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
   providers: [],
   bootstrap: [AppComponent]

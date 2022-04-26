@@ -109,12 +109,18 @@ app.post('/user/add', (req, res) => {
 app.put('/user/:field/:input', (req, res) => {
   const collection = client.db("rpi-connect").collection("users");
     // perform actions on the collection object
-    //console.log(req.body);
+    console.log(req.body);
     if(req.params.field == "reqs"){//add request
       var reqId = req.params.input;
       collection.findOne(req.body, function(err, result){
       
-      var reqsArray = result.reqs;
+      var reqsArray;
+      if( result.reqs ){
+        reqsArray = result.reqs;
+      }
+      else{
+        reqsArray = [];
+      }
       
       console.log(reqsArray);
       reqsArray.push(reqId);
@@ -214,7 +220,7 @@ app.put('/user/:field/:input', (req, res) => {
 //get specific user
 app.get('/user/:id', (req, res) => {
   var id = req.params.id;
-  var query = {id : Number(id)};
+  var query = {id : id};
  
 
   client.connect(err => {
@@ -238,7 +244,7 @@ app.get('/user/:id', (req, res) => {
 app.delete('/user/:userId/:list', (req, res) => {
   const queryObject = url.parse(req.url, true).query;
   var course = queryObject.course;
-  var query = {id : Number(req.params.userId)};
+  var query = {id : req.params.userId};
   client.connect(err => {
     const collection = client.db("rpi-connect").collection("users");
     collection.findOne(query, function(err, result){
@@ -266,7 +272,7 @@ app.delete('/user/:userId/:list', (req, res) => {
 
     var newList = {};
     newList[req.params.list] = list;
-    collection.updateOne({id : Number(req.params.userId)}, { $set : newList } , { upsert: true },  function(err, result){
+    collection.updateOne({id : req.params.userId}, { $set : newList } , { upsert: true },  function(err, result){
       console.log(result);
     });
   });    
@@ -374,7 +380,7 @@ app.route('/req/:num')
   var userId = queryObject.user;
   const collection2 = client.db("rpi-connect").collection("users");
   
-  collection2.findOne({id : Number(userId)}, function(err, result){
+  collection2.findOne({id : userId}, function(err, result){
     //remove req id
     
     var reqsArray = result.reqs;
@@ -391,7 +397,7 @@ app.route('/req/:num')
       return element != undefined;
     });
     var query = {reqs : reqsArray}
-    collection2.updateOne({id : Number(userId)}, { $set : query } , { upsert: true },  function(err, result){
+    collection2.updateOne({id : userId}, { $set : query } , { upsert: true },  function(err, result){
       console.log(result);
     });
   });
@@ -417,8 +423,13 @@ app.route('/req/:num')
     const collection = client.db("rpi-connect").collection("requests");
     
     collection.findOne(query, function(err, result){
-      console.log(result);
-      res.send(result);
+      //console.log(result);
+      if(!err){
+        res.send(result);
+      }
+      else{
+        res.send(err);
+      }
     });
   });
 })
