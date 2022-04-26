@@ -11,7 +11,7 @@ import { ViewEncapsulation } from '@angular/core';
 export class MyRequestsComponent implements OnInit {
 
   @Input() myRequestsShow:boolean = false;
-  @Input() profileId:string = '0';
+  @Input() profileId = 0;
   private data:any = [];
   courses:any = [];
   className:string = "";
@@ -87,6 +87,7 @@ export class MyRequestsComponent implements OnInit {
         var query = '{"id" :"' + this.profileId + '"}';
         this.httpService.sendPutRequest("user/reqs/" + id.toString(), JSON.parse(query)).subscribe((res) => {
         });
+
     var today = new Date();
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     
@@ -260,7 +261,7 @@ export class MyRequestsComponent implements OnInit {
   }
 
   public delReq(targetReq:number){
-    this.httpService.sendDeleteRequest("req/" + targetReq.toString() +"?user=" + this.profileId, "").subscribe((res) =>{
+    this.httpService.sendDeleteRequest("req/" + targetReq.toString() +"?user=" + this.profileId.toString(), "").subscribe((res) =>{
       
     });
     
