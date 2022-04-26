@@ -1,447 +1,549 @@
 <div *ngIf="registerShow">
 <div style="margin-top: 100px;"></div>
-        <!--Name, RPI email, Discord-->
-        <form #basicInfo id = "basicInfo">
-            <div id = "info">
-                <div id = "name">
-                    <label for = "fname">First Name</label>
-                    <input type="text" id="fname" name = "fname">
-                    <label for = "lname">Last Name</label>
-                    <input type="text" id="lname" name = "lname">
-                </div>
-                <label for = "gradYr">Graduation Year</label>
-                <input type = "text" id = "gradYr" name = "gradYr">
-                <div id = "contact">
-                    <label for = "rpi">RPI Email</label>
-                    <input type = "text" id = "rpi" name = "rpi">
-                    <label for = "discord">Discord Username</label>
-                    <input type = "text" id = "discord" name = "discord">
-                </div>
-                <div id = "login">
-                    <label for = "user">Username</label>
-                    <input type="text" id="user" name = "user">
-                    <label for = "password">Password</label>
-                    <input type="text" id="password" name = "password">
-                    <label for = "reenter">Reenter Your Password</label>
-                    <input type="text" id="reenter" name = "reenter">
+    <!--Name, RPI email, Discord-->
+    <form #basicInfo id = "basicInfo">
+        <div class="card" style="width: 100%; align-items: center; background-color: #E7E7E7;">
+            <div class="card-body">
+                <div class="container">
+                    <div class="row" id="r-basic-info-row">
+                        <div class="col-4">
+                            <p class="card-text r-profile-field">FIRST NAME</p>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control r-profile-value" type="text" id="fname">
+                        </div>
+                    </div>
+                    <div class="row" id="r-basic-info-row">
+                        <div class="col-4">
+                            <p class="card-text r-profile-field">LAST NAME</p>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control r-profile-value" type="text" id="lname">
+                        </div>
+                    </div>
+                    <div class="row" id="r-basic-info-row">
+                        <div class="col-4">
+                            <p class="card-text r-profile-field">GRAD YEAR</p>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control r-profile-value" type="text" id="gradYr">
+                        </div>
+                    </div>
+                    <div class="row" id="r-basic-info-row">
+                        <div class="col-4">
+                            <p class="card-text r-profile-field">RPI EMAIL</p>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control r-profile-value" type="text" id="rpi">
+                        </div>
+                    </div>
+                    <div class="row" id="r-basic-info-row">
+                        <div class="col-4">
+                            <p class="card-text r-profile-field">DISCORD USER</p>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control r-profile-value" type="text" id="discord">
+                        </div>
+                    </div>
+                    <div class="row" id="r-basic-info-row">
+                        <div class="col-4">
+                            <p class="card-text r-profile-field">DISCORD ID</p>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control r-profile-value" type="text" id="discordId">
+                        </div>
+                    </div>
+                    <div class="row" id="r-basic-info-row">
+                        <div class="col-4">
+                            <p class="card-text r-profile-field">USERNAME</p>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control r-profile-value" type="text" id="user">
+                        </div>
+                    </div>
+                    <div class="row" id="r-basic-info-row">
+                        <div class="col-4">
+                            <p class="card-text r-profile-field">PASSWORD</p>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control r-profile-value" type="text" id="password">
+                        </div>
+                    </div>
+                    <div class="row" id="r-basic-info-row">
+                        <div class="col-4">
+                            <p class="card-text r-profile-field">RE-ENTER YOUR PASSWORD</p>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control r-profile-value" type="text" id="reenter">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <button class="r-step-button" #basic type = "button" id = "basic" class = "next" (click) = "nextStep(basic)">NEXT</button>
+                            <p class = "step">Step 1 of 3</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <button #basic type = "button" id = "basic" class = "next" (click) = "nextStep(basic)">NEXT</button>
-            <p class = "step">Step 1 of 3</p>
-        </form>
+        </div>
+    </form>
 
-        <!--Class Select (Current and Previous)-->
-        <form #currentClasses class = "hide" id = "currentClasses">
-            <h3 class = "regTitle">Current Classes</h3>
-            <p class = "desc">Choose all the classes you are currently taking.</p>
-            <div class = "columns" id = "col1">
-                <!--HUMANITIES, ARTS, and SOCIAL SCIENCES-->
-                <h3>HASS</h3>
-                <button #currentarts type = "button" (click) = "dropdown(currentarts)" name = "arts" id = "currentarts"><b>ARTS</b>  Arts</button>
-                <div class = "accordion" id = "artsAccordionCur">
-                    <p style="display:none"></p>
-                </div>
-                <button #currentcogs type = "button" (click) = "dropdown(currentcogs)" name = "cogs" id = "currentcogs"><b>COGS</b>  Cognitive Science</button>
-                <div class = "accordion" id = "cogsAccordionCur">
-                    <p style="display:none"></p>
-                </div>
-                <button #currentcomm type = "button" (click) = "dropdown(currentcomm)" name = "comm" id = "currentcomm"><b>COMM</b>  Communication</button>
-                <div class = "accordion" id = "commAccordionCur">
-                    <p style="display:none"></p>
-                </div>
-                <button #currentecon type = "button" (click) = "dropdown(currentecon)" name = "econ" id = "currentecon"><b>ECON</b>  Economics</button>
-                <div class = "accordion" id = "econAccordionCur">
-                    <p style="display:none"></p>
-                </div>
-                <button #currentgsas type = "button" (click) = "dropdown(currentgsas)" name = "gsas" id = "currentgsas"><b>GSAS</b>  Game Simulation Arts and Sciences</button>
-                <div class = "accordion" id = "gsasAccordionCur">
-                    <p style="display:none"></p>
-                </div>
-                <button #currentIHSS type = "button" (click) = "dropdown(currentIHSS)" name = "ihss" id = "currentihss"><b>IHSS</b>  Interdisciplinary Studies</button>
-                <div class = "accordion" id = "ihssAccordionCur">
-                    <p style="display:none"></p>
-                </div>
-                <button #currentlang type = "button" (click) = "dropdown(currentlang)" name = "lang" id = "currentlang"><b>LANG</b>  Foreign Languages</button>
-                <div class = "accordion" id = "langAccordionCur">
-                    <p style="display:none"></p>
-                </div>
-                <button #currentlitr type = "button" (click) = "dropdown(currentlitr)" name = "litr" id = "currentlitr"><b>LITR</b>  Literature</button>
-                <div class = "accordion" id = "litrAccordionCur">
-                    <p style="display:none"></p>
-                </div>
-                <button #currentphil type = "button" (click) = "dropdown(currentphil)" name = "phil" id = "currentphil"><b>PHIL</b>  Philosophy</button>
-                <div class = "accordion" id = "philAccordionCur">
-                    <p style="display:none"></p>
-                </div>
-                <button #currentpsyc type = "button" (click) = "dropdown(currentpsyc)" name = "psyc" id = "currentpysc"><b>PSYC</b>  Psychology</button>
-                <div class = "accordion" id = "psycAccordionCur">
-                    <p style="display:none"></p>
-                </div>
-                <button #currentwrit type = "button" (click) = "dropdown(currentwrit)" name = "writ" id = "currentwrit"><b>WRIT</b>  Writing</button>
-                <div class = "accordion" id = "writAccordionCur">
-                    <p style="display:none"></p>
-                </div>
+    <!--Class Select (Current and Previous)-->
+    <form #currentClasses class = "hide" id = "currentClasses">
+        <h3 class = "regTitle">Current Classes</h3>
+        <p class = "desc">Choose all the classes you are currently taking.</p>
+        <div class = "columns" id = "col1">
+            <!--HUMANITIES, ARTS, and SOCIAL SCIENCES-->
+            <h3>HASS</h3>
+            <button class="r-class-button" #currentarts type = "button" (click) = "dropdown(currentarts)" name = "arts" id = "currentarts"><b>ARTS</b>  Arts</button>
+            <div class = "accordion" id = "artsAccordionCur">
+                <p style="display:none"></p>
             </div>
-            <div class = "columns" id = "col2">
-                <!--SCIENCE-->
-                <h3>Science</h3>
-                <button #currentastr type = "button" (click) = "dropdown(currentastr)" name = "astr" id = "currentastr"><b>ASTR</b>  Astronomy</button>
-                <div class = "accordion" id = "astrAccordionCur">
-                    <p style="display:none"></p>
-                </div>
-                <button #currentBCBP type = "button" (click) = "dropdown(currentBCBP)" name = "bcbp" id = "currentbcbp"><b>BCBP</b>  Biochemistry and Biophysics</button>
-                <div class = "accordion" id = "bcbpAccordionCur">
-                    <p style="display:none"></p>
-                </div>
-                <button #currentbiol type = "button" (click) = "dropdown(currentbiol)" name = "biol" id = "currentbiol"><b>BIOL</b>  Biology</button>
-                <div class = "accordion" id = "biolAccordionCur">
-                    <p style="display:none"></p>
-                </div>
-                <button #currentchem type = "button" (click) = "dropdown(currentchem)" name = "chem" id = "currentchem"><b>CHEM</b>  Chemistry</button>
-                <div class = "accordion" id = "chemAccordionCur">
-                    <p style="display:none"></p>
-                </div>
-                <button #currentcsci type = "button" (click) = "dropdown(currentcsci)" name = "csci" id = "currentcsci"><b>CSCI</b>  Computer Science</button>
-                <div class = "accordion" id = "csciAccordionCur">
-                    <p style="display:none"></p>
-                </div>
-                <button #currenterth type = "button" (click) = "dropdown(currenterth)" name = "erth" id = "currenterth"><b>ERTH</b>  Earth and Environmental Science</button>
-                <div class = "accordion" id = "erthAccordionCur">
-                    <p style="display:none"></p>
-                </div>
-                <button #currentisci type = "button" (click) = "dropdown(currentisci)" name = "isci" id = "currentisci"><b>ISCI</b>  Interdisciplinary Science</button>
-                <div class = "accordion" id = "isciAccordionCur">
-                    <p style="display:none"></p>
-                </div>
-                <button #currentitws type = "button" (click) = "dropdown(currentitws)" name = "itws" id = "currentitws"><b>ITWS</b>  Information Technology and Web Science</button>
-                <div class = "accordion" id = "itwsAccordionCur">
-                    <p style="display:none"></p>
-                </div>
-                <button #currentmath type = "button" (click) = "dropdown(currentmath)" name = "math" id = "currentmath"><b>MATH</b>  Mathematics</button>
-                <div class = "accordion" id = "mathAccordionCur">
-                    <p style="display:none"></p>
-                </div>
-                <button #currentmatp type = "button" (click) = "dropdown(currentmatp)" name = "matp" id = "currentmatp"><b>MATP</b>  Mathematical Programming, Probability, and Statistics</button>
-                <div class = "accordion" id = "matpAccordionCur">
-                    <p style="display:none"></p>
-                </div>
-                <button #currentphys type = "button" (click) = "dropdown(currentphys)" name = "phys" id = "currentphys"><b>PHYS</b>  PHYSICS</button>
-                <div class = "accordion" id = "physAccordionCur">
-                    <p style="display:none"></p>
-                </div>
+            <button class="r-class-button" #currentcogs type = "button" (click) = "dropdown(currentcogs)" name = "cogs" id = "currentcogs"><b>COGS</b>  Cognitive Science</button>
+            <div class = "accordion" id = "cogsAccordionCur">
+                <p style="display:none"></p>
             </div>
-            <div class = "columns" id = "col3">
-                <!--ENGINEERING-->
-                <h3>Engineering</h3>
-                <button #currentbmed type = "button" (click) = "dropdown(currentbmed)" name = "bmed" id = "currentbmed"><b>BMED</b>  Biomedical Engineering</button>
-                <div class = "accordion" id = "bmedAccordionCur">
-                    <p style="display:none"></p>
-                </div>
-                <button #currentchme type = "button" (click) = "dropdown(currentchme)" name = "chme" id = "currentchme"><b>CHME</b>  Chemical Engineering</button>
-                <div class = "accordion" id = "chmeAccordionCur">
-                    <p style="display:none"></p>
-                </div>
-                <button #currentcivl type = "button" (click) = "dropdown(currentcivl)" name = "civl" id = "currentcivl"><b>CIVL</b>  Civil Engineering</button>
-                <div class = "accordion" id = "civlAccordionCur">
-                    <p style="display:none"></p>
-                </div>
-                <button #currentecse type = "button" (click) = "dropdown(currentecse)" name = "ecse" id = "currentecse"><b>ECSE</b>  Electrical, Computer, and Systems Engineering</button>
-                <div class = "accordion" id = "ecseAccordionCur">
-                    <p style="display:none"></p>
-                </div>
-                <button #currentengr type = "button" (click) = "dropdown(currentengr)" name = "engr" id = "currentengr"><b>ENGR</b>  General Engineering</button>
-                <div class = "accordion" id = "engrAccordionCur">
-                    <p style="display:none"></p>
-                </div>
-                <button #currentenve type = "button" (click) = "dropdown(currentenve)" name = "enve" id = "currentenve"><b>ENVE</b>  Evironmental Engineering</button>
-                <div class = "accordion" id = "enveAccordionCur">
-                    <p style="display:none"></p>
-                </div>
-                <button #currentesci type = "button" (click) = "dropdown(currentesci)" name = "esci" id = "currentesci"><b>ESCI</b>  Engineering Science</button>
-                <div class = "accordion" id = "esciAccordionCur">
-                    <p style="display:none"></p>
-                </div>
-                <button #currentisye type = "button" (click) = "dropdown(currentisye)" name = "isye" id = "currentisye"><b>ISYE</b>  Industrial and Systems Engineering</button>
-                <div class = "accordion" id = "isyeAccordionCur">
-                    <p style="display:none"></p>
-                </div>
-                <button #currentmane type = "button" (click) = "dropdown(currentmane)" name = "mane" id = "currentmane"><b>MANE</b>  Mechanical, Aerospace, and Nuclear Engineering</button>
-                <div class = "accordion" id = "maneAccordionCur">
-                    <p style="display:none"></p>
-                </div>
-                <button #currentmtle type = "button" (click) = "dropdown(currentmtle)" name = "mtle" id = "currentmtle"><b>MTLE</b>  Material Science and Engineering</button>
-                <div class = "accordion" id = "mtleAccordionCur">
-                    <p style="display:none"></p>
-                </div>
+            <button class="r-class-button" #currentcomm type = "button" (click) = "dropdown(currentcomm)" name = "comm" id = "currentcomm"><b>COMM</b>  Communication</button>
+            <div class = "accordion" id = "commAccordionCur">
+                <p style="display:none"></p>
             </div>
-            <div class = "columns" id = "col4">
-                <div class = "row" id = "row1">
-                    <h3>Architecture</h3>
-                    <button #currentarch type = "button" (click) = "dropdown(currentarch)" name = "arch" id = "currentarch"><b>ARCH</b>  Architecture</button>
-                    <div class = "accordion" id = "archAccordionCur">
-                        <p style="display:none"></p>
-                    </div>
-                    <button #currentlght type = "button" (click) = "dropdown(currentlght)" name = "lght" id = "currentlght"><b>LGHT</b>  Lighting</button>
-                    <div class = "accordion" id = "lghtAccordionCur">
-                        <p style="display:none"></p>
-                    </div>
-                </div>
-                <div class = "row" id = "row2">
-                    <h3>Other</h3>
-                    <button #currentadmn type = "button" (click) = "dropdown(currentadmn)" name = "admn" id = "currentadmn"><b>ADMN</b>  Administrative Courses</button>
-                    <div class = "accordion" id = "admnAccordionCur">
-                        <p style="display:none"></p>
-                    </div>
-                    <button #currentbusn type = "button" (click) = "dropdown(currentbusn)" name = "busn" id = "currentbusn"><b>BUSN</b>  Business(H)</button>
-                    <div class = "accordion" id = "busnAccordionCur">
-                        <p style="display:none"></p>
-                    </div>
-                    <button #currentienv type = "button" (click) = "dropdown(currentienv)" name = "ienv" id = "currentienv"><b>IENV</b>  Environmental Courses</button>
-                    <div class = "accordion" id = "ienvAccordionCur">
-                        <p style="display:none"></p>
-                    </div>
-                    <button #currentmgmt type = "button" (click) = "dropdown(currentmgmt)" name = "mgmt" id = "currentmgmt"><b>MGMT</b>  Management</button>
-                    <div class = "accordion" id = "mgmtAccordionCur">
-                        <p style="display:none"></p>
-                    </div>
-                    <button #currentstso type = "button" (click) = "dropdown(currentstso)" name = "stso" id = "currentstso"><b>STSO</b>  Science and Technology Studies (Humanities Courses)</button>
-                    <div class = "accordion" id = "stsoAccordionCur">
-                        <p style="display:none"></p>
-                    </div>
-                    <button #currentusaf type = "button" (click) = "dropdown(currentusaf)" name = "usaf" id = "currentusaf"><b>USAF</b>  Aerospace Studies (Air Force ROTC)</button>
-                    <div class = "accordion" id = "usafAccordionCur">
-                        <p style="display:none"></p>
-                    </div>
-                    <button #currentusar type = "button" (click) = "dropdown(currentusar)" name = "usar" id = "currentusar"><b>USAR</b>  Military Science (Army ROTC)</button>
-                    <div class = "accordion" id = "usarAccordionCur">
-                        <p style="display:none"></p>
-                    </div>
-                    <button #currentusna type = "button" (click) = "dropdown(currentusna)" name = "usna" id = "currentusna"><b>USNA</b>  Naval Science (Navy ROTC)</button>
-                    <div class = "accordion" id = "usnaAccordionCur">
-                        <p style="display:none"></p>
-                    </div>
-                </div>
+            <button class="r-class-button" #currentecon type = "button" (click) = "dropdown(currentecon)" name = "econ" id = "currentecon"><b>ECON</b>  Economics</button>
+            <div class = "accordion" id = "econAccordionCur">
+                <p style="display:none"></p>
             </div>
-            <button #currentBack type = "button" id = "current" class = "next" (click) = "prevStep(currentBack)">BACK</button>
-            <button #currentNext type = "button" id = "current" class = "next" (click) = "nextStep(currentNext)">NEXT</button>
-            <p class = "step">Step 2 of 3</p>
-        </form>
-        <form class = "hide" id = "previousClasses">
-            <h3 class = "regTitle">Previous Classes</h3>
-            <p class = "desc">Choose all the classes you have already taken.</p>
-            <div class = "columns" id = "col1">
-                <!--HUMANITIES, ARTS, and SOCIAL SCIENCES-->
-                <h3>HASS</h3>
-                <button #prevarts type = "button" (click) = "dropdown(prevarts)" name = "arts" id = "prevarts"><b>ARTS</b>  Arts</button>
-                <div class = "accordion" id = "artsAccordionPrev">
-                    <p style="display:none"></p>
-                </div>
-                <button #prevcogs type = "button" (click) = "dropdown(prevcogs)" name = "cogs" id = "prevcogs"><b>COGS</b>  Cognitive Science</button>
-                <div class = "accordion" id = "cogsAccordionPrev">
-                    <p style="display:none"></p>
-                </div>
-                <button #prevcomm type = "button" (click) = "dropdown(prevcomm)" name = "comm" id = "prevcomm"><b>COMM</b>  Communication</button>
-                <div class = "accordion" id = "commAccordionPrev">
-                    <p style="display:none"></p>
-                </div>
-                <button #prevecon type = "button" (click) = "dropdown(prevecon)" name = "econ" id = "prevecon"><b>ECON</b>  Economics</button>
-                <div class = "accordion" id = "econAccordionPrev">
-                    <p style="display:none"></p>
-                </div>
-                <button #prevgsas type = "button" (click) = "dropdown(prevgsas)" name = "gsas" id = "prevgsas"><b>GSAS</b>  Game Simulation Arts and Sciences</button>
-                <div class = "accordion" id = "gsasAccordionPrev">
-                    <p style="display:none"></p>
-                </div>
-                <button #prevIHSS type = "button" (click) = "dropdown(prevIHSS)" name = "ihss" id = "previhss"><b>IHSS</b>  Interdisciplinary Studies</button>
-                <div class = "accordion" id = "ihssAccordionPrev">
-                    <p style="display:none"></p>
-                </div>
-                <button #prevlang type = "button" (click) = "dropdown(prevlang)" name = "lang" id = "prevlang"><b>LANG</b>  Foreign Languages</button>
-                <div class = "accordion" id = "langAccordionPrev">
-                    <p style="display:none"></p>
-                </div>
-                <button #prevlitr type = "button" (click) = "dropdown(prevlitr)" name = "litr" id = "prevlitr"><b>LITR</b>  Literature</button>
-                <div class = "accordion" id = "litrAccordionPrev">
-                    <p style="display:none"></p>
-                </div>
-                <button #prevphil type = "button" (click) = "dropdown(prevphil)" name = "phil" id = "prevphil"><b>PHIL</b>  Philosophy</button>
-                <div class = "accordion" id = "philAccordionPrev">
-                    <p style="display:none"></p>
-                </div>
-                <button #prevpsyc type = "button" (click) = "dropdown(prevpsyc)" name = "psyc" id = "prevpysc"><b>PSYC</b>  Psychology</button>
-                <div class = "accordion" id = "psycAccordionPrev">
-                    <p style="display:none"></p>
-                </div>
-                <button #prevwrit type = "button" (click) = "dropdown(prevwrit)" name = "writ" id = "prevwrit"><b>WRIT</b>  Writing</button>
-                <div class = "accordion" id = "writAccordionPrev">
-                    <p style="display:none"></p>
-                </div>
+            <button class="r-class-button" #currentgsas type = "button" (click) = "dropdown(currentgsas)" name = "gsas" id = "currentgsas"><b>GSAS</b>  Game Simulation Arts and Sciences</button>
+            <div class = "accordion" id = "gsasAccordionCur">
+                <p style="display:none"></p>
             </div>
-            <div class = "columns" id = "col2">
-                <!--SCIENCE-->
-                <h3>Science</h3>
-                <button #prevastr type = "button" (click) = "dropdown(prevastr)" name = "astr" id = "prevastr"><b>ASTR</b>  Astronomy</button>
-                <div class = "accordion" id = "astrAccordionPrev">
-                    <p style="display:none"></p>
-                </div>
-                <button #prevBCBP type = "button" (click) = "dropdown(prevBCBP)" name = "bcbp" id = "prevbcbp"><b>BCBP</b>  Biochemistry and Biophysics</button>
-                <div class = "accordion" id = "bcbpAccordionPrev">
-                    <p style="display:none"></p>
-                </div>
-                <button #prevbiol type = "button" (click) = "dropdown(prevbiol)" name = "biol" id = "prevbiol"><b>BIOL</b>  Biology</button>
-                <div class = "accordion" id = "biolAccordionPrev">
-                    <p style="display:none"></p>
-                </div>
-                <button #prevchem type = "button" (click) = "dropdown(prevchem)" name = "chem" id = "prevchem"><b>CHEM</b>  Chemistry</button>
-                <div class = "accordion" id = "chemAccordionPrev">
-                    <p style="display:none"></p>
-                </div>
-                <button #prevcsci type = "button" (click) = "dropdown(prevcsci)" name = "csci" id = "prevcsci"><b>CSCI</b>  Computer Science</button>
-                <div class = "accordion" id = "csciAccordionPrev">
-                    <p style="display:none"></p>
-                </div>
-                <button #preverth type = "button" (click) = "dropdown(preverth)" name = "erth" id = "preverth"><b>ERTH</b>  Earth and Environmental Science</button>
-                <div class = "accordion" id = "erthAccordionPrev">
-                    <p style="display:none"></p>
-                </div>
-                <button #previsci type = "button" (click) = "dropdown(previsci)" name = "isci" id = "previsci"><b>ISCI</b>  Interdisciplinary Science</button>
-                <div class = "accordion" id = "isciAccordionPrev">
-                    <p style="display:none"></p>
-                </div>
-                <button #previtws type = "button" (click) = "dropdown(previtws)" name = "itws" id = "previtws"><b>ITWS</b>  Information Technology and Web Science</button>
-                <div class = "accordion" id = "itwsAccordionPrev">
-                    <p style="display:none"></p>
-                </div>
-                <button #prevmath type = "button" (click) = "dropdown(prevmath)" name = "math" id = "prevmath"><b>MATH</b>  Mathematics</button>
-                <div class = "accordion" id = "mathAccordionPrev">
-                    <p style="display:none"></p>
-                </div>
-                <button #prevmatp type = "button" (click) = "dropdown(prevmatp)" name = "matp" id = "prevmatp"><b>MATP</b>  Mathematical Programming, Probability, and Statistics</button>
-                <div class = "accordion" id = "matpAccordionPrev">
-                    <p style="display:none"></p>
-                </div>
-                <button #prevphys type = "button" (click) = "dropdown(prevphys)" name = "phys" id = "prevphys"><b>PHYS</b> PHYSICS</button>
-                <div class = "accordion" id = "physAccordionPrev">
-                    <p style="display:none"></p>
-                </div>
+            <button class="r-class-button" #currentIHSS type = "button" (click) = "dropdown(currentIHSS)" name = "ihss" id = "currentihss"><b>IHSS</b>  Interdisciplinary Studies</button>
+            <div class = "accordion" id = "ihssAccordionCur">
+                <p style="display:none"></p>
             </div>
-            <div class = "columns" id = "col3">
-                <!--ENGINEERING-->
-                <h3>Engineering</h3>
-                <button #prevbmed type = "button" (click) = "dropdown(prevbmed)" name = "bmed" id = "prevbmed"><b>BMED</b>  Biomedical Engineering</button>
-                <div class = "accordion" id = "bmedAccordionPrev">
-                    <p style="display:none"></p>
-                </div>
-                <button #prevchme type = "button" (click) = "dropdown(prevchme)" name = "chme" id = "prevchme"><b>CHME</b>  Chemical Engineering</button>
-                <div class = "accordion" id = "chmeAccordionPrev">
-                    <p style="display:none"></p>
-                </div>
-                <button #prevcivl type = "button" (click) = "dropdown(prevcivl)" name = "civl" id = "prevcivl"><b>CIVL</b>  Civil Engineering</button>
-                <div class = "accordion" id = "civlAccordionPrev">
-                    <p style="display:none"></p>
-                </div>
-                <button #prevecse type = "button" (click) = "dropdown(prevecse)" name = "ecse" id = "prevecse"><b>ECSE</b>  Electrical, Computer, and Systems Engineering</button>
-                <div class = "accordion" id = "ecseAccordionPrev">
-                    <p style="display:none"></p>
-                </div>
-                <button #prevengr type = "button" (click) = "dropdown(prevengr)" name = "engr" id = "prevengr"><b>ENGR</b>  General Engineering</button>
-                <div class = "accordion" id = "engrAccordionPrev">
-                    <p style="display:none"></p>
-                </div>
-                <button #prevenve type = "button" (click) = "dropdown(prevenve)" name = "enve" id = "prevenve"><b>ENVE</b>  Evironmental Engineering</button>
-                <div class = "accordion" id = "enveAccordionPrev">
-                    <p style="display:none"></p>
-                </div>
-                <button #prevesci type = "button" (click) = "dropdown(prevesci)" name = "esci" id = "prevesci"><b>ESCI</b>  Engineering Science</button>
-                <div class = "accordion" id = "esciAccordionPrev">
-                    <p style="display:none"></p>
-                </div>
-                <button #previsye type = "button" (click) = "dropdown(previsye)" name = "isye" id = "previsye"><b>ISYE</b>  Industrial and Systems Engineering</button>
-                <div class = "accordion" id = "isyeAccordionPrev">
-                    <p style="display:none"></p>
-                </div>
-                <button #prevmane type = "button" (click) = "dropdown(prevmane)" name = "mane" id = "prevmane"><b>MANE</b>  Mechanical, Aerospace, and Nuclear Engineering</button>
-                <div class = "accordion" id = "maneAccordionPrev">
-                    <p style="display:none"></p>
-                </div>
-                <button #prevmtle type = "button" (click) = "dropdown(prevmtle)" name = "mtle" id = "prevmtle"><b>MTLE</b>  Material Science and Engineering</button>
-                <div class = "accordion" id = "mtleAccordionPrev">
-                    <p style="display:none"></p>
-                </div>
+            <button class="r-class-button" #currentlang type = "button" (click) = "dropdown(currentlang)" name = "lang" id = "currentlang"><b>LANG</b>  Foreign Languages</button>
+            <div class = "accordion" id = "langAccordionCur">
+                <p style="display:none"></p>
             </div>
-            <div class = "columns" id = "col4">
-                <div class = "row" id = "row1">
-                    <h3>Architecture</h3>
-                    <button #prevarch type = "button" (click) = "dropdown(prevarch)" name = "arch" id = "prevarch"><b>ARCH</b>  Architecture</button>
-                    <div class = "accordion" id = "archAccordionPrev">
-                        <p style="display:none"></p>
-                    </div>
-                    <button #prevlght type = "button" (click) = "dropdown(prevlght)" name = "lght" id = "prevlght"><b>LGHT</b>  Lighting</button>
-                    <div class = "accordion" id = "lghtAccordionPrev">
-                        <p style="display:none"></p>
-                    </div>
-                </div>
-                <div class = "row" id = "row2">
-                    <h3>Other</h3>
-                    <button #prevadmn type = "button" (click) = "dropdown(prevadmn)" name = "admn" id = "prevadmn"><b>ADMN</b>  Administrative Courses</button>
-                    <div class = "accordion" id = "admnAccordionPrev">
-                        <p style="display:none"></p>
-                    </div>
-                    <button #prevbusn type = "button" (click) = "dropdown(prevbusn)" name = "busn" id = "prevbusn"><b>BUSN</b>  Business(H)</button>
-                    <div class = "accordion" id = "busnAccordionPrev">
-                        <p style="display:none"></p>
-                    </div>
-                    <button #previenv type = "button" (click) = "dropdown(previenv)" name = "ienv" id = "previenv"><b>IENV</b>  Environmental Courses</button>
-                    <div class = "accordion" id = "ienvAccordionPrev">
-                        <p style="display:none"></p>
-                    </div>
-                    <button #prevmgmt type = "button" (click) = "dropdown(prevmgmt)" name = "mgmt" id = "prevmgmt"><b>MGMT</b>  Management</button>
-                    <div class = "accordion" id = "mgmtAccordionPrev">
-                        <p style="display:none"></p>
-                    </div>
-                    <button #prevstso type = "button" (click) = "dropdown(prevstso)" name = "stso" id = "prevstso"><b>STSO</b>  Science and Technology Studies (Humanities Courses)</button>
-                    <div class = "accordion" id = "stsoAccordionPrev">
-                        <p style="display:none"></p>
-                    </div>
-                    <button #prevusaf type = "button" (click) = "dropdown(prevusaf)" name = "usaf" id = "prevusaf"><b>USAF</b>  Aerospace Studies (Air Force ROTC)</button>
-                    <div class = "accordion" id = "usafAccordionPrev">
-                        <p style="display:none"></p>
-                    </div>
-                    <button #prevusar type = "button" (click) = "dropdown(prevusar)" name = "usar" id = "prevusar"><b>USAR</b>  Military Science (Army ROTC)</button>
-                    <div class = "accordion" id = "usarAccordionPrev">
-                        <p style="display:none"></p>
-                    </div>
-                    <button #prevusna type = "button" (click) = "dropdown(prevusna)" name = "usna" id = "prevusna"><b>USNA</b>  Naval Science (Navy ROTC)</button>
-                    <div class = "accordion" id = "usnaAccordionPrev">
-                        <p style="display:none"></p>
-                    </div>
-                </div>
+            <button class="r-class-button" #currentlitr type = "button" (click) = "dropdown(currentlitr)" name = "litr" id = "currentlitr"><b>LITR</b>  Literature</button>
+            <div class = "accordion" id = "litrAccordionCur">
+                <p style="display:none"></p>
             </div>
-            <button #previousBack type = "button" id = "previous" class = "next" (click) = "prevStep(previousBack)">BACK</button>
-            <button #previousNext type = "button" id = "previous" class = "next" (click) = "nextStep(previousNext)">FINISH</button>
-            <p class = "step">Step 3 of 3</p>
-        </form>
-        <div id = "confirm" class = "hide">
-            <h3 class = "regTitle">Confirm Information</h3>
-            <p class = "desc">Confirm all the listed personal and class information is correct.</p>
-            <div id = "confPage">
-            <div id = "confInfo">
-                <h3>Basic Info</h3>
-                <p id = "fullName"></p>
-                <p id = "grad"></p>
-                <p id = "email"></p>
-                <p id = "disc"></p>
+            <button class="r-class-button" #currentphil type = "button" (click) = "dropdown(currentphil)" name = "phil" id = "currentphil"><b>PHIL</b>  Philosophy</button>
+            <div class = "accordion" id = "philAccordionCur">
+                <p style="display:none"></p>
             </div>
-            <div id = "confCurrent">
-                <h2>Current Classes</h2>
-                <ul id = "currentList"></ul>
+            <button class="r-class-button" #currentpsyc type = "button" (click) = "dropdown(currentpsyc)" name = "psyc" id = "currentpysc"><b>PSYC</b>  Psychology</button>
+            <div class = "accordion" id = "psycAccordionCur">
+                <p style="display:none"></p>
             </div>
-            <div id = "confPrev">
-                <h2>Previous Classes</h2>
-                <ul id = "prevList"></ul>
+            <button class="r-class-button" #currentwrit type = "button" (click) = "dropdown(currentwrit)" name = "writ" id = "currentwrit"><b>WRIT</b>  Writing</button>
+            <div class = "accordion" id = "writAccordionCur">
+                <p style="display:none"></p>
             </div>
         </div>
-            <button #confirmInfo type = "button" id = "confirmInfo" class = "next" (click) = "prevStep(confirmInfo)">BACK</button>
-            <button type = "button" id = "conf" class = "next" (click) = "register()">CONFIRM</button>
+        <div class = "columns" id = "col2">
+            <!--SCIENCE-->
+            <h3>Science</h3>
+            <button class="r-class-button" #currentastr type = "button" (click) = "dropdown(currentastr)" name = "astr" id = "currentastr"><b>ASTR</b>  Astronomy</button>
+            <div class = "accordion" id = "astrAccordionCur">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #currentBCBP type = "button" (click) = "dropdown(currentBCBP)" name = "bcbp" id = "currentbcbp"><b>BCBP</b>  Biochemistry and Biophysics</button>
+            <div class = "accordion" id = "bcbpAccordionCur">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #currentbiol type = "button" (click) = "dropdown(currentbiol)" name = "biol" id = "currentbiol"><b>BIOL</b>  Biology</button>
+            <div class = "accordion" id = "biolAccordionCur">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #currentchem type = "button" (click) = "dropdown(currentchem)" name = "chem" id = "currentchem"><b>CHEM</b>  Chemistry</button>
+            <div class = "accordion" id = "chemAccordionCur">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #currentcsci type = "button" (click) = "dropdown(currentcsci)" name = "csci" id = "currentcsci"><b>CSCI</b>  Computer Science</button>
+            <div class = "accordion" id = "csciAccordionCur">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #currenterth type = "button" (click) = "dropdown(currenterth)" name = "erth" id = "currenterth"><b>ERTH</b>  Earth and Environmental Science</button>
+            <div class = "accordion" id = "erthAccordionCur">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #currentisci type = "button" (click) = "dropdown(currentisci)" name = "isci" id = "currentisci"><b>ISCI</b>  Interdisciplinary Science</button>
+            <div class = "accordion" id = "isciAccordionCur">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #currentitws type = "button" (click) = "dropdown(currentitws)" name = "itws" id = "currentitws"><b>ITWS</b>  Information Technology and Web Science</button>
+            <div class = "accordion" id = "itwsAccordionCur">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #currentmath type = "button" (click) = "dropdown(currentmath)" name = "math" id = "currentmath"><b>MATH</b>  Mathematics</button>
+            <div class = "accordion" id = "mathAccordionCur">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #currentmatp type = "button" (click) = "dropdown(currentmatp)" name = "matp" id = "currentmatp"><b>MATP</b>  Mathematical Programming, Probability, and Statistics</button>
+            <div class = "accordion" id = "matpAccordionCur">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #currentphys type = "button" (click) = "dropdown(currentphys)" name = "phys" id = "currentphys"><b>PHYS</b>  PHYSICS</button>
+            <div class = "accordion" id = "physAccordionCur">
+                <p style="display:none"></p>
+            </div>
         </div>
+        <div class = "columns" id = "col3">
+            <!--ENGINEERING-->
+            <h3>Engineering</h3>
+            <button class="r-class-button" #currentbmed type = "button" (click) = "dropdown(currentbmed)" name = "bmed" id = "currentbmed"><b>BMED</b>  Biomedical Engineering</button>
+            <div class = "accordion" id = "bmedAccordionCur">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #currentchme type = "button" (click) = "dropdown(currentchme)" name = "chme" id = "currentchme"><b>CHME</b>  Chemical Engineering</button>
+            <div class = "accordion" id = "chmeAccordionCur">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #currentcivl type = "button" (click) = "dropdown(currentcivl)" name = "civl" id = "currentcivl"><b>CIVL</b>  Civil Engineering</button>
+            <div class = "accordion" id = "civlAccordionCur">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #currentecse type = "button" (click) = "dropdown(currentecse)" name = "ecse" id = "currentecse"><b>ECSE</b>  Electrical, Computer, and Systems Engineering</button>
+            <div class = "accordion" id = "ecseAccordionCur">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #currentengr type = "button" (click) = "dropdown(currentengr)" name = "engr" id = "currentengr"><b>ENGR</b>  General Engineering</button>
+            <div class = "accordion" id = "engrAccordionCur">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #currentenve type = "button" (click) = "dropdown(currentenve)" name = "enve" id = "currentenve"><b>ENVE</b>  Evironmental Engineering</button>
+            <div class = "accordion" id = "enveAccordionCur">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #currentesci type = "button" (click) = "dropdown(currentesci)" name = "esci" id = "currentesci"><b>ESCI</b>  Engineering Science</button>
+            <div class = "accordion" id = "esciAccordionCur">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #currentisye type = "button" (click) = "dropdown(currentisye)" name = "isye" id = "currentisye"><b>ISYE</b>  Industrial and Systems Engineering</button>
+            <div class = "accordion" id = "isyeAccordionCur">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #currentmane type = "button" (click) = "dropdown(currentmane)" name = "mane" id = "currentmane"><b>MANE</b>  Mechanical, Aerospace, and Nuclear Engineering</button>
+            <div class = "accordion" id = "maneAccordionCur">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #currentmtle type = "button" (click) = "dropdown(currentmtle)" name = "mtle" id = "currentmtle"><b>MTLE</b>  Material Science and Engineering</button>
+            <div class = "accordion" id = "mtleAccordionCur">
+                <p style="display:none"></p>
+            </div>
+        </div>
+        <div class = "columns" id = "col4">
+            <div class = "row" id = "row1">
+                <h3>Architecture</h3>
+                <button class="r-class-button" #currentarch type = "button" (click) = "dropdown(currentarch)" name = "arch" id = "currentarch"><b>ARCH</b>  Architecture</button>
+                <div class = "accordion" id = "archAccordionCur">
+                    <p style="display:none"></p>
+                </div>
+                <button class="r-class-button" #currentlght type = "button" (click) = "dropdown(currentlght)" name = "lght" id = "currentlght"><b>LGHT</b>  Lighting</button>
+                <div class = "accordion" id = "lghtAccordionCur">
+                    <p style="display:none"></p>
+                </div>
+            </div>
+            <div class = "row" id = "row2">
+                <h3>Other</h3>
+                <button class="r-class-button" #currentadmn type = "button" (click) = "dropdown(currentadmn)" name = "admn" id = "currentadmn"><b>ADMN</b>  Administrative Courses</button>
+                <div class = "accordion" id = "admnAccordionCur">
+                    <p style="display:none"></p>
+                </div>
+                <button class="r-class-button" #currentbusn type = "button" (click) = "dropdown(currentbusn)" name = "busn" id = "currentbusn"><b>BUSN</b>  Business(H)</button>
+                <div class = "accordion" id = "busnAccordionCur">
+                    <p style="display:none"></p>
+                </div>
+                <button class="r-class-button" #currentienv type = "button" (click) = "dropdown(currentienv)" name = "ienv" id = "currentienv"><b>IENV</b>  Environmental Courses</button>
+                <div class = "accordion" id = "ienvAccordionCur">
+                    <p style="display:none"></p>
+                </div>
+                <button class="r-class-button" #currentmgmt type = "button" (click) = "dropdown(currentmgmt)" name = "mgmt" id = "currentmgmt"><b>MGMT</b>  Management</button>
+                <div class = "accordion" id = "mgmtAccordionCur">
+                    <p style="display:none"></p>
+                </div>
+                <button class="r-class-button" #currentstso type = "button" (click) = "dropdown(currentstso)" name = "stso" id = "currentstso"><b>STSO</b>  Science and Technology Studies (Humanities Courses)</button>
+                <div class = "accordion" id = "stsoAccordionCur">
+                    <p style="display:none"></p>
+                </div>
+                <button class="r-class-button" #currentusaf type = "button" (click) = "dropdown(currentusaf)" name = "usaf" id = "currentusaf"><b>USAF</b>  Aerospace Studies (Air Force ROTC)</button>
+                <div class = "accordion" id = "usafAccordionCur">
+                    <p style="display:none"></p>
+                </div>
+                <button class="r-class-button" #currentusar type = "button" (click) = "dropdown(currentusar)" name = "usar" id = "currentusar"><b>USAR</b>  Military Science (Army ROTC)</button>
+                <div class = "accordion" id = "usarAccordionCur">
+                    <p style="display:none"></p>
+                </div>
+                <button class="r-class-button" #currentusna type = "button" (click) = "dropdown(currentusna)" name = "usna" id = "currentusna"><b>USNA</b>  Naval Science (Navy ROTC)</button>
+                <div class = "accordion" id = "usnaAccordionCur">
+                    <p style="display:none"></p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12" style="text-align: center;">
+                <button class="r-step-button" #currentBack type = "button" id = "current" class = "next" (click) = "prevStep(currentBack)">BACK</button>
+                <button class="r-step-button" #currentNext type = "button" id = "current" class = "next" (click) = "nextStep(currentNext)">NEXT</button>
+                <p class = "step">Step 2 of 3</p>
+            </div>
+        </div>
+    </form>
+    <form class = "hide" id = "previousClasses">
+        <h3 class = "regTitle">Previous Classes</h3>
+        <p class = "desc">Choose all the classes you have already taken.</p>
+        <div class = "columns" id = "col1">
+            <!--HUMANITIES, ARTS, and SOCIAL SCIENCES-->
+            <h3>HASS</h3>
+            <button class="r-class-button" #prevarts type = "button" (click) = "dropdown(prevarts)" name = "arts" id = "prevarts"><b>ARTS</b>  Arts</button>
+            <div class = "accordion" id = "artsAccordionPrev">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #prevcogs type = "button" (click) = "dropdown(prevcogs)" name = "cogs" id = "prevcogs"><b>COGS</b>  Cognitive Science</button>
+            <div class = "accordion" id = "cogsAccordionPrev">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #prevcomm type = "button" (click) = "dropdown(prevcomm)" name = "comm" id = "prevcomm"><b>COMM</b>  Communication</button>
+            <div class = "accordion" id = "commAccordionPrev">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #prevecon type = "button" (click) = "dropdown(prevecon)" name = "econ" id = "prevecon"><b>ECON</b>  Economics</button>
+            <div class = "accordion" id = "econAccordionPrev">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #prevgsas type = "button" (click) = "dropdown(prevgsas)" name = "gsas" id = "prevgsas"><b>GSAS</b>  Game Simulation Arts and Sciences</button>
+            <div class = "accordion" id = "gsasAccordionPrev">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #prevIHSS type = "button" (click) = "dropdown(prevIHSS)" name = "ihss" id = "previhss"><b>IHSS</b>  Interdisciplinary Studies</button>
+            <div class = "accordion" id = "ihssAccordionPrev">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #prevlang type = "button" (click) = "dropdown(prevlang)" name = "lang" id = "prevlang"><b>LANG</b>  Foreign Languages</button>
+            <div class = "accordion" id = "langAccordionPrev">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #prevlitr type = "button" (click) = "dropdown(prevlitr)" name = "litr" id = "prevlitr"><b>LITR</b>  Literature</button>
+            <div class = "accordion" id = "litrAccordionPrev">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #prevphil type = "button" (click) = "dropdown(prevphil)" name = "phil" id = "prevphil"><b>PHIL</b>  Philosophy</button>
+            <div class = "accordion" id = "philAccordionPrev">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #prevpsyc type = "button" (click) = "dropdown(prevpsyc)" name = "psyc" id = "prevpysc"><b>PSYC</b>  Psychology</button>
+            <div class = "accordion" id = "psycAccordionPrev">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #prevwrit type = "button" (click) = "dropdown(prevwrit)" name = "writ" id = "prevwrit"><b>WRIT</b>  Writing</button>
+            <div class = "accordion" id = "writAccordionPrev">
+                <p style="display:none"></p>
+            </div>
+        </div>
+        <div class = "columns" id = "col2">
+            <!--SCIENCE-->
+            <h3>Science</h3>
+            <button class="r-class-button" #prevastr type = "button" (click) = "dropdown(prevastr)" name = "astr" id = "prevastr"><b>ASTR</b>  Astronomy</button>
+            <div class = "accordion" id = "astrAccordionPrev">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #prevBCBP type = "button" (click) = "dropdown(prevBCBP)" name = "bcbp" id = "prevbcbp"><b>BCBP</b>  Biochemistry and Biophysics</button>
+            <div class = "accordion" id = "bcbpAccordionPrev">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #prevbiol type = "button" (click) = "dropdown(prevbiol)" name = "biol" id = "prevbiol"><b>BIOL</b>  Biology</button>
+            <div class = "accordion" id = "biolAccordionPrev">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #prevchem type = "button" (click) = "dropdown(prevchem)" name = "chem" id = "prevchem"><b>CHEM</b>  Chemistry</button>
+            <div class = "accordion" id = "chemAccordionPrev">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #prevcsci type = "button" (click) = "dropdown(prevcsci)" name = "csci" id = "prevcsci"><b>CSCI</b>  Computer Science</button>
+            <div class = "accordion" id = "csciAccordionPrev">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #preverth type = "button" (click) = "dropdown(preverth)" name = "erth" id = "preverth"><b>ERTH</b>  Earth and Environmental Science</button>
+            <div class = "accordion" id = "erthAccordionPrev">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #previsci type = "button" (click) = "dropdown(previsci)" name = "isci" id = "previsci"><b>ISCI</b>  Interdisciplinary Science</button>
+            <div class = "accordion" id = "isciAccordionPrev">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #previtws type = "button" (click) = "dropdown(previtws)" name = "itws" id = "previtws"><b>ITWS</b>  Information Technology and Web Science</button>
+            <div class = "accordion" id = "itwsAccordionPrev">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #prevmath type = "button" (click) = "dropdown(prevmath)" name = "math" id = "prevmath"><b>MATH</b>  Mathematics</button>
+            <div class = "accordion" id = "mathAccordionPrev">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #prevmatp type = "button" (click) = "dropdown(prevmatp)" name = "matp" id = "prevmatp"><b>MATP</b>  Mathematical Programming, Probability, and Statistics</button>
+            <div class = "accordion" id = "matpAccordionPrev">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #prevphys type = "button" (click) = "dropdown(prevphys)" name = "phys" id = "prevphys"><b>PHYS</b> PHYSICS</button>
+            <div class = "accordion" id = "physAccordionPrev">
+                <p style="display:none"></p>
+            </div>
+        </div>
+        <div class = "columns" id = "col3">
+            <!--ENGINEERING-->
+            <h3>Engineering</h3>
+            <button class="r-class-button" #prevbmed type = "button" (click) = "dropdown(prevbmed)" name = "bmed" id = "prevbmed"><b>BMED</b>  Biomedical Engineering</button>
+            <div class = "accordion" id = "bmedAccordionPrev">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #prevchme type = "button" (click) = "dropdown(prevchme)" name = "chme" id = "prevchme"><b>CHME</b>  Chemical Engineering</button>
+            <div class = "accordion" id = "chmeAccordionPrev">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #prevcivl type = "button" (click) = "dropdown(prevcivl)" name = "civl" id = "prevcivl"><b>CIVL</b>  Civil Engineering</button>
+            <div class = "accordion" id = "civlAccordionPrev">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #prevecse type = "button" (click) = "dropdown(prevecse)" name = "ecse" id = "prevecse"><b>ECSE</b>  Electrical, Computer, and Systems Engineering</button>
+            <div class = "accordion" id = "ecseAccordionPrev">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #prevengr type = "button" (click) = "dropdown(prevengr)" name = "engr" id = "prevengr"><b>ENGR</b>  General Engineering</button>
+            <div class = "accordion" id = "engrAccordionPrev">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #prevenve type = "button" (click) = "dropdown(prevenve)" name = "enve" id = "prevenve"><b>ENVE</b>  Evironmental Engineering</button>
+            <div class = "accordion" id = "enveAccordionPrev">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #prevesci type = "button" (click) = "dropdown(prevesci)" name = "esci" id = "prevesci"><b>ESCI</b>  Engineering Science</button>
+            <div class = "accordion" id = "esciAccordionPrev">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #previsye type = "button" (click) = "dropdown(previsye)" name = "isye" id = "previsye"><b>ISYE</b>  Industrial and Systems Engineering</button>
+            <div class = "accordion" id = "isyeAccordionPrev">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #prevmane type = "button" (click) = "dropdown(prevmane)" name = "mane" id = "prevmane"><b>MANE</b>  Mechanical, Aerospace, and Nuclear Engineering</button>
+            <div class = "accordion" id = "maneAccordionPrev">
+                <p style="display:none"></p>
+            </div>
+            <button class="r-class-button" #prevmtle type = "button" (click) = "dropdown(prevmtle)" name = "mtle" id = "prevmtle"><b>MTLE</b>  Material Science and Engineering</button>
+            <div class = "accordion" id = "mtleAccordionPrev">
+                <p style="display:none"></p>
+            </div>
+        </div>
+        <div class = "columns" id = "col4">
+            <div class = "row" id = "row1">
+                <h3>Architecture</h3>
+                <button class="r-class-button" #prevarch type = "button" (click) = "dropdown(prevarch)" name = "arch" id = "prevarch"><b>ARCH</b>  Architecture</button>
+                <div class = "accordion" id = "archAccordionPrev">
+                    <p style="display:none"></p>
+                </div>
+                <button class="r-class-button" #prevlght type = "button" (click) = "dropdown(prevlght)" name = "lght" id = "prevlght"><b>LGHT</b>  Lighting</button>
+                <div class = "accordion" id = "lghtAccordionPrev">
+                    <p style="display:none"></p>
+                </div>
+            </div>
+            <div class = "row" id = "row2">
+                <h3>Other</h3>
+                <button class="r-class-button" #prevadmn type = "button" (click) = "dropdown(prevadmn)" name = "admn" id = "prevadmn"><b>ADMN</b>  Administrative Courses</button>
+                <div class = "accordion" id = "admnAccordionPrev">
+                    <p style="display:none"></p>
+                </div>
+                <button class="r-class-button" #prevbusn type = "button" (click) = "dropdown(prevbusn)" name = "busn" id = "prevbusn"><b>BUSN</b>  Business(H)</button>
+                <div class = "accordion" id = "busnAccordionPrev">
+                    <p style="display:none"></p>
+                </div>
+                <button class="r-class-button" #previenv type = "button" (click) = "dropdown(previenv)" name = "ienv" id = "previenv"><b>IENV</b>  Environmental Courses</button>
+                <div class = "accordion" id = "ienvAccordionPrev">
+                    <p style="display:none"></p>
+                </div>
+                <button class="r-class-button" #prevmgmt type = "button" (click) = "dropdown(prevmgmt)" name = "mgmt" id = "prevmgmt"><b>MGMT</b>  Management</button>
+                <div class = "accordion" id = "mgmtAccordionPrev">
+                    <p style="display:none"></p>
+                </div>
+                <button class="r-class-button" #prevstso type = "button" (click) = "dropdown(prevstso)" name = "stso" id = "prevstso"><b>STSO</b>  Science and Technology Studies (Humanities Courses)</button>
+                <div class = "accordion" id = "stsoAccordionPrev">
+                    <p style="display:none"></p>
+                </div>
+                <button class="r-class-button" #prevusaf type = "button" (click) = "dropdown(prevusaf)" name = "usaf" id = "prevusaf"><b>USAF</b>  Aerospace Studies (Air Force ROTC)</button>
+                <div class = "accordion" id = "usafAccordionPrev">
+                    <p style="display:none"></p>
+                </div>
+                <button class="r-class-button" #prevusar type = "button" (click) = "dropdown(prevusar)" name = "usar" id = "prevusar"><b>USAR</b>  Military Science (Army ROTC)</button>
+                <div class = "accordion" id = "usarAccordionPrev">
+                    <p style="display:none"></p>
+                </div>
+                <button class="r-class-button" #prevusna type = "button" (click) = "dropdown(prevusna)" name = "usna" id = "prevusna"><b>USNA</b>  Naval Science (Navy ROTC)</button>
+                <div class = "accordion" id = "usnaAccordionPrev">
+                    <p style="display:none"></p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12" style="text-align: center;">
+                <button class="r-step-button" #previousBack type = "button" id = "previous" class = "next" (click) = "prevStep(previousBack)">BACK</button>
+                <button class="r-step-button" #previousNext type = "button" id = "previous" class = "next" (click) = "nextStep(previousNext)">FINISH</button>
+                <p class = "step">Step 3 of 3</p>
+            </div>
+        </div>
+    </form>
+    <div id = "confirm" class = "hide">
+        <h3 class = "regTitle">Confirm Information</h3>
+        <p class = "desc">Confirm all the listed personal and class information is correct.</p>
+        <div class="card" style="width: 100%; align-items: center; background-color: #E7E7E7;">
+            <div class="card-body">
+                <h5 class="card-text r-profile-title r-t1"><b>Basic Info</b></h5>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 r-center-col-text">
+                            <p class="card-text r-profile-field">NAME: </p>
+                            <p class="card-text r-profile-value" id = "fullName"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 r-center-col-text">
+                            <p class="card-text r-profile-field">GRAD YEAR: </p>
+                            <p class="card-text r-profile-value" id = "grad"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 r-center-col-text">
+                            <p class="card-text r-profile-field">EMAIL: </p>
+                            <p class="card-text r-profile-value" id = "email"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 r-center-col-text">
+                            <p class="card-text r-profile-field">DISCORD: </p>
+                            <p class="card-text r-profile-value" id = "disc"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 r-center-col-text">
+                            <p class="card-text r-profile-field">DISCORD ID: </p>
+                            <p class="card-text r-profile-value" id = "discId"></p>
+                        </div>
+                    </div>
+                </div>
+                <h5 class="card-text r-profile-title r-t1" style="margin-top: 20px; margin-bottom: -10px;"><b>Current Classes</b></h5>
+                <div class="row">
+                    <div class="col-12 r-center-col-text">
+                        <div id = "currentList"></div>
+                    </div>
+                </div>
+                <h5 class="card-text r-profile-title r-t1" style="margin-top: 20px; margin-bottom: -10px;"><b>Previous Classes</b></h5>
+                <div class="row">
+                    <div class="col-12 r-center-col-text">
+                        <div id = "prevList"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12" style="text-align: center;">
+                        <button class="r-step-button" #confirmInfo type = "button" id = "confirmInfo" class = "next" (click) = "prevStep(confirmInfo)">BACK</button>
+                        <button class="r-step-button" type = "button" id = "conf" class = "next" (click) = "register()">CONFIRM</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

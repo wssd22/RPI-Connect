@@ -1,3 +1,8 @@
+.mr-edit-remove-btn {
+  width: 40%;
+  margin: auto;
+}
+
 #mr-newreq-field {
   display: inline;
   margin: 5px;
@@ -131,9 +136,8 @@
   padding: 2%;
 }
 
-.refresh{
-  display: inline;
-  padding: 1%;
+.mr-refresh{
+  width: 100%;
 }
 
 @media only screen and (max-width: 992px) {

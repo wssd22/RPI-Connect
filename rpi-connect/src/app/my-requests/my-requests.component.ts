@@ -454,6 +454,7 @@ export class MyRequestsComponent implements OnInit {
           removeBtn.classList.add("btn");
           removeBtn.classList.add("btn-outline-danger");
           removeBtn.classList.add("btn-sm");
+          removeBtn.classList.add("mr-edit-remove-btn");
           //edit button
           editBtn.id = 'editAct' + i.toString();
           editBtn.addEventListener('click', (e) => {
@@ -465,6 +466,7 @@ export class MyRequestsComponent implements OnInit {
           editBtn.classList.add("btn");
           editBtn.classList.add("btn-outline-danger");
           editBtn.classList.add("btn-sm");
+          editBtn.classList.add("mr-edit-remove-btn");
           (<HTMLElement>elem2).appendChild(editBtn);
           (<HTMLElement>elem2).appendChild(removeBtn);
         }
