@@ -276,7 +276,6 @@ public prevStep(step:HTMLElement){
             if(!(<HTMLElement>document.getElementById("current" + prefix.split(" ")[0])).classList.contains("select")){
                 (<HTMLElement>document.getElementById("current" + prefix.split(" ")[0])).classList.add("select");
             }
-            alert("hello");
             this.currentClasses.push(prefix);
         }
         else{//previous

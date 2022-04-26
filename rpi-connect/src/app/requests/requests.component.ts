@@ -207,7 +207,8 @@ export class RequestsComponent implements OnInit {
       for(var i = this.classIndex; i < this.classIndex+10; i++){
         for(var j = 0; j < this.search.length; j++){
         if(i < courses.length){
-          if(this.search[i] == courses[i]){
+          if(this.search[j] == courses[i].class){
+
             var str = ""
             var card = document.createElement("div");
             card.classList.add("card");
