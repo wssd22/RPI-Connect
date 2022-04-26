@@ -558,16 +558,7 @@ export class MyRequestsComponent implements OnInit {
           elem7.style.display = 'none';
           elem2.appendChild(elem7);
           //add answerMsg if applicable (maybe add answerid username later)
-          const elem9 = document.createElement('p');
-          elem9.id = 'expAnsMsg' + i.toString();
-          elem9.classList.add('card-text');
-          if(expData[i].answerMsg != ''){
-            elem9.innerHTML = expData[i].answerMsg;
-          }
-          else {
-            elem9.innerHTML = 'Request not fulfilled';
-          }
-          elem2.appendChild(elem9);
+          
           //add date
           const elem8 = document.createElement('p');
           elem8.innerHTML = expData[i].datePosted;
