@@ -75,18 +75,14 @@ export class MyRequestsComponent implements OnInit {
     var name = "";
     var id = Math.floor(Math.random() * (1000000 - 10000 + 1)) + 10000;
 
-    //get name
-    this.httpService.sendGetRequest("user/" + this.profileId).subscribe((res) => {
-      
-      this.data = res;
-      name = this.data.name;
+    
       var current = this.data.current;
       var enrolled = false;
       
         //add reqId
-        var query = '{"id" :"' + this.profileId + '"}';
-        this.httpService.sendPutRequest("user/reqs/" + id.toString(), JSON.parse(query)).subscribe((res) => {
-        });
+      var query = '{"id" :"' + this.profileId + '"}';
+      this.httpService.sendPutRequest("user/reqs/" + id.toString(), JSON.parse(query)).subscribe((res) => {
+
 
    
     var today = new Date();
