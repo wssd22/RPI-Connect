@@ -3,6 +3,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { MyRequestsComponent } from './my-requests/my-requests.component';
 import { RequestsComponent } from './requests/requests.component';
 import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 import { HttpService } from './http.service';
 
 @Component({
@@ -17,6 +18,7 @@ export class AppComponent{
   @ViewChild(MyRequestsComponent) myReqs!: MyRequestsComponent;
   @ViewChild(RequestsComponent) reqs!: RequestsComponent;
   @ViewChild(RegisterComponent) reg!: RegisterComponent;
+  @ViewChild(LoginComponent) log!: LoginComponent;
   title = 'rpi-connect';
   showHome = true;
   showRequests = false;
@@ -32,7 +34,7 @@ export class AppComponent{
 
 
   private data:any = [];
-  sentId:number = 0;
+  sentId:string = '0';
   
   currentClass:any = [];
   prevClass:any = [];
@@ -59,19 +61,23 @@ export class AppComponent{
       this.data = res;
       for(var i = 0; i < this.data.length; i++){
         if(this.data[i].datePosted){
-        
+
         var reqDate = this.data[i].datePosted.split('-');
-        var reqDay = reqDate[2];
-        var reqMonth = reqDate[1];
-        var reqYear = reqDate[0];
+        var reqDay = Number(reqDate[2]);
+        var reqMonth = Number(reqDate[1]);
+        //alert(reqMonth);
+        var reqYear = Number(reqDate[0]);
         if(reqYear < this.year){
           this.month += 12;
         }
+        //alert(this.month);
         if(reqMonth < this.month){
           this.day += monthDays;
         }
         var diff = this.day - reqDay;
+        //alert(diff);
         var daysLeft = 14 - diff;
+        //alert(daysLeft);
         if(daysLeft < 0){
           daysLeft = 0;
         }
@@ -97,7 +103,7 @@ export class AppComponent{
     
   }
 
-  public setId(num:number):void{
+  public setId(num:string):void{
     this.sentId = num;
     this.loggedOut = false;
     this.loggedIn = true;
@@ -123,9 +129,10 @@ export class AppComponent{
       this.showRegister = false;
       this.showProfile = false;
       this.showMyRequests = false;
-      this.sentId = 0;
+      this.sentId = '0';
       this.loggedOut = true;
       this.loggedIn = false;
+      this.log.googleLogout();
     }
     else if(page == "login"){
       this.showHome = false;
@@ -135,7 +142,7 @@ export class AppComponent{
       this.showProfile = false;
       this.showMyRequests = false;
     }
-    else if(page == "requests" && this.sentId != 0){
+    else if(page == "requests" && this.sentId != '0'){
       this.showHome = false;
       this.showRequests = true;
       this.showLogin = false;
@@ -154,7 +161,7 @@ export class AppComponent{
       this.reg.loadCurrentClasses();
       this.reg.loadPrevClasses();
     }
-    else if(page == "myRequests" && this.sentId != 0){
+    else if(page == "myRequests" && this.sentId != '0'){
       this.showHome = false;
       this.showRequests = false;
       this.showLogin = false;
@@ -165,17 +172,18 @@ export class AppComponent{
       this.myReqs.loadRequests();
       this.myReqs.filters();
     }
-    else if(page == "profile" && this.sentId != 0){
+    else if(page == "profile" && this.sentId != '0'){
       this.showHome = false;
       this.showRequests = false;
       this.showLogin = false;
       this.showRegister = false;
       this.showProfile = true;
       this.showMyRequests = false;
-      
+      this.loggedOut = false;
+      this.loggedIn = true;
       this.profile.loadProfile(this.sentId);
     }
-    else if(this.sentId == 0){
+    else if(this.sentId == '0'){
       this.showHome = false;
       this.showRequests = false;
       this.showLogin = true;

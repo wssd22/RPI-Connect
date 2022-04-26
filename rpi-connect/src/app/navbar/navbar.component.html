@@ -1,52 +1,52 @@
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark" id="nav-color">
-    <div class="container-fluid">
-      <a #home id = "home" class="navbar-brand" (click) = "navigate(home)">
-        <img
-          src = "assets/images/LOGO.png"
-          id="logo-image"
-          alt="RPI Connect Logo"
-          width="90"
-          height="68"
-        />
-      </a>
-      <button
-        class="navbar-toggler"
-        id="mobile-toggler"
-        type="button"
-        data-toggle="dropdown"
-        data-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-        (click)="dropdown(target)"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div #target
-        class="collapse navbar-collapse justify-content-end ms-auto"
-        id="navbarNavAltMarkup"
-        aria-labelledby="mobile-toggler"
-      >
-        <div class="navbar-nav">
-          <a #requests id = "requests" class="nav-item nav-link active" (click) = "navigate(requests)">
-            <button class="btn btn-dark btn-sm" id="sign-in">Requests</button>
-          </a>
-          <a #myRequests id = "myRequests" class="nav-item nav-link active" (click) = "navigate(myRequests)">
-            <button class="btn btn-dark btn-sm" id="sign-in">My Requests</button>
-          </a>
-          <a #profile id = "profile" class="nav-item nav-link active" (click) = "navigate(profile)">
-            <button class="btn btn-dark btn-sm" id="sign-in">Profile</button>
-          </a>
-          <a *ngIf="loggedOut" #login id = "login" class="nav-item nav-link active" (click) = "navigate(login)">
-            <button class="btn btn-dark btn-sm" id="sign-in">Sign In</button>
-          </a>
-          <a *ngIf="loggedIn" #logout id = "logout" class="nav-item nav-link active" (click) = "navigate(logout)">
-            <button class="btn btn-dark btn-sm" id="sign-in">Sign Out</button>
-          </a>
-          <a #register id = "register" class="nav-item nav-link active" (click) = "navigate(register)">
-            <button class="btn btn-dark btn-sm" id="sign-up">Sign Up</button>
-          </a>
-        </div>
+  <div class="container-fluid">
+    <a #home id = "home" class="navbar-brand" (click) = "navigate(home)">
+      <img
+        src = "assets/images/LOGO.png"
+        id="logo-image"
+        alt="RPI Connect Logo"
+        width="90"
+        height="68"
+      />
+    </a>
+    <button
+      class="navbar-toggler"
+      id="mobile-toggler"
+      type="button"
+      data-toggle="dropdown"
+      data-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+      (click)="dropdown(target)"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div #target
+      class="collapse navbar-collapse justify-content-end ms-auto"
+      id="navbarNavAltMarkup"
+      aria-labelledby="mobile-toggler"
+    >
+      <div class="navbar-nav">
+        <a #requests id = "requests" class="nav-item nav-link active" (click) = "navigate(requests)">
+          <button class="btn btn-dark btn-sm" id="sign-in">Requests</button>
+        </a>
+        <a #myRequests id = "myRequests" class="nav-item nav-link active" (click) = "navigate(myRequests)">
+          <button class="btn btn-dark btn-sm" id="sign-in">My Requests</button>
+        </a>
+        <a #profile id = "profile" class="nav-item nav-link active" (click) = "navigate(profile)">
+          <button class="btn btn-dark btn-sm" id="sign-in">Profile</button>
+        </a>
+        <a *ngIf="loggedOut" #login id = "login" class="nav-item nav-link active" (click) = "navigate(login)">
+          <button class="btn btn-dark btn-sm" id="sign-in">Sign In</button>
+        </a>
+        <a *ngIf="loggedIn" #logout id = "logout" class="nav-item nav-link active" (click) = "navigate(logout)">
+          <button class="btn btn-dark btn-sm" id="sign-in">Sign Out</button>
+        </a>
+        <!--<a #register id = "register" class="nav-item nav-link active" (click) = "navigate(register)">
+          <button class="btn btn-dark btn-sm" id="sign-up">Sign Up</button>
+        </a>-->
       </div>
     </div>
-  </nav>
+  </div>
+</nav>

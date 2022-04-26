@@ -11,7 +11,7 @@ import { ViewEncapsulation } from '@angular/core';
 export class MyRequestsComponent implements OnInit {
 
   @Input() myRequestsShow:boolean = false;
-  @Input() profileId = 0;
+  @Input() profileId = '0';
   private data:any = [];
   courses:any = [];
   className:string = "";
@@ -80,7 +80,11 @@ export class MyRequestsComponent implements OnInit {
     var query = '{"id" :"' + this.profileId + '"}';
     this.httpService.sendPutRequest("user/reqs/" + id.toString(), JSON.parse(query)).subscribe((res) => {
 
+      //get name
+      this.httpService.sendGetRequest("user/" + this.profileId).subscribe((res) =>{
 
+      this.data = res;
+      name  = this.data.name;
    
     var today = new Date();
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
@@ -104,11 +108,11 @@ export class MyRequestsComponent implements OnInit {
       this.className = "";
       (<HTMLInputElement>msg).value = "";
       alert("New Request Added to " + reqClass);
-      //this.loadRequests();
+      this.loadRequests();
     });
 
     });
-    
+  })
   }
 
   
@@ -276,6 +280,7 @@ export class MyRequestsComponent implements OnInit {
     for(var i = 0; i < allClassElements.length; i++){
       if((<HTMLInputElement>allClassElements[i]).checked && (<HTMLInputElement>allClassElements[i]).id == 'all'){
         selected = true;
+        this.filter.push((<HTMLInputElement>allClassElements[i]).id)
         i = allClassElements.length;
       }
       else if((<HTMLInputElement>allClassElements[i]).checked){
@@ -302,6 +307,7 @@ export class MyRequestsComponent implements OnInit {
       for(var i = 0; i < this.activeData.length; i++){
         for(var j = 0; j < this.filter.length; j++){
           if(this.activeData[i].class == this.filter[j] || this.filter[j] == 'all'){
+            
             tempData.push(this.activeData[i]);
           }
         }

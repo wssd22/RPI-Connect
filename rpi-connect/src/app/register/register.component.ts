@@ -12,6 +12,7 @@ export class RegisterComponent implements OnInit {
   @Input() registerShow: boolean = false; 
   @Output() profileReroute = new EventEmitter<any>();
   @Output() idSend = new EventEmitter<any>();
+  @Input() newId:string = "";
   //profile storage
   fname:string = "";
   lname:string = "";
@@ -56,7 +57,7 @@ export class RegisterComponent implements OnInit {
             alert("Please enter your Discord Username");
             return;
         }
-        else if((<HTMLInputElement>document.getElementById("password")).value == ""){
+        /*else if((<HTMLInputElement>document.getElementById("password")).value == ""){
           alert("Please enter your Password");
           return;
         }
@@ -66,12 +67,12 @@ export class RegisterComponent implements OnInit {
         }else if((<HTMLInputElement>document.getElementById("user")).value == ""){
           alert("Please make sure your Username");
           return;
-        }
+        }*/
         
         this.fname = (<HTMLInputElement>document.getElementById("fname")).value;
         this.lname = (<HTMLInputElement>document.getElementById("lname")).value;
-        this.password = (<HTMLInputElement>document.getElementById("password")).value;
-        this.user = (<HTMLInputElement>document.getElementById("user")).value;
+        //this.password = (<HTMLInputElement>document.getElementById("password")).value;
+        //this.user = (<HTMLInputElement>document.getElementById("user")).value;
         this.gradYr = (<HTMLInputElement>document.getElementById("gradYr")).value;
         this.email = (<HTMLInputElement>document.getElementById("rpi")).value;
         this.discord = (<HTMLInputElement>document.getElementById("discord")).value;
@@ -155,13 +156,13 @@ public prevStep(step:HTMLElement){
             reqs: []
         }
     */
-    var id = Math.floor(Math.random() * (1000000 - 10000 + 1)) + 10000;
+    //var id = Math.floor(Math.random() * (1000000 - 10000 + 1)) + 10000;
     
     var obj = {
-      "id" : id,
+      "id" : this.newId,
       "name" : this.fname + " " + this.lname,
-      "user" : this.user,
-      "password" : this.password,
+      //"user" : this.user,
+      //"password" : this.password,
       "gradYr" : this.gradYr,
       "email" : this.email,
       "discord" : this.discord,
@@ -206,7 +207,7 @@ public prevStep(step:HTMLElement){
                 }
             }
             //prefix
-            var prefix = course.innerHTML.split(" ")[0];
+            var prefix = course.innerHTML.split("-")[0];
             var contains = false;
             for(var i = 0; i < this.currentClasses.length; i++){
               if(this.currentClasses[i].includes(prefix)){
@@ -233,7 +234,7 @@ public prevStep(step:HTMLElement){
               }
           }
           //prefix
-          var prefix = course.innerHTML.split(" ")[0];
+          var prefix = course.innerHTML.split("-")[0];
           var contains = false;
           for(var i = 0; i < this.prevClasses.length; i++){
             if(this.prevClasses[i].includes(prefix)){
@@ -271,14 +272,14 @@ public prevStep(step:HTMLElement){
         var prefix = course.innerHTML;
         //current
         if((<HTMLElement>course).classList.contains("current")){
-            if(!(<HTMLElement>document.getElementById("current" + prefix.split(" ")[0])).classList.contains("select")){
-                (<HTMLElement>document.getElementById("current" + prefix.split(" ")[0])).classList.add("select");
+            if(!(<HTMLElement>document.getElementById("current" + prefix.split("-")[0].toLowerCase())).classList.contains("select")){
+                (<HTMLElement>document.getElementById("current" + prefix.split("-")[0].toLowerCase())).classList.add("select");
             }
             this.currentClasses.push(prefix);
         }
         else{//previous
-            if(!(<HTMLElement>document.getElementById("prev" + prefix.split(" ")[0])).classList.contains("select")){
-                (<HTMLElement>document.getElementById("prev" + prefix.split(" ")[0])).classList.add("select");
+            if(!(<HTMLElement>document.getElementById("prev" + prefix.split("-")[0].toLowerCase())).classList.contains("select")){
+                (<HTMLElement>document.getElementById("prev" + prefix.split("-")[0].toLowerCase())).classList.add("select");
             }
             this.prevClasses.push(prefix);
         }
