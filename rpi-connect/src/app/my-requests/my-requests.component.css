@@ -1,13 +1,23 @@
-
-
-#left-side {
-    width: 25%;
-    float: left;
+.mr-edit-remove-btn {
+  width: 40%;
+  margin: auto;
 }
 
-#right-side {
-    width: 75%;
-    float: right;
+#mr-newreq-field {
+  display: inline;
+  margin: 5px;
+}
+
+#mr-newreq-input {
+  display: inline;
+  margin: 5px;
+  width: 30%;
+}
+
+#mr-newreq-btn {
+  display: inline;
+  margin: 5px;
+  width: auto;
 }
 
 .card {
@@ -113,5 +123,52 @@
   .btn-1 a:hover::after {
     transform: scaleX(0);
   }
+
+ .accordion{
+   max-height: 250px;
+   overflow: auto;
+ }
+
+
+
+.form-check{
+  display: inline-block;
+  padding: 2%;
+}
+
+.mr-refresh{
+  width: 100%;
+}
+
+@media only screen and (max-width: 992px) {
+  #mr-newreq-field {
+    display: inline;
+    margin: 5px;
+  }
   
+  #mr-newreq-input {
+    display: inline;
+    margin: 5px;
+    width: 20%;
+  }
+  
+  #mr-newreq-btn {
+    display: inline;
+    margin: 5px;
+    width: auto;
+  }
+}
  
+@media only screen and (max-width: 600px) {
+  #mr-newreq-field {
+    display: block;
+  }
+  #mr-newreq-input {
+    display: inline;
+    width: 90%;
+  }
+  #mr-newreq-btn {
+    display: block;
+    width: 90%;
+  }
+}

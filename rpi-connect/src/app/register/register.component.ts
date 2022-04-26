@@ -1,15 +1,18 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
+import { ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class RegisterComponent implements OnInit {
   @Input() registerShow: boolean = false; 
   @Output() profileReroute = new EventEmitter<any>();
   @Output() idSend = new EventEmitter<any>();
+  @Input() newId:string = "";
   //profile storage
   fname:string = "";
   lname:string = "";
@@ -18,6 +21,7 @@ export class RegisterComponent implements OnInit {
   gradYr:string = "";
   email:string = "";
   discord:string = "";
+  discordId:string = "";
   prevClasses:any = [];
   currentClasses:any = [];
   reqs:any = [];
@@ -53,7 +57,7 @@ export class RegisterComponent implements OnInit {
             alert("Please enter your Discord Username");
             return;
         }
-        else if((<HTMLInputElement>document.getElementById("password")).value == ""){
+        /*else if((<HTMLInputElement>document.getElementById("password")).value == ""){
           alert("Please enter your Password");
           return;
         }
@@ -63,15 +67,16 @@ export class RegisterComponent implements OnInit {
         }else if((<HTMLInputElement>document.getElementById("user")).value == ""){
           alert("Please make sure your Username");
           return;
-        }
+        }*/
         
         this.fname = (<HTMLInputElement>document.getElementById("fname")).value;
         this.lname = (<HTMLInputElement>document.getElementById("lname")).value;
-        this.password = (<HTMLInputElement>document.getElementById("password")).value;
-        this.user = (<HTMLInputElement>document.getElementById("user")).value;
+        //this.password = (<HTMLInputElement>document.getElementById("password")).value;
+        //this.user = (<HTMLInputElement>document.getElementById("user")).value;
         this.gradYr = (<HTMLInputElement>document.getElementById("gradYr")).value;
         this.email = (<HTMLInputElement>document.getElementById("rpi")).value;
         this.discord = (<HTMLInputElement>document.getElementById("discord")).value;
+        this.discordId = (<HTMLInputElement>document.getElementById("discordId")).value;
         //hide last step and show next step
         (<HTMLElement>document.getElementById("basicInfo")).style.display = "none";
         (<HTMLElement>document.getElementById("currentClasses")).style.display = "block";
@@ -94,27 +99,22 @@ export class RegisterComponent implements OnInit {
         (<HTMLElement>document.getElementById("previousClasses")).style.display = "none";
         (<HTMLElement>document.getElementById("confirm")).style.display = "block";
         //read in confirmation
-        (<HTMLElement>document.getElementById("fullName")).innerHTML = "Name: " + this.fname + "  "  + this.lname;
-        (<HTMLElement>document.getElementById("grad")).innerHTML = "Graduation Year: " + this.gradYr;
-        (<HTMLElement>document.getElementById("rpi")).innerHTML = "RPI Email: " + this.email;
-        (<HTMLElement>document.getElementById("disc")).innerHTML = "Discord: " + this.discord;
+        (<HTMLElement>document.getElementById("fullName")).innerHTML = this.fname + "  "  + this.lname;
+        (<HTMLElement>document.getElementById("grad")).innerHTML = this.gradYr;
+        (<HTMLElement>document.getElementById("email")).innerHTML = this.email;
+        (<HTMLElement>document.getElementById("disc")).innerHTML = this.discord;
+        (<HTMLElement>document.getElementById("discId")).innerHTML = this.discordId;
         var list = "";
-        for(var i = 0; i < this.currentClasses.length; i+=2){
-            list += "<p class = \"list\">" + this.currentClasses[i] + "  " ;
-            if(this.currentClasses.length > i+1){
-              list += this.currentClasses[i+1];
-            }
-            list += "</p>";
+        for(var i = 0; i < this.currentClasses.length; i++){
+          list += "<div class='row'>";
+          list += "<div class='col-12'><p class='card-text'>" + this.currentClasses[i] + "</p></div>";
         }
         (<HTMLElement>document.getElementById("currentList")).innerHTML = list;
         list = "";
 
-        for(var i = 0; i < this.prevClasses.length; i += 2){
-            list += "<p class = \"list\">" + this.prevClasses[i] + "  ";
-            if(this.prevClasses.length > i+1){
-              list+= this.prevClasses[i+1];
-            }
-            list += "</p>";
+        for(var i = 0; i < this.prevClasses.length; i ++){
+          list += "<div class='row'>";
+          list += "<div class='col-12'><p class='card-text'>" + this.prevClasses[i] + "</p></div>";
         }
         (<HTMLElement>document.getElementById("prevList")).innerHTML = list;
     }
@@ -156,16 +156,17 @@ public prevStep(step:HTMLElement){
             reqs: []
         }
     */
-    var id = Math.floor(Math.random() * (1000000 - 10000 + 1)) + 10000;
+    //var id = Math.floor(Math.random() * (1000000 - 10000 + 1)) + 10000;
     
     var obj = {
-      "id" : id,
+      "id" : this.newId,
       "name" : this.fname + " " + this.lname,
-      "user" : this.user,
-      "password" : this.password,
+      //"user" : this.user,
+      //"password" : this.password,
       "gradYr" : this.gradYr,
       "email" : this.email,
       "discord" : this.discord,
+      "discordId": this.discordId,
       "current" : this.currentClasses,
       "prev" : this.prevClasses,
       "reqs" : this.reqs
@@ -187,7 +188,8 @@ public prevStep(step:HTMLElement){
 
   public selectClass(course:HTMLElement){
     //remove course from list
-    if(course.classList.contains("select")){
+
+    if((<HTMLElement>course).classList.contains("select")){
         course.classList.remove("select");
         //current
         if(course.classList.contains("current")){
@@ -205,7 +207,7 @@ public prevStep(step:HTMLElement){
                 }
             }
             //prefix
-            var prefix = course.innerHTML.split(" ")[0];
+            var prefix = course.innerHTML.split("-")[0];
             var contains = false;
             for(var i = 0; i < this.currentClasses.length; i++){
               if(this.currentClasses[i].includes(prefix)){
@@ -232,7 +234,7 @@ public prevStep(step:HTMLElement){
               }
           }
           //prefix
-          var prefix = course.innerHTML.split(" ")[0];
+          var prefix = course.innerHTML.split("-")[0];
           var contains = false;
           for(var i = 0; i < this.prevClasses.length; i++){
             if(this.prevClasses[i].includes(prefix)){
@@ -247,38 +249,37 @@ public prevStep(step:HTMLElement){
     }//add course to list
     else{
         //find class from opposite class selection
-        if(course.classList.contains("current")){
+        if((<HTMLElement>course).classList.contains("current")){
             var prevs = document.getElementsByClassName("prev");
             for(var i = 0; i < prevs.length; i++){
-                if(prevs[i].innerHTML == course.innerHTML && prevs[i].classList.contains("select")){
+                if(prevs[i].innerHTML == course.innerHTML && (<HTMLElement>prevs[i]).classList.contains("select")){
                     alert("Already selected class in Previous Classes");
                     return;
                 }
             }
         }
-        if(course.classList.contains("prev")){
+        if((<HTMLElement>course).classList.contains("prev")){
             var currents = document.getElementsByClassName("current");
             for(var i = 0; i < currents.length; i++){
-                if(currents[i].innerHTML == course.innerHTML && currents[i].classList.contains("select")){
+                if(currents[i].innerHTML == course.innerHTML && (<HTMLElement>currents[i]).classList.contains("select")){
                     alert("Already selected class in Current Classes");
                     return;
                 }
             }
         }
-
-        course.classList.add("select");
+        
+        (<HTMLElement>course).classList.add("select");
         var prefix = course.innerHTML;
         //current
-        if(course.classList.contains("current")){
-            if(!(<HTMLElement>document.getElementById("current" + prefix.split(" ")[0].toLowerCase())).classList.contains("select")){
-                (<HTMLElement>document.getElementById("current" + prefix.split(" ")[0].toLowerCase())).classList.add("select");
+        if((<HTMLElement>course).classList.contains("current")){
+            if(!(<HTMLElement>document.getElementById("current" + prefix.split("-")[0].toLowerCase())).classList.contains("select")){
+                (<HTMLElement>document.getElementById("current" + prefix.split("-")[0].toLowerCase())).classList.add("select");
             }
-            
             this.currentClasses.push(prefix);
         }
         else{//previous
-            if(!(<HTMLElement>document.getElementById("prev" + prefix.split(" ")[0].toLowerCase())).classList.contains("select")){
-                (<HTMLElement>document.getElementById("prev" + prefix.split(" ")[0].toLowerCase())).classList.add("select");
+            if(!(<HTMLElement>document.getElementById("prev" + prefix.split("-")[0].toLowerCase())).classList.contains("select")){
+                (<HTMLElement>document.getElementById("prev" + prefix.split("-")[0].toLowerCase())).classList.add("select");
             }
             this.prevClasses.push(prefix);
         }
@@ -302,6 +303,82 @@ public dropdown(target:HTMLElement) {
       (<HTMLElement>dropMenu).style.display = "block";
     }
 }
+
+  public loadCurrentClasses(){
+    this.httpService.sendGetRequest('courses').subscribe((res) => {
+      this.data = res;
+      /*
+      <div class = "accordion" id = "artsAccordion">
+                    <li #currentARTS1 class = "current course" (click) = "selectClass(currentARTS1)">ARTS 1</li>
+                    <li #currentARTS2 class = "current course" (click) = "selectClass(currentARTS2)">ARTS 2</li>
+                    <li #currentARTS3 class = "current course" (click) = "selectClass(currentARTS3)">ARTS 3</li>
+                </div>
+      */
+      for(var i = 0; i < this.data.length; i++){
+        var courses = this.data[i].courses;
+        var prefix = this.data[i].code.toLowerCase();
+        var dropdown = document.getElementById(prefix + "AccordionCur");
+        //alert(prefix + "Accordion");
+        //alert((<HTMLElement>dropdown).id);
+        //var after = (<HTMLElement>dropdown).querySelectorAll('p');
+        //var str = "";
+        for(var j = 0; j < courses.length; j++){
+          //str += "<li #current" + courses[j].id + "class = 'current course ' (click) = 'selectClass(current" + courses[j].id + ")'>" + courses[j].id + " " + courses[j].title + "</li>";
+          const elem = document.createElement('li');
+          elem.classList.add('current');
+          elem.classList.add('course');
+          elem.id = "current" + courses[j].id;
+          //elem.type = 'button';
+          elem.addEventListener('click', (e) => {
+            this.selectClass(elem);//your typescript function
+          });
+          elem.innerHTML = courses[j].id + " " + courses[j].title;
+          dropdown?.appendChild(elem);
+          //after[0].insertAdjacentHTML("afterend", elem);
+        }
+        //alert((<HTMLElement>dropdown).id);
+        //(<HTMLElement>dropdown).innerHTML = str;
+      }
+    });
+  }
+
+  public loadPrevClasses(){
+    this.httpService.sendGetRequest('courses').subscribe((res) => {
+      this.data = res;
+      /*
+      <div class = "accordion" id = "artsAccordion">
+                    <li #currentARTS1 class = "current course" (click) = "selectClass(currentARTS1)">ARTS 1</li>
+                    <li #currentARTS2 class = "current course" (click) = "selectClass(currentARTS2)">ARTS 2</li>
+                    <li #currentARTS3 class = "current course" (click) = "selectClass(currentARTS3)">ARTS 3</li>
+                </div>
+      */
+      for(var i = 0; i < this.data.length; i++){
+        var courses = this.data[i].courses;
+        var prefix = this.data[i].code.toLowerCase();
+        var dropdown = document.getElementById(prefix + "AccordionPrev");
+        //alert(prefix + "Accordion");
+        //alert((<HTMLElement>dropdown).id);
+        //var after = (<HTMLElement>dropdown).querySelectorAll('p');
+        //var str = "";
+        for(var j = 0; j < courses.length; j++){
+          //str += "<li #current" + courses[j].id + "class = 'current course ' (click) = 'selectClass(current" + courses[j].id + ")'>" + courses[j].id + " " + courses[j].title + "</li>";
+          const elem = document.createElement('li');
+          elem.classList.add('prev');
+          elem.classList.add('course');
+          elem.id = "prev" + courses[j].id;
+          //elem.type = 'button';
+          elem.addEventListener('click', (e) => {
+            this.selectClass(elem);//your typescript function
+          });
+          elem.innerHTML = courses[j].id + " " + courses[j].title;
+          dropdown?.appendChild(elem);
+          //after[0].insertAdjacentHTML("afterend", elem);
+        }
+        //alert((<HTMLElement>dropdown).id);
+        //(<HTMLElement>dropdown).innerHTML = str;
+      }
+    });    
+  }
 
 
 }

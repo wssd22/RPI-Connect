@@ -5,6 +5,16 @@
   font-weight: 500;
 }
 
+#left-side {
+  width: 25%;
+  float: left;
+}
+
+#right-side {
+  width: 75%;
+  float: right;
+}
+
 #nav-color {
   background-color: rgba(214, 0, 28, 0.9);
 }
@@ -80,4 +90,38 @@
 #home-text {
   margin: 2px;
 }
+
+
+#msg{
+  margin-top:13%;
+  width: 50%;
+  margin-left: 7%;
+}
+
+.hide{
+  display: none;
+}
+
+.form-check{
+  display: block;
+  margin-left: 3%;
+}
+
+.options{
+  display: inline;
+  margin: 2%;
+  padding-left: 3%;
+  
+}
+
+@media only screen and (max-width: 600px) {
+  #left-side {
+    width: 100%;
+  }
+
+  #right-side {
+    width: 100%;
+  }
+}
+
 

@@ -1,5 +1,6 @@
 /* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
+  "token": "OTY2NzQ5NDUwOTg0OTE1MDY0.YmGRlg.XSkMv7cYbV8L2e8WlUJ86ybeafw",
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",

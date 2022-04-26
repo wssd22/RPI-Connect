@@ -34,6 +34,35 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = "mongodb+srv://websci22:wBTafSVIyYnZMPrn@cluster0.v7p54.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
+const { Client, Intents, MessageEmbed } = require('discord.js');
+const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+const { token } = require('./config.json');
+//bot.login(token);
+
+app.post('/postToDiscord', (req, res) => {
+  //console.log(req.body);
+
+  bot.on('ready', () => {
+    console.log('the client is ready\n');
+    const msg = new MessageEmbed()
+    .setColor('#0099ff')
+    .setTitle('New Request Reply')
+    .addFields(
+      { name: 'Class Name', value: req.body.className},
+      { name: 'Question', value: req.body.message},
+      { name: 'From', value: req.body.discord },
+      { name: '\u200B', value: '\u200B' },
+    )
+    .setTimestamp()
+    .setFooter({ text: 'DM'+req.body.discord+'to receive help on this question'});
+
+    bot.users.fetch(req.body.discordId).then((user) => {
+      user.send({ embeds: [msg] });
+    })
+  })
+  res.send('done');
+});
+
 //add new user to collection
 app.post('/user/add', (req, res) => {
 
@@ -47,6 +76,7 @@ app.post('/user/add', (req, res) => {
             gradYr:
             email:
             discord:
+            discordId: 
             current: []
             prev: []
             reqs: []
@@ -56,7 +86,7 @@ app.post('/user/add', (req, res) => {
   client.connect(err => {
     const collection = client.db("rpi-connect").collection("users");
     // perform actions on the collection object
-    console.log(req.body);
+    //console.log(req.body);
     collection.insertOne(req.body, function(err, result){
       if (!err) {
           if(result.acknowledged){
@@ -91,7 +121,15 @@ app.put('/user/:field/:input', (req, res) => {
       var query = {reqs : reqsArray};
       if (!err) {
           collection.updateOne(req.body, { $set : query } , { upsert: true },  function(err, result){
-            
+            if(!err){
+              res.json({
+                Insert: "Success",
+                Message: req.params.input.toString() + " has been successfully added to user's " + req.params.field.toString() + " field"
+              });
+            }
+            else{
+              res.send(err);
+            }
           });
       }
       else{
@@ -110,7 +148,15 @@ app.put('/user/:field/:input', (req, res) => {
         var query = {current : currentArray};
         if (!err) {
             collection.updateOne(req.body, { $set : query } , { upsert: true },  function(err, result){
-              
+              if(!err){
+                res.json({
+                  Insert: "Success",
+                  Message: req.params.input.toString() + " has been successfully added to user's " + req.params.field.toString() + " field"
+                });
+              }
+              else{
+                res.send(err);
+              }
             });
         }
         else{
@@ -130,7 +176,15 @@ app.put('/user/:field/:input', (req, res) => {
         var query = {prev : prevArray};
         if (!err) {
             collection.updateOne(req.body, { $set : query } , { upsert: true },  function(err, result){
-              
+              if(!err){
+                res.json({
+                  Insert: "Success",
+                  Message: req.params.input.toString() + " has been successfully added to user's " + req.params.field.toString() + " field"
+                });
+              }
+              else{
+                res.send(err);
+              }
             });
         }
         else{
@@ -142,6 +196,15 @@ app.put('/user/:field/:input', (req, res) => {
       var query = {}
       query[req.params.field] = req.params.input;
       collection.updateOne(req.body, { $set : query } , { upsert: true },  function(err, result){
+        if(!err){
+          res.json({
+            Insert: "Success",
+            Message: req.params.input.toString() + " has been successfully added to user's " + req.params.field.toString() + " field"
+          });
+        }
+        else{
+          res.send(err);
+        }
           console.log(result);
       });
     }
@@ -151,7 +214,7 @@ app.put('/user/:field/:input', (req, res) => {
 //get specific user
 app.get('/user/:id', (req, res) => {
   var id = req.params.id;
-  var query = {id : Number(id)};
+  var query = {id : id};
  
 
   client.connect(err => {
@@ -175,7 +238,7 @@ app.get('/user/:id', (req, res) => {
 app.delete('/user/:userId/:list', (req, res) => {
   const queryObject = url.parse(req.url, true).query;
   var course = queryObject.course;
-  var query = {id : Number(req.params.userId)};
+  var query = {id : req.params.userId};
   client.connect(err => {
     const collection = client.db("rpi-connect").collection("users");
     collection.findOne(query, function(err, result){
@@ -203,7 +266,7 @@ app.delete('/user/:userId/:list', (req, res) => {
 
     var newList = {};
     newList[req.params.list] = list;
-    collection.updateOne({id : Number(req.params.userId)}, { $set : newList } , { upsert: true },  function(err, result){
+    collection.updateOne({id : req.params.userId}, { $set : newList } , { upsert: true },  function(err, result){
       console.log(result);
     });
   });    
@@ -267,9 +330,9 @@ app.route('/req')
 
   })
   //update all requests
-  .put((req, res) =>{
+  /*.put((req, res) =>{
     
-  })
+  })*/
   //get all requests
   .get((req, res) => {
     client.connect(err => {
@@ -311,7 +374,7 @@ app.route('/req/:num')
   var userId = queryObject.user;
   const collection2 = client.db("rpi-connect").collection("users");
   
-  collection2.findOne({id : Number(userId)}, function(err, result){
+  collection2.findOne({id : userId}, function(err, result){
     //remove req id
     
     var reqsArray = result.reqs;
@@ -328,7 +391,7 @@ app.route('/req/:num')
       return element != undefined;
     });
     var query = {reqs : reqsArray}
-    collection2.updateOne({id : Number(userId)}, { $set : query } , { upsert: true },  function(err, result){
+    collection2.updateOne({id : userId}, { $set : query } , { upsert: true },  function(err, result){
       console.log(result);
     });
   });
@@ -340,9 +403,9 @@ app.route('/req/:num')
   var query = {reqId : id};
   client.connect(err => {
   const collection = client.db("rpi-connect").collection("requests");
-  console.log(req.body);
   collection.updateOne(query, { $set : req.body } , { upsert: true },  function(err, result){
-    //console.log(result);
+
+    res.send(result);
   });
   //client.close();
 });
@@ -360,32 +423,65 @@ app.route('/req/:num')
   });
 })
 
-
-/* NOTHING BELOW THIS POINT */
-
-app.get('/', (req, res) => {
-    res.status(200).sendFile(path.join(__dirname, '/public/index.html'));
+//get all classes
+app.get('/courses', (req, res) => {
+  client.connect(err => {
+    const collection = client.db("rpi-connect").collection("classes");
+    
+    collection.find().toArray(function(err, result){
+      if (!err) {
+              //console.log(result);
+              res.send(result);
+      }
+      else{
+          res.send(err);
+      }
+    });
+  });
 })
 
-app.get('/requests', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, '/public/Requests.html'));
+// get list of all major codes
+app.get('/majors', (req, res) => {
+  client.connect(err => {
+    const collection = client.db("rpi-connect").collection("classes");
+    
+    collection.find({ "code": { "$exists": true } }).sort({'code': 1}).toArray(function(err, result){
+      if (!err) {
+              console.log(result);
+              res.send(result);
+      }
+      else{
+          res.send(err);
+      }
+    });
+  });
 })
 
-app.get('/login', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, '/public/login.html'));
+// get list of classes in major based on code
+app.get('/majors/:code',(req, res) => {
+  var id = req.params.code;
+  var query = {code : id};
+  client.connect(err => {
+    const collection = client.db("rpi-connect").collection("classes");
+    
+    collection.findOne(query, function(err, result){
+      console.log(result);
+      res.send(result);
+    });
+  });
 })
 
-app.get('/register', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, '/public/register.html'));
-})
+//ERROR HANDLING
+app.all('*', (req, res) => {
+  console.log("404: Invalid Request");
+  res.status(404).send('<h1>404: Request Not Found</h1><p>Use /user or /req or /classes to get data');
+});
 
-app.get('/myRequests', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, '/public/myRequests.html'));
-})
-
-app.get('/profile', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, '/public/Profile.html'));
-})
+app.use(function(err, req, res, next) {
+  console.log("500: Internal Server Error");
+  res.status(500).send('<h1>500: Internal Server Error</h1>');
+  console.log(err);
+});
 
 app.get('/userInfo', (req, res) => {
   res.json(
