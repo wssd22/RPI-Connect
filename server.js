@@ -27,7 +27,7 @@ const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MES
 const { token } = require('./config.json');
 // !! COMMENT LINE 30 if server fails on command node server and message Emma for a new Discord token
 // !! UNCOMMENT THIS CODE to use the button to send to Discord on the Requests page
-bot.login(token);
+//bot.login(token);
 
 app.post('/postToDiscord', (req, res) => {
   bot.on('ready', () => {
