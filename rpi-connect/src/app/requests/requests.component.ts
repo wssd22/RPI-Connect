@@ -37,12 +37,6 @@ export class RequestsComponent implements OnInit {
   ngOnInit(): void {
     
   }
-  
-  public sendToDiscord() {
-    var url = "https://discord.com/api/webhooks/967520024338255892/oZYqEmgjfEovhjzOuOPwJJOd7uug99znSF4wajZGFwMi0X9P1vxru4oCTXRxgoXc771r";
-    var msg = "here";
-    
-  }
 
  public currentOrPast(type:HTMLElement){
   //choose view
@@ -88,13 +82,6 @@ export class RequestsComponent implements OnInit {
       }
     }
     
-    //read in courses to buttons
-    /*
-    <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">BMED</label>
-                </div>
-    */
    var str = "";
    var container = document.getElementById("container");
    for(var i = 0; i < courses.length; i++){
@@ -143,18 +130,6 @@ export class RequestsComponent implements OnInit {
       (<HTMLElement>body[i]).style.display = 'none';
     }
     
-    //get requests for selected classes
-    /*
-    <div class="card">
-                <div class="card-body">
-                    <p class="card-title"><b>BIOL 1010 Intro to Biology</b></p>
-                    <div class="card-days card-days-green" style="background-color: gray;">Inactive</div>
-                    <p class="card-text">What are the functions of mitochondria?</p>
-                    <p class="card-text" style="display: inline;"><small>Created: 1/1/2022</small></p>
-                    <button class="btn btn-outline-danger btn-sm" style="display: inline;">Remove</button>
-                </div>
-            </div>
-    */
    var outer = document.getElementById('outer');
     (<HTMLElement>outer).innerHTML = "";
     var dest = document.createElement('div');
@@ -258,7 +233,6 @@ export class RequestsComponent implements OnInit {
                       this.discord = this.data2.discord;
                       var msg = JSON.stringify({"className":this.className,"message":this.message,"discord":this.discord,"discordId":this.discordId});
                       this.httpService.sendPostRequest("postToDiscord", JSON.parse(msg)).subscribe((res) => {
-                        console.log(res);
                       });
                     });
                   });

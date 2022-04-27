@@ -1,7 +1,6 @@
 var http = require('http');
 http.createServer(function(req, res) {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  //res.end('Hello world\n');
+  res.writeHead(200, {'Content-Type': 'text/plain'})
 }).listen(3000, '127.0.0.1');
 console.log('Server running at 127.0.0.1:3000');
  
@@ -14,34 +13,23 @@ const port = 3000;
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 // to server CSS, frontend javascript, images, etc.
-//app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'rpi-connect/dist/rpi-connect')));
 
 
 //MONGO CONNECTION CODE
-/*
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://websci22:<password>@cluster0.v7p54.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-client.connect(err => {
-  const collection = client.db("test").collection("devices");
-  // perform actions on the collection object
-  //client.close();
-});
-*/
-
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = "mongodb+srv://websci22:wBTafSVIyYnZMPrn@cluster0.v7p54.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
+//DISCORD CONNECTION CODE
 const { Client, Intents, MessageEmbed } = require('discord.js');
 const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 const { token } = require('./config.json');
-//bot.login(token);
+// !! COMMENT LINE 30 if server fails on command node server and message Emma for a new Discord token
+// !! UNCOMMENT THIS CODE to use the button to send to Discord on the Requests page
+bot.login(token);
 
 app.post('/postToDiscord', (req, res) => {
-  //console.log(req.body);
-
   bot.on('ready', () => {
     console.log('the client is ready\n');
     const msg = new MessageEmbed()
@@ -60,7 +48,6 @@ app.post('/postToDiscord', (req, res) => {
       user.send({ embeds: [msg] });
     })
   })
-  res.send('done');
 });
 
 //add new user to collection
