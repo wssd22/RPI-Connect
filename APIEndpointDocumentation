@@ -1,3 +1,8 @@
+'/postToDiscord'
+    post
+        Send message to Discord when a request is answered
+        On success: client will receive "done"
+
 '/user/add'
     post
         Add a new User to the database.
@@ -36,13 +41,23 @@
         Delete a specific request from the database
         On success: no message will be sent
     put
-        
+        Update an existing request
+        On success: client will receive the updated request
     get
+        Retrieve an existing request
+        On success: client will receive the specified request
 
+'/courses'
+    get
+        Retrieve a list of all courses from the database
+        On success: client will receive the comprehensive list of all courses
 
+'/majors'
+    get
+        Retrieve a list of all major codes (ex. CSCI) from the database
+        On success: client will receive the comprehensive list of all major codes
 
-
-Endpoints and verbs they can take
-What the client can expect back from a successful call
-Common errors and the reason for them
-    -try to add a class that doesnt exist or something like that
+'/majors/:code'
+    get
+        Retrieve the classes associated with the specified major code
+        On success: client will receive the comprehensive list of all courses in the major code
