@@ -242,6 +242,7 @@ export class RequestsComponent implements OnInit {
 
 
             dest.appendChild(card);
+            if(this.profId != courses[i].userId){
             const button = document.createElement('button');
             button.id = courses[i].reqId;
               button.addEventListener('click', (e) => {
@@ -272,6 +273,7 @@ export class RequestsComponent implements OnInit {
               button.style.color = "white";
               
               card.appendChild(button);
+            }
             }
           }
         }
