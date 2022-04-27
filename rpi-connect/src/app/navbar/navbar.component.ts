@@ -20,12 +20,7 @@ export class NavbarComponent implements OnInit {
 
   public dropdown(target:HTMLElement) {
     const dropMenu = target;
-    /*var accordions = document.getElementsByClassName("accordion");
-    for(var i = 0; i < accordions.length; i++){
-        if(accordions[i].id != (<HTMLElement>dropMenu).id){
-          (<HTMLElement>accordions[i]).style.display = "none";
-        }
-    }*/
+    
     //Show dropdown for clicked content
     if((<HTMLElement>dropMenu).style.display === "block"){
       (<HTMLElement>dropMenu).style.display = "none";
@@ -38,41 +33,6 @@ export class NavbarComponent implements OnInit {
   //navigation between pages
   public navigate(page:HTMLElement){
     this.target.emit(page.id);
-    /*if(target.id == "home"){
-      this.showHome = true;
-      this.showRequests = false;
-      this.showLogin = false;
-      this.showRegister = false;
-      this.showProfile = false;
-    }
-    else if(target.id == "login"){
-      this.showHome = false;
-      this.showRequests = false;
-      this.showLogin = true;
-      this.showRegister = false;
-      this.showProfile = false;
-    }
-    else if(target.id == "requests"){
-      this.showHome = false;
-      this.showRequests = true;
-      this.showLogin = false;
-      this.showRegister = false;
-      this.showProfile = false;
-    }
-    else if(target.id == "register"){
-      this.showHome = false;
-      this.showRequests = false;
-      this.showLogin = false;
-      this.showRegister = true;
-      this.showProfile = false;
-    }
-    else if(target.id == "profile"){
-      this.showHome = false;
-      this.showRequests = false;
-      this.showLogin = false;
-      this.showRegister = false;
-      this.showProfile = true;
-    }*/
   }
 
 }

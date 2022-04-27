@@ -5,6 +5,13 @@
   font-weight: 500;
 }
 
+#h-top-image {
+  background-image: url("../../assets/images/hero.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 400px;
+}
+
 #nav-color {
   background-color: rgba(214, 0, 28, 0.9);
 }
@@ -42,8 +49,8 @@
 
 #hero-text {
   position: absolute;
-  left: 90px;
-  top: -15px;
+  left: 50px;
+  top: 42px;
   width: 569px;
   height: 75px;
   font-family: Work Sans;
@@ -92,9 +99,5 @@
   
   #hero-text {
     display: none;
-  }
-
-  #show-image {
-    margin-top: 120px;
   }
 }

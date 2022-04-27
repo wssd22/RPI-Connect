@@ -10,46 +10,46 @@
                                 <div class="card-body">
                                     <h5 class="card-text profile-title t1"><b>Basic Info</b></h5>
                                     <div class="container"><div class="row">
-                                        <div class="col-4">
+                                        <div class="col-md-4">
                                             <p class="card-text profile-field" id = "fullName">NAME</p>
                                         </div>
-                                        <div class="col-8">
+                                        <div class="col-md-8">
                                             <p #fullName class="card-text profile-value" id = "fullName">{{name}}</p>
                                         </div>
                                     </div></div>
                                     <hr />
                                     <div class="container"><div class="row">
-                                        <div class="col-4">
+                                        <div class="col-md-4">
                                             <p class="card-text profile-field" id = "gradYr">CLASS OF</p>
                                         </div>
-                                        <div class="col-8">
+                                        <div class="col-md-8">
                                             <p #gradYr class="card-text profile-value" id = "gradYr" style="text-align: left;">{{year}}</p>
                                         </div>
                                     </div></div>
                                     <hr />
                                     <div class="container"><div class="row">
-                                        <div class="col-4">
+                                        <div class="col-md-4">
                                             <p class="card-text profile-field" id = "rpi">EMAIL</p>
                                         </div>
-                                        <div class="col-8">
+                                        <div class="col-md-8">
                                             <p #rpi class="card-text profile-value" id = "rpi">{{email}}</p>
                                         </div>
                                     </div></div>
                                     <hr />
                                     <div class="container"><div class="row">
-                                        <div class="col-4">
+                                        <div class="col-md-4">
                                             <p class="card-text profile-field" id = "disc">DISCORD</p>
                                         </div>
-                                        <div class="col-8">
+                                        <div class="col-md-8">
                                             <p #disc class="card-text profile-value" id = "disc">{{discord}}</p>
                                         </div>
                                     </div></div>
                                     <hr />
                                     <div class="container"><div class="row">
-                                        <div class="col-4">
+                                        <div class="col-md-4">
                                             <p class="card-text profile-field" id = "discId">DISCORD ID</p>
                                         </div>
-                                        <div class="col-8">
+                                        <div class="col-md-8">
                                             <p #discId class="card-text profile-value" id = "discId">{{discordId}}</p>
                                         </div>
                                     </div></div>
@@ -98,54 +98,54 @@
                                 <div class="card-body">
                                     <h5 class="card-text profile-title t1"><b>Basic Info</b></h5>
                                     <div class="container"><div class="row">
-                                        <div class="col-4">
+                                        <div class="col-md-4">
                                             <p class="card-text profile-field" id = "fullName">NAME</p>
                                         </div>
-                                        <div class="col-8">
+                                        <div class="col-md-8">
                                             <input #editName class="form-control profile-value" type="text" id="editName" [value]="name">
                                         </div>
                                     </div></div>
                                     <hr />
                                     <div class="container"><div class="row">
-                                        <div class="col-4">
+                                        <div class="col-md-4">
                                             <p class="card-text profile-field" id = "gradYr">CLASS OF</p>
                                         </div>
-                                        <div class="col-8">
+                                        <div class="col-md-8">
                                             <input #editYr class="form-control profile-value" type="text" id="editYr" [value]="year">
                                         </div>
                                     </div></div>
                                     <hr />
                                     <div class="container"><div class="row">
-                                        <div class="col-4">
+                                        <div class="col-md-4">
                                             <p class="card-text profile-field" id = "rpi">EMAIL</p>
                                         </div>
-                                        <div class="col-8">
+                                        <div class="col-md-8">
                                             <input #editEmail class="form-control profile-value" type="text" id="editEmail" [value]="email">
                                         </div>
                                     </div></div>
                                     <hr />
                                     <div class="container"><div class="row">
-                                        <div class="col-4">
+                                        <div class="col-md-4">
                                             <p class="card-text profile-field" id = "disc">DISCORD</p>
                                         </div>
-                                        <div class="col-8">
+                                        <div class="col-md-8">
                                             <input #editDiscord class="form-control profile-value" type="text" id="editDiscord" [value]="discord">
                                         </div>
                                     </div></div>
                                     <hr />
                                     <div class="container"><div class="row">
-                                        <div class="col-4">
+                                        <div class="col-md-4">
                                             <p class="card-text profile-field" id = "discId">DISCORD ID</p>
                                         </div>
-                                        <div class="col-8">
+                                        <div class="col-md-8">
                                             <input #editDiscordId class="form-control profile-value" type="text" id="editDiscordId" [value]="discordId">
                                         </div>
                                     </div></div>
                                     <div class="container"><div class="row">
-                                        <div class="col-6" style="text-align: center; margin-top: 20px;">
+                                        <div class="col-md-6" style="text-align: center; margin-top: 20px;">
                                             <button type="button" class="btn btn-outline-primary" (click)="showEdit(confirm, edit)" style="width: 100%;">Cancel</button>
                                         </div>
-                                        <div class="col-6" style="text-align: center; margin-top: 20px;">
+                                        <div class="col-md-6" style="text-align: center; margin-top: 20px;">
                                             <button type="button" class="btn btn-outline-danger" (click)="editProfile(editName, editYr, editEmail, editDiscord, editDiscordId, edit, confirm)" style="width: 100%;">Confirm</button>
                                         </div>
                                     </div></div>
