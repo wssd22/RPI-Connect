@@ -206,28 +206,28 @@ export class ProfileComponent implements OnInit {
       }
       if(this.year != this.data.gradYr){
         this.httpService.sendPutRequest('user/gradYr/' + this.year, JSON.parse(json)).subscribe((res) => {
-
+          this.loadProfile(this.profileId);
         });
       }
       if(this.email != this.data.email){
         this.httpService.sendPutRequest('user/email/' + this.email, JSON.parse(json)).subscribe((res) => {
-
+          this.loadProfile(this.profileId);
         });
       }
       if(this.discord != this.data.discord){
         this.httpService.sendPutRequest('user/discord/' + this.discord, JSON.parse(json)).subscribe((res) => {
-
+          this.loadProfile(this.profileId);
         });
       }
       if(this.discord != this.data.discord){
         this.httpService.sendPutRequest('user/discordId/' + this.discordId, JSON.parse(json)).subscribe((res) => {
-
+          this.loadProfile(this.profileId);
         });
       }
     
       (<HTMLElement>document.getElementById("confirm")).style.display = "block";
       (<HTMLElement>document.getElementById("edit")).style.display = "none";
-      this.loadProfile(this.profileId);
+      
     });
   }
 
