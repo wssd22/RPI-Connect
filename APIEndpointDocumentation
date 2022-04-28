@@ -2,62 +2,79 @@
     post
         Send message to Discord when a request is answered
         On success: client will receive "done"
+        Common Errors: Discord token fails due to Discord catching it being posted online. 
+        Fetch a new Discord token and rerun server to fix.
 
 '/user/add'
     post
         Add a new User to the database.
         On success: client will receive "User has been successfully added to the database" 
+        Common Errors: None
 
 '/user/:field/:input'
     put
         Update information for a User
         On success: no message will be sent
+        Common Errors: Incorrect field name (valid fields are id, name, user, 
+        password, gradYr, email, discord, discordId, current, prev, reqs, numAnsed, numAsked)
+        Name given for input for that field does not exist in DB
     
 '/user/:id'
     get
         Get the info for a specific User
         On success: client will receive the profile for the specified User
+        Common Errors: Id does not exist in DB
 
 '/user/:userID/:list'
     delete
         Delete a class from a User profile
         On success: no message will be sent
+        Common Errors: Id does not exist in DB
 
 '/user'
     get
         Get a list of every User in the database
         On success: client will receive the list of every User in the database
+        Common Errors: None
 
 '/req'
     post
         Create a new request object
         On success: client will receive "User has successfully made a request"
+        Common Errors: Invalid JSON data sent to DB
     get
         Get a list of every request in the database
         On success: client will receive the list of every request in the database
+        Common Errors: None
 
 '/req/:num'
     delete
         Delete a specific request from the database
         On success: no message will be sent
+        Common Errors: Id does not exist in DB
     put
         Update an existing request
         On success: client will receive the updated request
+        Common Errors: Id does not exist in DB, invalid JSON data sent to DB
     get
         Retrieve an existing request
         On success: client will receive the specified request
+        Common Errors: Id does not exist in DB
 
 '/courses'
     get
         Retrieve a list of all courses from the database
         On success: client will receive the comprehensive list of all courses
+        Common Errors: None
 
 '/majors'
     get
         Retrieve a list of all major codes (ex. CSCI) from the database
         On success: client will receive the comprehensive list of all major codes
+        Common Errors: None
 
 '/majors/:code'
     get
         Retrieve the classes associated with the specified major code
         On success: client will receive the comprehensive list of all courses in the major code
+        Common Errors: Major code does not exist in DB
